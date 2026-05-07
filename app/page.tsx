@@ -1,7 +1,11 @@
 export default function Home() {
   return (
     <main className="min-h-screen px-6 py-24">
-      <div className="max-w-2xl w-full mx-auto text-center space-y-10">
+      <div className="max-w-2xl w-full mx-auto text-center space-y-8">
+        <p className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-avocado-50 border border-avocado-200 text-xs sm:text-sm font-semibold tracking-wide text-avocado-700">
+          Open-source AI editor for Next.js websites
+        </p>
+
         <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-avocado-900 leading-tight">
           Open, agentic, composable
           <br />
@@ -9,8 +13,9 @@ export default function Home() {
         </h1>
 
         <p className="text-lg text-avocado-900/70 leading-relaxed max-w-xl mx-auto">
-          Free and open source. Agentic-first. Self-hostable, BYO LLM keys,
-          composable with the stack you already have.
+          Bring AI-native editing to any Next.js website. Free and open source,
+          self-hostable, BYO LLM keys — composable with the CMS, DAM, and stack
+          you already have.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
