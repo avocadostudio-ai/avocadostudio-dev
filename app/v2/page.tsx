@@ -97,6 +97,17 @@ function SecondaryCta({ href, children }: { href: string; children: React.ReactN
   )
 }
 
+function TertiaryCta({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      className="inline-flex items-center gap-1.5 px-3 py-3 text-avocado-700/80 font-medium hover:text-avocado-900 transition"
+    >
+      {children}
+    </a>
+  )
+}
+
 function SectionHeading({ eyebrow, title, sub }: { eyebrow?: string; title: string; sub?: string }) {
   return (
     <div className="max-w-3xl mx-auto text-center space-y-4">
@@ -164,7 +175,12 @@ export default function HomeV2() {
                 View on GitHub <span aria-hidden>→</span>
               </PrimaryCta>
               <SecondaryCta href="https://docs.avocadostudio.dev">Read the docs</SecondaryCta>
-              <SecondaryCta href="#demo">Watch demo</SecondaryCta>
+              <TertiaryCta href="#demo">
+                <svg aria-hidden width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                Watch demo
+              </TertiaryCta>
             </div>
 
             <div className="pt-4 text-sm text-avocado-900/55">
