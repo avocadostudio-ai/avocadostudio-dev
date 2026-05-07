@@ -29,13 +29,29 @@ export default function Home() {
           </a>
           <a
             href="#demo"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white/80 text-avocado-700 font-semibold border border-avocado-200 hover:bg-white transition"
+            className="inline-flex items-center gap-1.5 px-3 py-3 text-avocado-700/80 font-medium hover:text-avocado-900 transition"
           >
+            <svg aria-hidden width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z" />
+            </svg>
             Watch demo
           </a>
         </div>
 
-        <p className="text-xs text-avocado-900/50 pt-8">
+        <div className="pt-6 flex flex-col items-center gap-2">
+          <p className="text-sm text-avocado-900/70">
+            Be an early adopter — we&apos;ll help you onboard your site.
+          </p>
+          <a
+            href="mailto:hello@avocadostudio.dev?subject=Onboarding%20help"
+            className="inline-flex items-center gap-1.5 text-avocado-700 font-medium hover:text-avocado-900 underline underline-offset-4 decoration-avocado-300 hover:decoration-avocado-700 transition"
+          >
+            Get onboarding help
+            <span aria-hidden>→</span>
+          </a>
+        </div>
+
+        <p className="text-xs text-avocado-900/50 pt-6">
           Early access · Apache 2.0 · Self-hosted
         </p>
       </div>
