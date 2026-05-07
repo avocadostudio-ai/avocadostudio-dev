@@ -179,22 +179,20 @@ export default function HomeV2() {
             </div>
           </div>
 
-          {/* Hero visual placeholder — replace with autoplay muted demo */}
           <div id="demo" className="relative">
-            <div className="aspect-[4/3] w-full rounded-2xl border border-avocado-200 bg-white/70 shadow-sm overflow-hidden flex items-center justify-center">
-              <div className="text-center px-6 py-10 space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-avocado-100 text-avocado-700 text-xs font-medium border border-avocado-200">
-                  Product demo
-                </div>
-                <p className="text-sm text-avocado-900/70 leading-relaxed max-w-sm">
-                  &ldquo;Update homepage hero for summer campaign&rdquo; → AI edits structured
-                  content → Next.js preview updates live → assets generated → content synced →
-                  publish / PR / approval flow.
-                </p>
-                <p className="text-xs text-avocado-900/45">
-                  20–40s · muted · looped (video coming soon)
-                </p>
-              </div>
+            <div className="relative aspect-[4/3] w-full rounded-2xl border border-avocado-200 bg-white/70 shadow-sm overflow-hidden">
+              <video
+                className="absolute inset-0 h-full w-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
+                preload="metadata"
+                poster="/demo-poster.svg"
+              >
+                <source src="/demo.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
         </div>
