@@ -9,9 +9,8 @@ export default function Home() {
         </h1>
 
         <p className="text-lg text-avocado-900/70 leading-relaxed max-w-xl mx-auto">
-          A modern AI-native content layer for teams who want agentic editing
-          on their own terms. Self-hostable, BYO LLM keys, composable with the
-          stack you already have.
+          Free and open source. Agentic-first. Self-hostable, BYO LLM keys,
+          composable with the stack you already have.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
