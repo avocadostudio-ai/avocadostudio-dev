@@ -113,7 +113,7 @@ export default function HomeV2() {
   return (
     <main className="min-h-screen">
       {/* HERO */}
-      <section className="px-6 pt-20 pb-16 sm:pt-28 sm:pb-24">
+      <section className="px-6 pt-12 pb-16 sm:pt-16 sm:pb-24">
         <div className="max-w-6xl mx-auto grid gap-12 lg:grid-cols-2 lg:items-center">
           <div className="space-y-8">
             <div className="inline-flex flex-wrap items-center gap-2 px-3 py-1.5 rounded-full bg-avocado-100 text-avocado-700 text-xs sm:text-sm font-medium border border-avocado-200">
