@@ -116,15 +116,28 @@ export default function HomeV2() {
       <section className="px-6 pt-12 pb-16 sm:pt-16 sm:pb-24">
         <div className="max-w-6xl mx-auto grid gap-12 lg:grid-cols-2 lg:items-center">
           <div className="space-y-8">
-            <div className="inline-flex flex-wrap items-center gap-2 px-3 py-1.5 rounded-full bg-avocado-100 text-avocado-700 text-xs sm:text-sm font-medium border border-avocado-200">
-              <span aria-hidden>🥑</span>
-              <span>Open source</span>
-              <span aria-hidden className="opacity-50">•</span>
-              <span>Self-hostable</span>
-              <span aria-hidden className="opacity-50">•</span>
-              <span>BYO AI models</span>
-              <span aria-hidden className="opacity-50">•</span>
-              <span>API-first</span>
+            <div className="flex flex-wrap items-center gap-2">
+              {["Open source", "Self-hostable", "BYO AI models", "API-first"].map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-avocado-100 text-avocado-700 text-xs font-medium border border-avocado-200"
+                >
+                  <svg
+                    aria-hidden
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  {tag}
+                </span>
+              ))}
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-avocado-900 leading-[1.05]">
