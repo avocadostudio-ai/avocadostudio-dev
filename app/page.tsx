@@ -49,9 +49,11 @@ export default function Home() {
           </p>
           <a
             href="mailto:hello@avocadostudio.dev?subject=Onboarding%20help"
-            className="inline-flex items-center gap-1.5 text-avocado-700 font-medium hover:text-avocado-900 underline underline-offset-4 decoration-avocado-300 hover:decoration-avocado-700 transition"
+            className="group inline-flex items-baseline gap-1.5 text-avocado-700 font-medium hover:text-avocado-900 transition"
           >
-            Get onboarding help
+            <span className="underline underline-offset-4 decoration-avocado-300 group-hover:decoration-avocado-700 transition">
+              Get onboarding help
+            </span>
             <span aria-hidden>→</span>
           </a>
         </div>
