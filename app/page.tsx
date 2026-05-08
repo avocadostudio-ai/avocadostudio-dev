@@ -3,7 +3,7 @@ export default function Home() {
     <main className="min-h-screen px-6 py-24">
       <div className="max-w-2xl w-full mx-auto text-center space-y-8">
         <p className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-avocado-50 border border-avocado-200 text-xs sm:text-sm font-semibold tracking-wide text-avocado-700">
-          Open-source AI editor for Next.js websites
+          Open-source AI editor &amp; page builder for Next.js
         </p>
 
         <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-avocado-900 leading-tight">
