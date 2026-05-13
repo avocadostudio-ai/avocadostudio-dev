@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@avocadostudio-ai/blocks':
-        specifier: ^0.0.2
-        version: 0.0.2(next@15.5.16(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        specifier: ^0.0.3
+        version: 0.0.3(next@15.5.16(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@avocadostudio-ai/shared':
         specifier: ^0.0.2
         version: 0.0.2
@@ -52,8 +52,8 @@ packages:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
 
-  '@avocadostudio-ai/blocks@0.0.2':
-    resolution: {integrity: sha512-KxzK5Zwo9VQbmnU+AyXXvArC6lQaQNKSE7wwZkFY0BLs2F3rU/St4Psxl8eh6RcNivbT55R0kTW9c0UzzVv5iQ==, tarball: https://npm.pkg.github.com/download/@avocadostudio-ai/blocks/0.0.2/2332cfae00dca768c6a17a835a18881cf4197f81}
+  '@avocadostudio-ai/blocks@0.0.3':
+    resolution: {integrity: sha512-zx0Q9MADUVaMkhLTA6Oz0EmEpU1y0XGAxcjNyfpuRcgaiiTe7jlSZOvKbRPmEXrQAhHjbel8OrFJ17Xb/Te/Jg==, tarball: https://npm.pkg.github.com/download/@avocadostudio-ai/blocks/0.0.3/e320a1e7ea1df4a5d6137b2a06ec3a6b44a77b7d}
     peerDependencies:
       next: '>=14.0.0'
       react: '>=19.0.0'
@@ -692,7 +692,7 @@ snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
 
-  '@avocadostudio-ai/blocks@0.0.2(next@15.5.16(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@avocadostudio-ai/blocks@0.0.3(next@15.5.16(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
       '@avocadostudio-ai/shared': 0.0.2
       next: 15.5.16(react-dom@19.2.6(react@19.2.6))(react@19.2.6)

@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@avocadostudio-ai/blocks": "^0.0.2",
+    "@avocadostudio-ai/blocks": "^0.0.3",
     "@avocadostudio-ai/shared": "^0.0.2",
     "next": "^15.0.3",
     "react": "^19.0.0",
