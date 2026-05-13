@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@avocadostudio-ai/blocks':
+        specifier: ^0.0.1
+        version: 0.0.1(next@15.5.16(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@avocadostudio-ai/shared':
+        specifier: ^0.0.2
+        version: 0.0.2
       next:
         specifier: ^15.0.3
         version: 15.5.16(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -45,6 +51,16 @@ packages:
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
+
+  '@avocadostudio-ai/blocks@0.0.1':
+    resolution: {integrity: sha512-xoeIx/KjEtkMgp9AxhqmxsOELDmM2Az4WqaPZM3Pkj/pDgnSehnzcab4+mb/beDyq30S1i8R+sMIAWBlLeQVRg==, tarball: https://npm.pkg.github.com/download/@avocadostudio-ai/blocks/0.0.1/b835b62b8e503db094a9a640c92eadc1b4d4b35e}
+    peerDependencies:
+      next: '>=14.0.0'
+      react: '>=19.0.0'
+      react-dom: '>=19.0.0'
+
+  '@avocadostudio-ai/shared@0.0.2':
+    resolution: {integrity: sha512-rZa9ls5w6VCMJRnTFw0p/dcAczKjDhTpSTi/4Jl1ZuQiTtLsfPA9kVx4SsWrp9OPXq0/ujsgSME/1FD6AJTB7Q==, tarball: https://npm.pkg.github.com/download/@avocadostudio-ai/shared/0.0.2/a8fe77914d24e2a2781cd763fe04a31d25a3649e}
 
   '@emnapi/runtime@1.10.0':
     resolution: {integrity: sha512-ewvYlk86xUoGI0zQRNq/mC+16R1QeDlKQy21Ki3oSYXNgLb45GV1P6A0M+/s6nyCuNDqe5VpaY84BzXGwVbwFA==}
@@ -669,9 +685,23 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+  zod@4.4.3:
+    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
+
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
+
+  '@avocadostudio-ai/blocks@0.0.1(next@15.5.16(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+    dependencies:
+      '@avocadostudio-ai/shared': 0.0.2
+      next: 15.5.16(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      react: 19.2.6
+      react-dom: 19.2.6(react@19.2.6)
+
+  '@avocadostudio-ai/shared@0.0.2':
+    dependencies:
+      zod: 4.4.3
 
   '@emnapi/runtime@1.10.0':
     dependencies:
@@ -1222,3 +1252,5 @@ snapshots:
       picocolors: 1.1.1
 
   util-deprecate@1.0.2: {}
+
+  zod@4.4.3: {}
