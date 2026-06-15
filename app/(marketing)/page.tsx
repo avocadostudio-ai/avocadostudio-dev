@@ -99,14 +99,14 @@ export default function Home() {
 
               <div className="pt-2 flex flex-col items-center lg:items-start gap-1.5">
                 <p className="text-sm text-avocado-900/70">
-                  Be an early adopter — we&apos;ll help you onboard your site.
+                  Early adopters and cofounders welcome. Reach out for support onboarding your site.
                 </p>
                 <a
-                  href="mailto:hello@avocadostudio.dev?subject=Onboarding%20help"
+                  href="mailto:hello@avocadostudio.dev?subject=Avocado%20Studio%20%E2%80%94%20early%20access%20%26%20cofounders"
                   className="group inline-flex items-baseline gap-1.5 text-avocado-700 font-medium hover:text-avocado-900 transition"
                 >
                   <span className="underline underline-offset-4 decoration-avocado-300 group-hover:decoration-avocado-700 transition">
-                    Get onboarding help
+                    Get in touch
                   </span>
                   <span aria-hidden>→</span>
                 </a>
