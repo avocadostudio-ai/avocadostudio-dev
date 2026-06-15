@@ -2,12 +2,8 @@ import { neon, type NeonQueryFunction } from "@neondatabase/serverless"
 
 // The Neon-native Vercel integration injects DATABASE_URL; the legacy Vercel
 // Postgres integration injects POSTGRES_URL. Accept either so it "just works".
-// Trim it: the Neon HTTP driver sends the string as an HTTP header, and a stray
-// newline/space (e.g. pasted into the Vercel dashboard) makes it an invalid
-// header value at runtime.
 function connectionString() {
-  const raw = (process.env.DATABASE_URL ?? process.env.POSTGRES_URL ?? "").trim()
-  return raw || null
+  return process.env.DATABASE_URL ?? process.env.POSTGRES_URL ?? null
 }
 
 export function hasDatabase() {

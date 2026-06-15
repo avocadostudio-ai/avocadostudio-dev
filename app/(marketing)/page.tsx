@@ -269,18 +269,35 @@ export default function Home() {
           <p className="text-base text-avocado-900/65 leading-relaxed">
             Start with Next.js sites today — and extend across the rest of your stack tomorrow.
           </p>
-          <div className="space-y-5 pt-2">
-            <EarlyAccessForm />
+          <div className="pt-4 space-y-8">
+            {/* Primary action — early access signup */}
+            <div className="mx-auto max-w-md rounded-2xl border border-avocado-200 bg-white p-6 sm:p-7 shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-wide text-avocado-500 mb-4">
+                Get early access
+              </p>
+              <EarlyAccessForm />
+            </div>
+
+            {/* Divider */}
+            <div className="flex items-center gap-4 max-w-xs mx-auto">
+              <span aria-hidden className="h-px flex-1 bg-avocado-200" />
+              <span className="text-xs font-medium uppercase tracking-wide text-avocado-900/40">
+                or
+              </span>
+              <span aria-hidden className="h-px flex-1 bg-avocado-200" />
+            </div>
+
+            {/* Secondary actions */}
             <div className="flex flex-wrap items-center justify-center gap-3">
               <a
                 href="https://github.com/avocadostudio-ai/avocado"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-avocado-500 text-white font-semibold shadow-sm hover:bg-avocado-700 transition"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white text-avocado-700 font-semibold border border-avocado-200 hover:bg-avocado-50 transition"
               >
                 View on GitHub <span aria-hidden>→</span>
               </a>
               <a
                 href="https://docs.avocadostudio.dev"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white/80 text-avocado-700 font-semibold border border-avocado-200 hover:bg-white transition"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white text-avocado-700 font-semibold border border-avocado-200 hover:bg-avocado-50 transition"
               >
                 Read the docs
               </a>
