@@ -42,7 +42,7 @@ export function EarlyAccessForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="w-full max-w-md mx-auto">
+    <form onSubmit={onSubmit} className="w-full">
       <div className="flex flex-col sm:flex-row gap-3">
         <label htmlFor="early-access-email" className="sr-only">
           Email address
@@ -76,15 +76,15 @@ export function EarlyAccessForm() {
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-avocado-500 px-5 py-3 font-semibold text-white shadow-sm transition hover:bg-avocado-700 disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-avocado-500 px-5 py-3 font-semibold text-white shadow-sm transition hover:bg-avocado-700 disabled:cursor-not-allowed disabled:opacity-70"
         >
           {status === "submitting" ? "Joining…" : "Join early access"}
           {status !== "submitting" && <span aria-hidden>→</span>}
         </button>
       </div>
-      <div aria-live="polite" className="min-h-[1.25rem] pt-2 text-center">
+      <div aria-live="polite">
         {status === "error" && error ? (
-          <p id="early-access-error" className="text-sm text-red-600">
+          <p id="early-access-error" className="mt-2 text-center text-sm text-red-600">
             {error}
           </p>
         ) : null}

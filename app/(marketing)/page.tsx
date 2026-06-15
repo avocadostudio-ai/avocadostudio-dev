@@ -271,7 +271,7 @@ export default function Home() {
           </p>
           <div className="pt-4 space-y-8">
             {/* Primary action — early access signup */}
-            <div className="mx-auto max-w-md rounded-2xl border border-avocado-200 bg-white p-6 sm:p-7 shadow-sm">
+            <div className="mx-auto max-w-md rounded-2xl border border-avocado-200 bg-white p-6 sm:p-7 shadow-md">
               <p className="text-xs font-semibold uppercase tracking-wide text-avocado-500 mb-4">
                 Get early access
               </p>
