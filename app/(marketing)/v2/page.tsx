@@ -59,7 +59,7 @@ export default function Home() {
         </div>
 
         <p className="text-xs text-avocado-900/50 pt-6">
-          Early access · Apache 2.0 · Self-hosted
+          Early access · Self-hosted
         </p>
       </div>
 

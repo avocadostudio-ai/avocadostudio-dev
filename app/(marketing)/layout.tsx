@@ -4,13 +4,13 @@ import "../globals.css"
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://avocadostudio.dev"),
-  title: "Avocado Studio — open agentic content operations",
+  title: "Avocado Studio — open-source AI editing for Next.js",
   description:
-    "Open, agentic, composable content operations. A modern AI-native content layer for teams who want agentic editing without a six-figure platform contract.",
+    "Open-source AI editing for Next.js sites. Change content in plain language, self-host it, and bring your own LLM keys — no six-figure platform contract.",
   openGraph: {
     title: "Avocado Studio",
     description:
-      "Open, agentic, composable content operations. Self-hosted, MIT-licensed, BYO LLM keys.",
+      "Open-source AI editing for Next.js sites. Self-hostable, bring your own LLM keys.",
     url: "https://avocadostudio.dev",
     siteName: "Avocado Studio",
     type: "website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Avocado Studio",
-    description: "Open agentic content operations.",
+    description: "Open-source AI editing for Next.js sites.",
   },
 }
 

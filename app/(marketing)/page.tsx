@@ -1,15 +1,17 @@
+import { EarlyAccessForm } from "./components/early-access-form"
+
 const FEATURES = [
   {
-    title: "Agentic Editing",
-    body: "AI-assisted editing for structured website content, components, metadata, and publishing workflows. Not just text generation — real content operations.",
+    title: "AI-assisted editing",
+    body: "AI updates real website content — components, metadata, and publishing steps — not just generated paragraphs.",
   },
   {
     title: "Live Preview",
     body: "See changes instantly in your Next.js application while AI agents modify content and layouts in real time.",
   },
   {
-    title: "Open Architecture",
-    body: "Use your existing CMS, DAM, design system, frontend stack, and AI providers. No proprietary lock-in.",
+    title: "Works with your stack",
+    body: "Use your existing CMS, DAM, design system, frontend, and AI providers. No proprietary lock-in.",
   },
   {
     title: "Multi-model AI",
@@ -20,27 +22,27 @@ const FEATURES = [
     body: "Deploy on your own infrastructure with full control over data, APIs, prompts, and integrations.",
   },
   {
-    title: "Composable Workflows",
-    body: "Connect editing, approvals, publishing, media operations, localization, and governance into one AI-native workflow layer.",
+    title: "Connected workflows",
+    body: "Link editing, approvals, publishing, media, and localization into one workflow you control.",
   },
 ]
 
 const USE_CASES = [
   {
-    title: "AI-assisted website editing",
-    body: "Update structured website content using natural language while preserving components, schema, and governance.",
+    title: "Edit your website with AI",
+    body: "Change website content in plain language while keeping your components, schema, and review rules intact.",
   },
   {
     title: "Marketing operations",
     body: "Coordinate publishing workflows across CMS, DAM, localization, and approval systems.",
   },
   {
-    title: "Multimodal content workflows",
-    body: "Use Gemini/OpenAI image capabilities together with structured content editing and asset orchestration.",
+    title: "Images and copy together",
+    body: "Generate and edit images with Claude, OpenAI, or Gemini alongside your structured content.",
   },
   {
-    title: "Composable AI infrastructure",
-    body: "Build your own AI-native editorial workflows without depending on a monolithic enterprise platform.",
+    title: "Your own editorial stack",
+    body: "Build AI editing into your own workflows instead of buying a heavyweight enterprise platform.",
   },
 ]
 
@@ -52,7 +54,7 @@ const DX_BULLETS = [
   "Streaming workflows",
   "Bring your own AI providers",
   "Works alongside existing CMS platforms",
-  "Open source core (Apache 2.0)",
+  "Open source core",
 ]
 
 export default function Home() {
@@ -68,14 +70,15 @@ export default function Home() {
               </p>
 
               <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-avocado-900 leading-[1.1]">
-                Open, agentic, composable
+                Edit your Next.js site
                 <br />
-                <span className="text-avocado-500">content operations.</span>
+                <span className="text-avocado-500">in plain language.</span>
               </h1>
 
               <p className="text-base sm:text-lg text-avocado-900/70 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                Bring AI-native editing to any Next.js website. Free and open
-                source, self-hostable, BYO LLM keys.
+                Describe the change you want and AI agents update the content,
+                components, and metadata — safely. Free and open source,
+                self-hostable, bring your own LLM keys.
               </p>
 
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-1">
@@ -133,7 +136,7 @@ export default function Home() {
       {/* WHY AVOCADO */}
       <section className="px-6 py-20 sm:py-24 bg-avocado-50/60 border-y border-avocado-100">
         <div className="max-w-6xl mx-auto space-y-12">
-          <SectionHeading eyebrow="Why Avocado" title="Built for the modern composable web." />
+          <SectionHeading eyebrow="Why Avocado" title="Built for the modern web." />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {FEATURES.map((f) => (
               <div
@@ -153,8 +156,8 @@ export default function Home() {
         <div className="max-w-5xl mx-auto space-y-12">
           <SectionHeading
             eyebrow="Architecture"
-            title="Designed as an open orchestration layer."
-            sub="Avocado Studio sits between AI models and your existing content systems. Instead of replacing your stack, it orchestrates workflows across it."
+            title="An open layer between AI and your stack."
+            sub="Avocado Studio sits between AI models and your existing content systems. Instead of replacing your stack, it coordinates work across it."
           />
 
           <div className="rounded-2xl border border-avocado-200 bg-white shadow-sm p-8 sm:p-12">
@@ -190,7 +193,7 @@ export default function Home() {
           </ul>
 
           <p className="text-center text-avocado-900/70 max-w-2xl mx-auto">
-            Start with Next.js websites today. Extend to any composable architecture tomorrow.
+            Start with Next.js sites today. Extend to the rest of your stack tomorrow.
           </p>
         </div>
       </section>
@@ -244,12 +247,12 @@ export default function Home() {
             Not another CMS. Not another AI writing tool.
           </h2>
           <p className="text-lg text-white/80 leading-relaxed">
-            Avocado Studio is an AI-native orchestration layer for modern content operations.
+            Avocado Studio is an open AI layer for editing and publishing across the tools you
+            already use.
           </p>
           <p className="text-base text-white/70 leading-relaxed">
-            It helps teams manage websites, content workflows, and multimodal publishing using
-            AI agents — while keeping their existing stack, infrastructure, and governance
-            model intact.
+            It helps teams edit websites and publish content with AI agents — while keeping
+            their existing stack, infrastructure, and controls intact.
           </p>
         </div>
       </section>
@@ -258,37 +261,33 @@ export default function Home() {
       <section className="px-6 py-20 sm:py-24">
         <div className="max-w-3xl mx-auto text-center space-y-8">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-avocado-900">
-            Build AI-native content operations on your own terms.
+            Add AI editing to your site, on your own terms.
           </h2>
           <p className="text-lg text-avocado-900/70 leading-relaxed">
-            Open. Composable. Self-hostable.
+            Open source. Self-hostable. No lock-in.
           </p>
           <p className="text-base text-avocado-900/65 leading-relaxed">
-            Start with Next.js websites today — and extend across your entire content
-            ecosystem tomorrow.
+            Start with Next.js sites today — and extend across the rest of your stack tomorrow.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-            <a
-              href="https://github.com/avocadostudio-ai/avocado"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-avocado-500 text-white font-semibold shadow-sm hover:bg-avocado-700 transition"
-            >
-              View on GitHub <span aria-hidden>→</span>
-            </a>
-            <a
-              href="https://docs.avocadostudio.dev"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white/80 text-avocado-700 font-semibold border border-avocado-200 hover:bg-white transition"
-            >
-              Read the docs
-            </a>
-            <a
-              href="https://github.com/avocadostudio-ai/avocado/discussions"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white/80 text-avocado-700 font-semibold border border-avocado-200 hover:bg-white transition"
-            >
-              Join early access
-            </a>
+          <div className="space-y-5 pt-2">
+            <EarlyAccessForm />
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <a
+                href="https://github.com/avocadostudio-ai/avocado"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-avocado-500 text-white font-semibold shadow-sm hover:bg-avocado-700 transition"
+              >
+                View on GitHub <span aria-hidden>→</span>
+              </a>
+              <a
+                href="https://docs.avocadostudio.dev"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white/80 text-avocado-700 font-semibold border border-avocado-200 hover:bg-white transition"
+              >
+                Read the docs
+              </a>
+            </div>
           </div>
-          <p className="text-xs text-avocado-900/50 pt-6">
-            Early access · Apache 2.0 · Self-hosted
+          <p className="text-xs text-avocado-900/60 pt-6">
+            Early access · Self-hosted
           </p>
         </div>
       </section>
