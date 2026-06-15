@@ -198,7 +198,7 @@ export default function Home() {
       {/* USE CASES */}
       <section className="px-6 py-20 sm:py-24 bg-avocado-50/60 border-y border-avocado-100">
         <div className="max-w-6xl mx-auto space-y-12">
-          <SectionHeading eyebrow="Use cases" title="What teams use Avocado for." />
+          <SectionHeading eyebrow="Use cases" title="What Avocado is built for." />
           <div className="grid gap-6 sm:grid-cols-2">
             {USE_CASES.map((u) => (
               <div
