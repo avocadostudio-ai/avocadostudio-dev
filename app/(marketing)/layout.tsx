@@ -7,6 +7,12 @@ export const metadata: Metadata = {
   title: "Avocado Studio — open-source AI editing for Next.js",
   description:
     "Open-source AI editing for Next.js sites. Change content in plain language, self-host it, and bring your own LLM keys — no six-figure platform contract.",
+  alternates: {
+    canonical: "/",
+  },
+  authors: [{ name: "Yury Horbach", url: "https://yurybuilds.com" }],
+  creator: "Yury Horbach",
+  publisher: "Avocado Studio",
   openGraph: {
     title: "Avocado Studio",
     description:
@@ -22,10 +28,83 @@ export const metadata: Metadata = {
   },
 }
 
+// Absolute dates power the JSON-LD freshness signals below.
+const PUBLISHED_DATE = "2026-05-07"
+const MODIFIED_DATE = "2026-06-16"
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://avocadostudio.dev/#organization",
+      name: "Avocado Studio",
+      url: "https://avocadostudio.dev",
+      logo: "https://avocadostudio.dev/logo.svg",
+      sameAs: [
+        "https://github.com/avocadostudio-ai/avocado",
+        "https://yurybuilds.com",
+      ],
+      founder: {
+        "@type": "Person",
+        name: "Yury Horbach",
+        url: "https://yurybuilds.com",
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://avocadostudio.dev/#website",
+      url: "https://avocadostudio.dev",
+      name: "Avocado Studio",
+      publisher: { "@id": "https://avocadostudio.dev/#organization" },
+    },
+    {
+      "@type": "SoftwareApplication",
+      name: "Avocado Studio",
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Web",
+      description:
+        "Open-source AI editing for Next.js sites. Change content in plain language, self-host it, and bring your own LLM keys.",
+      url: "https://avocadostudio.dev",
+      author: {
+        "@type": "Person",
+        name: "Yury Horbach",
+        url: "https://yurybuilds.com",
+      },
+      publisher: { "@id": "https://avocadostudio.dev/#organization" },
+      datePublished: PUBLISHED_DATE,
+      dateModified: MODIFIED_DATE,
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://avocadostudio.dev/#webpage",
+      url: "https://avocadostudio.dev",
+      name: "Avocado Studio — open-source AI editing for Next.js",
+      isPartOf: { "@id": "https://avocadostudio.dev/#website" },
+      datePublished: PUBLISHED_DATE,
+      dateModified: MODIFIED_DATE,
+      author: {
+        "@type": "Person",
+        name: "Yury Horbach",
+        url: "https://yurybuilds.com",
+      },
+    },
+  ],
+}
+
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <header className="px-6 pt-6 sm:pt-8">
           <div className="max-w-6xl mx-auto flex items-center justify-between">
             <a href="/" aria-label="Avocado Studio home" className="inline-flex items-center">
