@@ -111,6 +111,22 @@ export default function Home() {
                   <span aria-hidden>→</span>
                 </a>
               </div>
+
+              <div className="pt-2 flex justify-center lg:justify-start">
+                <a
+                  href="https://www.producthunt.com/products/avocado-studio?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-avocado-7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    alt="Avocado - AI-native content operations for any Next.js website | Product Hunt"
+                    width={250}
+                    height={54}
+                    src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1172664&theme=light&t=1781621968305"
+                  />
+                </a>
+              </div>
             </div>
 
             <div id="demo" className="lg:col-span-7">
