@@ -1,9 +1,21 @@
-import { NextResponse } from "next/server"
+import { after, NextResponse } from "next/server"
 import { hasDatabase, storeSignup } from "./store"
 
 export const runtime = "nodejs"
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const NOTIFY_TIMEOUT_MS = 3000
+
+// Vercel sets VERCEL_ENV; fall back to NODE_ENV for self-hosted deploys.
+function isProduction() {
+  return (process.env.VERCEL_ENV ?? process.env.NODE_ENV) === "production"
+}
+
+// Never write raw addresses to function logs.
+function redact(email: string) {
+  const [user, domain] = email.split("@")
+  return `${user.slice(0, 2)}***@${domain ?? "?"}`
+}
 
 export async function POST(req: Request) {
   let body: { email?: unknown; company?: unknown }
@@ -27,13 +39,24 @@ export async function POST(req: Request) {
     )
   }
 
-  try {
-    if (hasDatabase()) {
-      await storeSignup(email)
-    } else {
-      // Local/preview without a DB connected — keep the form working.
-      console.log(`[early-access] signup (no database configured): ${email}`)
+  if (!hasDatabase()) {
+    // In production a missing binding means the signup has nowhere to go.
+    // Failing loudly beats telling the user they are on a list that does not
+    // exist, which is unrecoverable once the request is over.
+    if (isProduction()) {
+      console.error("[early-access] no database configured; rejecting signup")
+      return NextResponse.json(
+        { ok: false, error: "Signups are temporarily unavailable. Please try again later." },
+        { status: 503 },
+      )
     }
+    // Local/preview without a DB connected: keep the form usable.
+    console.log(`[early-access] signup (no database configured): ${redact(email)}`)
+    return NextResponse.json({ ok: true })
+  }
+
+  try {
+    await storeSignup(email)
   } catch (err) {
     console.error("[early-access] store failed:", err)
     return NextResponse.json(
@@ -42,16 +65,23 @@ export async function POST(req: Request) {
     )
   }
 
-  // Optional best-effort ping so you hear about signups in real time.
-  // Never fails the request — the signup is already safely stored.
-  await notify(email).catch((err) => console.error("[early-access] notify failed:", err))
+  // The signup is durably stored, so notification must never be able to turn
+  // this into a user-visible failure. after() runs it once the response has
+  // been sent; a hung webhook can no longer stall the request.
+  after(async () => {
+    try {
+      await notify(email)
+    } catch (err) {
+      console.error("[early-access] notify failed:", err)
+    }
+  })
 
   return NextResponse.json({ ok: true })
 }
 
 // Set ONE of these to get notified (storage above is independent of this):
-//   • EARLY_ACCESS_WEBHOOK_URL — POSTs JSON (Slack/Zapier/Make/your own endpoint)
-//   • RESEND_API_KEY + EARLY_ACCESS_NOTIFY_EMAIL — emails you via Resend
+//   • EARLY_ACCESS_WEBHOOK_URL: POSTs JSON (Slack/Zapier/Make/your own endpoint)
+//   • RESEND_API_KEY + EARLY_ACCESS_NOTIFY_EMAIL: emails you via Resend
 async function notify(email: string) {
   const webhook = process.env.EARLY_ACCESS_WEBHOOK_URL
   if (webhook) {
@@ -59,6 +89,7 @@ async function notify(email: string) {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ text: `New early-access signup: ${email}`, email }),
+      signal: AbortSignal.timeout(NOTIFY_TIMEOUT_MS),
     })
     if (!res.ok) throw new Error(`Webhook responded ${res.status}`)
     return
@@ -80,6 +111,7 @@ async function notify(email: string) {
         subject: "New early-access signup",
         text: `New early-access signup: ${email}`,
       }),
+      signal: AbortSignal.timeout(NOTIFY_TIMEOUT_MS),
     })
     if (!res.ok) throw new Error(`Resend responded ${res.status}`)
   }

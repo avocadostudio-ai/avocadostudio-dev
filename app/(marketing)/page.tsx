@@ -1,21 +1,85 @@
+import type { Metadata } from "next"
 import { EarlyAccessForm } from "./components/early-access-form"
+import { MODIFIED_DATE, PUBLISHED_DATE, SITE_URL } from "@/app/site"
+
+const DESCRIPTION =
+  "Open-source AI editing for Next.js sites. Change content in plain language, self-host it, and bring your own LLM keys. No six-figure platform contract."
+
+// Page-scoped: lives here, not in the shared (marketing) layout, so sibling
+// routes in the group do not inherit the homepage's canonical and identity.
+export const metadata: Metadata = {
+  title: {
+    absolute: "Avocado Studio: open-source AI editing for Next.js",
+  },
+  description: DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Avocado Studio",
+    description:
+      "Open-source AI editing for Next.js sites. Self-hostable, bring your own LLM keys.",
+    url: "/",
+  },
+  twitter: {
+    title: "Avocado Studio",
+    description: "Open-source AI editing for Next.js sites.",
+  },
+}
+
+const pageJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${SITE_URL}/#software`,
+      name: "Avocado Studio",
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Web",
+      description: DESCRIPTION,
+      url: SITE_URL,
+      author: {
+        "@type": "Person",
+        name: "Yury Horbach",
+        url: "https://yurybuilds.com",
+      },
+      publisher: { "@id": `${SITE_URL}/#organization` },
+      datePublished: PUBLISHED_DATE,
+      dateModified: MODIFIED_DATE,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/#webpage`,
+      url: SITE_URL,
+      name: "Avocado Studio: open-source AI editing for Next.js",
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      about: { "@id": `${SITE_URL}/#software` },
+      datePublished: PUBLISHED_DATE,
+      dateModified: MODIFIED_DATE,
+      author: {
+        "@type": "Person",
+        name: "Yury Horbach",
+        url: "https://yurybuilds.com",
+      },
+    },
+  ],
+}
 
 const FEATURES = [
   {
     title: "AI-assisted editing",
-    body: "AI updates real website content — components, metadata, and publishing steps — not just generated paragraphs.",
+    body: "Agents update real website content: components, metadata, and publishing steps. Not just generated paragraphs.",
   },
   {
-    title: "Live Preview",
-    body: "See changes instantly in your Next.js application while AI agents modify content and layouts in real time.",
+    title: "Live preview",
+    body: "See changes instantly in your Next.js application while agents modify content and layouts in real time.",
   },
   {
     title: "Works with your stack",
     body: "Use your existing CMS, DAM, design system, frontend, and AI providers. No proprietary lock-in.",
   },
   {
-    title: "Multi-model AI",
-    body: "Bring your own models from Anthropic, OpenAI, or Gemini for text, images, and multimodal workflows. Route different tasks to different models.",
+    title: "Multi-model",
+    body: "Bring your own models from Anthropic, OpenAI, or Gemini for text, images, and multimodal work. Route different tasks to different models.",
   },
   {
     title: "Self-hostable",
@@ -57,80 +121,51 @@ const DX_BULLETS = [
   "Open source core",
 ]
 
+const STACK_LAYERS = [
+  { label: "Claude, OpenAI, Gemini", tone: "muted" as const },
+  { label: "Avocado Orchestrator", tone: "primary" as const },
+  { label: "Next.js, CMS, DAM, Design System", tone: "muted" as const, wide: true },
+  { label: "Preview, Review, Publish", tone: "muted" as const },
+]
+
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      {/* HERO */}
-      <section className="px-6 py-12 sm:py-16">
-        <div className="max-w-6xl w-full mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            <div className="lg:col-span-5 text-center lg:text-left space-y-6">
-              <p className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-avocado-50 border border-avocado-200 text-xs sm:text-sm font-semibold tracking-wide text-avocado-700">
-                Open-source AI editor &amp; page builder for Next.js
-              </p>
+    <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(pageJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      {/* HERO
+          Mobile order is deliberate: headline, one-line promise, video, actions,
+          Product Hunt. Everything else is pushed below the fold so the demo and
+          the badge are both visible without scrolling on a small screen. */}
+      <section className="px-6 pt-5 pb-14 sm:pt-16 sm:pb-24 lg:pt-24 lg:pb-28">
+        <div
+          className="page-w flex flex-col gap-y-5 sm:gap-y-7 lg:grid
+                     lg:grid-cols-12 lg:items-start lg:gap-x-12 lg:gap-y-10"
+        >
+          <div className="lg:col-start-1 lg:col-span-5 lg:row-start-1 lg:self-start">
+            <h1 className="display font-display text-[2rem] font-semibold leading-[1.08] text-ink sm:text-[2.75rem] lg:text-[2.75rem] lg:leading-[1.07] 2xl:text-[3rem]">
+              Edit your Next.js site
+              <br />
+              <span className="text-avocado-500">in plain language.</span>
+            </h1>
 
-              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-avocado-900 leading-[1.1]">
-                Edit your Next.js site
-                <br />
-                <span className="text-avocado-500">in plain language.</span>
-              </h1>
+            <p className="mt-3.5 max-w-lg text-[0.9375rem] leading-6 text-ink-muted sm:mt-6 sm:text-lg sm:leading-8 lg:mt-7">
+              Describe the change you want. AI agents update the content,
+              components, and SEO metadata, and create or modify media assets
+              with GenAI.
+            </p>
+          </div>
 
-              <p className="text-base sm:text-lg text-avocado-900/70 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                Describe the change you want and AI agents update the content,
-                components, and metadata — safely. Free and open source,
-                self-hostable, bring your own LLM keys.
-              </p>
-
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-1">
-                <a
-                  href="https://github.com/avocadostudio-ai/avocado"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-avocado-500 text-white font-semibold shadow-sm hover:bg-avocado-700 transition"
-                >
-                  View on GitHub
-                  <span aria-hidden>→</span>
-                </a>
-                <a
-                  href="https://docs.avocadostudio.dev"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white/80 text-avocado-700 font-semibold border border-avocado-200 hover:bg-white transition"
-                >
-                  Read the docs
-                </a>
-              </div>
-
-              <div className="pt-2 flex flex-col items-center lg:items-start gap-1.5">
-                <p className="text-sm text-avocado-900/70">
-                  Early adopters and cofounders welcome. Reach out for support onboarding your site.
-                </p>
-                <a
-                  href="mailto:hello@avocadostudio.dev?subject=Avocado%20Studio%20%E2%80%94%20early%20access%20%26%20cofounders"
-                  className="group inline-flex items-baseline gap-1.5 text-avocado-700 font-medium hover:text-avocado-900 transition"
-                >
-                  <span className="underline underline-offset-4 decoration-avocado-300 group-hover:decoration-avocado-700 transition">
-                    Get in touch
-                  </span>
-                  <span aria-hidden>→</span>
-                </a>
-              </div>
-
-              <div className="pt-2 flex justify-center lg:justify-start">
-                <a
-                  href="https://www.producthunt.com/products/avocado-studio?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-avocado-7"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    alt="Avocado - AI-native content operations for any Next.js website | Product Hunt"
-                    width={250}
-                    height={54}
-                    src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1172664&theme=light&t=1781621968305"
-                  />
-                </a>
-              </div>
-            </div>
-
-            <div id="demo" className="lg:col-span-7">
-              <div className="relative aspect-video w-full rounded-2xl border border-avocado-200 bg-white/70 shadow-sm overflow-hidden">
+          <div
+            id="demo"
+            className="lg:col-start-6 lg:col-span-7 lg:row-start-1 lg:row-span-2 lg:self-start"
+          >
+            <figure className="overflow-hidden rounded-xl border border-line bg-paper-sunk shadow-[0_1px_2px_rgba(22,36,26,0.05),0_12px_32px_-12px_rgba(22,36,26,0.18)]">
+              <div className="relative aspect-[1280/702] w-full">
                 <video
                   className="absolute inset-0 h-full w-full object-cover"
                   autoPlay
@@ -139,203 +174,267 @@ export default function Home() {
                   playsInline
                   controls
                   preload="metadata"
-                  poster="/demo-poster.svg"
+                  poster="/demo-poster.jpg"
                 >
                   <source src="/demo.mp4" type="video/mp4" />
                 </video>
               </div>
+            </figure>
+          </div>
+
+          <div className="lg:col-start-1 lg:col-span-5 lg:row-start-2 lg:self-start">
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+              <a
+                href="https://github.com/avocadostudio-ai/avocado"
+                className="group inline-flex items-center gap-2 rounded-lg bg-avocado-500 px-4 py-2.5 text-[0.9375rem] font-medium text-paper transition-colors hover:bg-avocado-700 sm:px-5 sm:py-3 sm:text-base"
+              >
+                View on GitHub
+                <span
+                  aria-hidden
+                  className="transition-transform duration-200 group-hover:translate-x-0.5"
+                >
+                  &rarr;
+                </span>
+              </a>
+              <a
+                href="https://docs.avocadostudio.dev"
+                className="inline-flex items-center rounded-lg border border-line-strong bg-paper px-4 py-2.5 text-[0.9375rem] font-medium text-ink transition-colors hover:border-ink hover:bg-paper-sunk sm:px-5 sm:py-3 sm:text-base"
+              >
+                Read the docs
+              </a>
             </div>
+
+            <a
+              className="mt-4 inline-block sm:mt-6"
+              href="https://www.producthunt.com/products/avocado-studio?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-avocado-7"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                alt="Avocado Studio, AI-native content operations for any Next.js website. Featured on Product Hunt"
+                width={250}
+                height={54}
+                className="h-8 w-auto sm:h-9"
+                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1172664&theme=light&t=1781621968305"
+              />
+            </a>
+
+            <p className="mt-6 max-w-md text-sm leading-6 text-ink-muted sm:mt-8">
+              You get a preview before anything ships. Free and open source,
+              self-hostable, bring your own LLM keys. Early adopters and
+              cofounders welcome.{" "}
+              <a
+                href="mailto:hello@avocadostudio.dev?subject=Avocado%20Studio%20early%20access"
+                className="font-medium text-avocado-500 underline decoration-line-strong underline-offset-4 transition-colors hover:decoration-avocado-500"
+              >
+                Get in touch
+              </a>
+              .
+            </p>
           </div>
         </div>
       </section>
 
       {/* WHY AVOCADO */}
-      <section className="px-6 py-20 sm:py-24 bg-avocado-50/60 border-y border-avocado-100">
-        <div className="max-w-6xl mx-auto space-y-12">
-          <SectionHeading eyebrow="Why Avocado" title="Built for the modern web." />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {FEATURES.map((f) => (
-              <div
-                key={f.title}
-                className="rounded-xl border border-avocado-200 bg-white p-6 space-y-2 shadow-sm"
-              >
-                <h3 className="text-lg font-semibold text-avocado-900">{f.title}</h3>
-                <p className="text-sm text-avocado-900/70 leading-relaxed">{f.body}</p>
-              </div>
-            ))}
-          </div>
+      <Section tone="sunk">
+        <SectionHeading label="Capabilities" title="Built for the modern web." />
+        <div className="mt-14 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+          {FEATURES.map((f) => (
+            <article key={f.title} className="bg-paper p-6">
+              <h3 className="font-medium text-ink">{f.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-ink-muted">{f.body}</p>
+            </article>
+          ))}
         </div>
-      </section>
+      </Section>
 
       {/* ARCHITECTURE */}
-      <section className="px-6 py-20 sm:py-24">
-        <div className="max-w-5xl mx-auto space-y-12">
-          <SectionHeading
-            eyebrow="Architecture"
-            title="An open layer between AI and your stack."
-            sub="Avocado Studio sits between AI models and your existing content systems. Instead of replacing your stack, it coordinates work across it."
-          />
+      <Section>
+        <SectionHeading
+          label="Architecture"
+          title="An open layer between AI and your stack."
+          sub="Avocado Studio sits between AI models and your existing content systems. Instead of replacing your stack, it coordinates work across it."
+        />
 
-          <div className="rounded-2xl border border-avocado-200 bg-white shadow-sm p-8 sm:p-12">
-            <div className="flex flex-col items-center gap-6 text-center">
-              <Layer label="Claude · OpenAI · Gemini" tone="muted" />
-              <Arrow />
-              <Layer label="Avocado Orchestrator" tone="primary" />
-              <Arrow />
-              <Layer
-                label="Next.js  ↔  CMS  ↔  DAM  ↔  Design System"
-                tone="muted"
-                wide
-              />
-              <Arrow />
-              <Layer label="Preview · Review · Publish" tone="muted" />
-            </div>
-          </div>
-
-          <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 text-sm text-avocado-900/75 max-w-3xl mx-auto">
-            {[
-              "websites",
-              "headless CMSs",
-              "DAMs",
-              "design systems",
-              "localization tools",
-              "publishing pipelines",
-            ].map((item) => (
-              <li key={item} className="flex items-center gap-2">
-                <span aria-hidden className="text-avocado-500">▸</span>
-                {item}
+        <div className="mx-auto mt-12 max-w-3xl rounded-xl border border-line bg-paper p-8 sm:p-12">
+          <ol className="flex flex-col items-center gap-4">
+            {STACK_LAYERS.map((layer, i) => (
+              <li
+                key={layer.label}
+                className="flex w-full flex-col items-center gap-4"
+              >
+                <Layer {...layer} />
+                {i < STACK_LAYERS.length - 1 ? (
+                  <span aria-hidden className="h-5 w-px bg-line-strong" />
+                ) : null}
               </li>
             ))}
-          </ul>
-
-          <p className="text-center text-avocado-900/70 max-w-2xl mx-auto">
-            Start with Next.js sites today. Extend to the rest of your stack tomorrow.
-          </p>
+          </ol>
         </div>
-      </section>
+
+        <ul className="mx-auto mt-10 grid max-w-3xl gap-x-8 gap-y-2 text-sm text-ink-muted sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            "websites",
+            "headless CMSs",
+            "DAMs",
+            "design systems",
+            "localization tools",
+            "publishing pipelines",
+          ].map((item) => (
+            <li key={item} className="border-b border-line py-2">
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <p className="mx-auto mt-10 max-w-2xl text-center text-ink-muted">
+          Start with Next.js sites today. Extend to the rest of your stack
+          tomorrow.
+        </p>
+      </Section>
 
       {/* USE CASES */}
-      <section className="px-6 py-20 sm:py-24 bg-avocado-50/60 border-y border-avocado-100">
-        <div className="max-w-6xl mx-auto space-y-12">
-          <SectionHeading eyebrow="Use cases" title="What Avocado is built for." />
-          <div className="grid gap-6 sm:grid-cols-2">
-            {USE_CASES.map((u) => (
-              <div
-                key={u.title}
-                className="rounded-xl border border-avocado-200 bg-white p-6 space-y-2 shadow-sm"
-              >
-                <h3 className="text-lg font-semibold text-avocado-900">{u.title}</h3>
-                <p className="text-sm text-avocado-900/70 leading-relaxed">{u.body}</p>
-              </div>
-            ))}
-          </div>
+      <Section tone="sunk">
+        <SectionHeading label="Use cases" title="What Avocado is built for." />
+        <div className="mt-14 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2">
+          {USE_CASES.map((u) => (
+            <article key={u.title} className="bg-paper p-6 sm:p-8">
+              <h3 className="font-medium text-ink">{u.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-ink-muted">{u.body}</p>
+            </article>
+          ))}
         </div>
-      </section>
+      </Section>
 
       {/* DEVELOPER EXPERIENCE */}
-      <section className="px-6 py-20 sm:py-24">
-        <div className="max-w-5xl mx-auto space-y-12">
-          <SectionHeading
-            eyebrow="Developer experience"
-            title="Built for developers and platform teams."
-          />
-          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {DX_BULLETS.map((b) => (
-              <li
-                key={b}
-                className="flex items-start gap-3 rounded-lg border border-avocado-200 bg-white px-4 py-3 text-sm text-avocado-900/85"
+      <Section>
+        <SectionHeading
+          label="Developer experience"
+          title="Built for developers and platform teams."
+        />
+        <ul className="mt-12 grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
+          {DX_BULLETS.map((b, i) => (
+            <li
+              key={b}
+              className="flex items-baseline gap-3 border-b border-line py-3 text-sm text-ink"
+            >
+              <span
+                aria-hidden
+                className="font-mono text-xs tabular-nums text-ink-faint"
               >
-                <span aria-hidden className="text-avocado-500 font-semibold">✓</span>
-                {b}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              {b}
+            </li>
+          ))}
+        </ul>
+      </Section>
 
       {/* POSITIONING */}
-      <section className="px-6 py-20 sm:py-24 bg-avocado-900 text-white">
-        <div className="max-w-3xl mx-auto text-center space-y-6">
-          <div className="text-sm font-semibold tracking-wide uppercase text-avocado-400">
-            Positioning
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Not another CMS. Not another AI writing tool.
+      <section className="bg-avocado-900 px-6 py-20 text-paper sm:py-28">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="display text-balance font-display text-3xl font-semibold leading-[1.12] sm:text-[2.5rem]">
+            Not another CMS.
+            <br />
+            Not another AI writing tool.
           </h2>
-          <p className="text-lg text-white/80 leading-relaxed">
-            Avocado Studio is an open AI layer for editing and publishing across the tools you
-            already use.
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-7 text-paper/75">
+            Avocado Studio is an open AI layer for editing and publishing across
+            the tools you already use.
           </p>
-          <p className="text-base text-white/70 leading-relaxed">
-            It helps teams edit websites and publish content with AI agents — while keeping
-            their existing stack, infrastructure, and controls intact.
+          <p className="mx-auto mt-4 max-w-xl leading-7 text-paper/60">
+            It helps teams edit websites and publish content with AI agents
+            while keeping their existing stack, infrastructure, and controls
+            intact.
           </p>
         </div>
       </section>
 
       {/* FINAL CTA */}
-      <section className="px-6 py-20 sm:py-24">
-        <div className="max-w-3xl mx-auto text-center space-y-8">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-avocado-900">
-            Add AI editing to your site, on your own terms.
+      <Section>
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="display text-balance font-display text-3xl font-semibold leading-[1.12] text-ink sm:text-[2.5rem]">
+            AI editing you actually own.
           </h2>
-          <p className="text-lg text-avocado-900/70 leading-relaxed">
-            Open source. Self-hostable. No lock-in.
-          </p>
-          <p className="text-base text-avocado-900/65 leading-relaxed">
-            Start with Next.js sites today — and extend across the rest of your stack tomorrow.
-          </p>
-          <div className="pt-4 space-y-8">
-            {/* Primary action — early access signup */}
-            <div className="mx-auto max-w-md rounded-2xl border border-avocado-200 bg-white p-6 sm:p-7 shadow-md">
-              <p className="text-xs font-semibold uppercase tracking-wide text-avocado-500 mb-4">
-                Get early access
-              </p>
-              <EarlyAccessForm />
-            </div>
-
-            {/* Divider */}
-            <div className="flex items-center gap-4 max-w-xs mx-auto">
-              <span aria-hidden className="h-px flex-1 bg-avocado-200" />
-              <span className="text-xs font-medium uppercase tracking-wide text-avocado-900/40">
-                or
-              </span>
-              <span aria-hidden className="h-px flex-1 bg-avocado-200" />
-            </div>
-
-            {/* Secondary actions */}
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              <a
-                href="https://github.com/avocadostudio-ai/avocado"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white text-avocado-700 font-semibold border border-avocado-200 hover:bg-avocado-50 transition"
-              >
-                View on GitHub <span aria-hidden>→</span>
-              </a>
-              <a
-                href="https://docs.avocadostudio.dev"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white text-avocado-700 font-semibold border border-avocado-200 hover:bg-avocado-50 transition"
-              >
-                Read the docs
-              </a>
-            </div>
-          </div>
-          <p className="text-xs text-avocado-900/60 pt-6">
-            Early access · Self-hosted
+          <p className="mt-5 text-lg leading-7 text-ink-muted">
+            Not rented from a platform, not locked behind a seat count. Run it
+            on your own infrastructure with your own model keys. Start with
+            Next.js sites today, extend across the rest of your stack tomorrow.
           </p>
         </div>
-      </section>
+
+        <div className="mx-auto mt-10 max-w-xl rounded-xl border border-line bg-paper p-6 sm:p-8">
+          <EarlyAccessForm />
+        </div>
+
+        <div className="mx-auto mt-8 flex max-w-xl items-center gap-4">
+          <span aria-hidden className="h-px flex-1 bg-line" />
+          <span className="font-mono text-xs tracking-label text-ink-faint">
+            or
+          </span>
+          <span aria-hidden className="h-px flex-1 bg-line" />
+        </div>
+
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="https://github.com/avocadostudio-ai/avocado"
+            className="inline-flex items-center rounded-lg border border-line-strong bg-paper px-5 py-3 font-medium text-ink transition-colors hover:border-ink hover:bg-paper-sunk"
+          >
+            View on GitHub
+          </a>
+          <a
+            href="https://docs.avocadostudio.dev"
+            className="inline-flex items-center rounded-lg border border-line-strong bg-paper px-5 py-3 font-medium text-ink transition-colors hover:border-ink hover:bg-paper-sunk"
+          >
+            Read the docs
+          </a>
+        </div>
+      </Section>
     </main>
   )
 }
 
-function SectionHeading({ eyebrow, title, sub }: { eyebrow?: string; title: string; sub?: string }) {
+function Section({
+  children,
+  tone = "paper",
+}: {
+  children: React.ReactNode
+  tone?: "paper" | "sunk"
+}) {
   return (
-    <div className="max-w-3xl mx-auto text-center space-y-4">
-      {eyebrow ? (
-        <div className="text-sm font-semibold tracking-wide uppercase text-avocado-500">{eyebrow}</div>
+    <section
+      className={`border-t border-line px-6 py-20 sm:py-28 lg:py-36 ${
+        tone === "sunk" ? "bg-paper-sunk" : "bg-paper"
+      }`}
+    >
+      <div className="page-w">{children}</div>
+    </section>
+  )
+}
+
+function SectionHeading({
+  label,
+  title,
+  sub,
+}: {
+  label?: string
+  title: string
+  sub?: string
+}) {
+  return (
+    <div className="max-w-2xl">
+      {label ? (
+        <span className="mb-4 block font-mono text-xs tracking-label text-ink-muted">
+          {label}
+        </span>
       ) : null}
-      <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-avocado-900">{title}</h2>
-      {sub ? <p className="text-lg text-avocado-900/70 leading-relaxed">{sub}</p> : null}
+      <h2 className="display text-balance font-display text-[1.75rem] font-semibold leading-[1.15] text-ink sm:text-[2.25rem]">
+        {title}
+      </h2>
+      {sub ? (
+        <p className="mt-4 text-lg leading-7 text-ink-muted">{sub}</p>
+      ) : null}
     </div>
   )
 }
@@ -349,20 +448,17 @@ function Layer({
   tone: "primary" | "muted"
   wide?: boolean
 }) {
-  const base =
-    "px-5 py-3 rounded-lg border font-medium text-sm sm:text-base text-center"
   const styles =
     tone === "primary"
-      ? "bg-avocado-500 text-white border-avocado-700 shadow-sm"
-      : "bg-avocado-50 text-avocado-900 border-avocado-200"
-  const width = wide ? "w-full max-w-2xl" : "min-w-[16rem]"
-  return <div className={`${base} ${styles} ${width}`}>{label}</div>
-}
-
-function Arrow() {
+      ? "bg-avocado-500 text-paper border-avocado-500"
+      : "bg-paper-sunk text-ink border-line"
   return (
-    <div aria-hidden className="text-avocado-500 text-xl leading-none">
-      ↓
+    <div
+      className={`rounded-lg border px-5 py-3 text-center text-sm ${styles} ${
+        wide ? "w-full" : "w-full max-w-xs"
+      }`}
+    >
+      {label}
     </div>
   )
 }

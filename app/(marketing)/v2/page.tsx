@@ -1,3 +1,14 @@
+import type { Metadata } from "next"
+
+// Internal layout variant, not a page we want competing with / in search.
+export const metadata: Metadata = {
+  title: "Alternate hero",
+  description:
+    "Internal layout variant of the Avocado Studio homepage. Not indexed.",
+  alternates: { canonical: "/v2" },
+  robots: { index: false, follow: false },
+}
+
 export default function Home() {
   return (
     <main className="min-h-screen px-6 py-24">
@@ -14,7 +25,7 @@ export default function Home() {
 
         <p className="text-lg text-avocado-900/70 leading-relaxed max-w-xl mx-auto">
           Bring AI-native editing to any Next.js website. Free and open source,
-          self-hostable, BYO LLM keys — composable with the CMS, DAM, and stack
+          self-hostable, BYO LLM keys, composable with the CMS, DAM, and stack
           you already have.
         </p>
 
@@ -45,7 +56,7 @@ export default function Home() {
 
         <div className="pt-6 flex flex-col items-center gap-2">
           <p className="text-sm text-avocado-900/70">
-            Be an early adopter — we&apos;ll help you onboard your site.
+            Be an early adopter. We&apos;ll help you onboard your site.
           </p>
           <a
             href="mailto:hello@avocadostudio.dev?subject=Onboarding%20help"
@@ -77,7 +88,7 @@ export default function Home() {
             playsInline
             controls
             preload="metadata"
-            poster="/demo-poster.svg"
+            poster="/demo-poster.jpg"
           >
             <source src="/demo.mp4" type="video/mp4" />
           </video>
