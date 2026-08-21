@@ -1,46 +1,40 @@
 import type { Metadata } from "next"
+import Link from "next/link"
+import { fontVariables } from "@/app/fonts"
 import { Analytics } from "@vercel/analytics/next"
+import { SITE_URL } from "@/app/site"
 import "../globals.css"
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://avocadostudio.dev"),
-  title: "Avocado Studio — open-source AI editing for Next.js",
-  description:
-    "Open-source AI editing for Next.js sites. Change content in plain language, self-host it, and bring your own LLM keys — no six-figure platform contract.",
-  alternates: {
-    canonical: "/",
+  metadataBase: new URL(SITE_URL),
+  // Site-wide defaults only. Anything page-specific (title, description,
+  // canonical, og:url) belongs on the page so sibling routes in this group
+  // do not inherit the homepage's identity.
+  title: {
+    default: "Avocado Studio: open-source AI editing for Next.js",
+    template: "%s | Avocado Studio",
   },
   authors: [{ name: "Yury Horbach", url: "https://yurybuilds.com" }],
   creator: "Yury Horbach",
   publisher: "Avocado Studio",
   openGraph: {
-    title: "Avocado Studio",
-    description:
-      "Open-source AI editing for Next.js sites. Self-hostable, bring your own LLM keys.",
-    url: "https://avocadostudio.dev",
     siteName: "Avocado Studio",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Avocado Studio",
-    description: "Open-source AI editing for Next.js sites.",
   },
 }
-
-// Absolute dates power the JSON-LD freshness signals below.
-const PUBLISHED_DATE = "2026-05-07"
-const MODIFIED_DATE = "2026-06-16"
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://avocadostudio.dev/#organization",
+      "@id": `${SITE_URL}/#organization`,
       name: "Avocado Studio",
-      url: "https://avocadostudio.dev",
-      logo: "https://avocadostudio.dev/logo.svg",
+      url: SITE_URL,
+      logo: `${SITE_URL}/logo.svg`,
       sameAs: [
         "https://github.com/avocadostudio-ai/avocado",
         "https://yurybuilds.com",
@@ -53,69 +47,33 @@ const jsonLd = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://avocadostudio.dev/#website",
-      url: "https://avocadostudio.dev",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
       name: "Avocado Studio",
-      publisher: { "@id": "https://avocadostudio.dev/#organization" },
-    },
-    {
-      "@type": "SoftwareApplication",
-      name: "Avocado Studio",
-      applicationCategory: "DeveloperApplication",
-      operatingSystem: "Web",
-      description:
-        "Open-source AI editing for Next.js sites. Change content in plain language, self-host it, and bring your own LLM keys.",
-      url: "https://avocadostudio.dev",
-      author: {
-        "@type": "Person",
-        name: "Yury Horbach",
-        url: "https://yurybuilds.com",
-      },
-      publisher: { "@id": "https://avocadostudio.dev/#organization" },
-      datePublished: PUBLISHED_DATE,
-      dateModified: MODIFIED_DATE,
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-      },
-    },
-    {
-      "@type": "WebPage",
-      "@id": "https://avocadostudio.dev/#webpage",
-      url: "https://avocadostudio.dev",
-      name: "Avocado Studio — open-source AI editing for Next.js",
-      isPartOf: { "@id": "https://avocadostudio.dev/#website" },
-      datePublished: PUBLISHED_DATE,
-      dateModified: MODIFIED_DATE,
-      author: {
-        "@type": "Person",
-        name: "Yury Horbach",
-        url: "https://yurybuilds.com",
-      },
+      publisher: { "@id": `${SITE_URL}/#organization` },
     },
   ],
 }
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={fontVariables}>
+      <body className="bg-paper font-sans text-ink antialiased">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
         />
-        <header className="px-6 pt-6 sm:pt-8">
-          <div className="max-w-6xl mx-auto flex items-center justify-between">
-            <a href="/" aria-label="Avocado Studio home" className="inline-flex items-center">
+        <header className="border-b border-line px-6 py-3 sm:py-4">
+          <div className="page-w flex items-center justify-between">
+            <Link href="/" aria-label="Avocado Studio home" className="inline-flex items-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/logo.svg" alt="Avocado Studio" className="h-8 sm:h-9 w-auto" />
-            </a>
-            <nav className="flex items-center gap-4 sm:gap-5 text-sm font-medium text-avocado-900/75">
+            </Link>
+            <nav className="flex items-center gap-4 sm:gap-5 text-sm text-ink-muted">
               <a
                 href="https://docs.avocadostudio.dev"
                 aria-label="Docs"
-                className="inline-flex items-center gap-2 hover:text-avocado-700 transition"
+                className="inline-flex items-center gap-2 hover:text-ink transition"
               >
                 <svg
                   aria-hidden
@@ -137,7 +95,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
                 href="https://yurybuilds.com"
                 rel="me noopener"
                 aria-label="Blog"
-                className="inline-flex items-center gap-2 hover:text-avocado-700 transition"
+                className="inline-flex items-center gap-2 hover:text-ink transition"
               >
                 <svg
                   aria-hidden
@@ -158,7 +116,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
               <a
                 href="https://github.com/avocadostudio-ai/avocado"
                 aria-label="GitHub"
-                className="inline-flex items-center gap-2 hover:text-avocado-700 transition"
+                className="inline-flex items-center gap-2 hover:text-ink transition"
               >
                 <svg aria-hidden width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.16-.02-2.11-3.2.69-3.87-1.36-3.87-1.36-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.24 3.34.95.1-.74.4-1.24.73-1.53-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.93 10.93 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.26 5.69.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.68.8.56 4.57-1.52 7.85-5.83 7.85-10.91C23.5 5.65 18.35.5 12 .5Z" />
@@ -168,7 +126,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
               <a
                 href="mailto:hello@avocadostudio.dev?subject=Avocado%20Studio%20inquiry"
                 aria-label="Contact"
-                className="inline-flex items-center gap-2 hover:text-avocado-700 transition"
+                className="inline-flex items-center gap-2 hover:text-ink transition"
               >
                 <svg
                   aria-hidden

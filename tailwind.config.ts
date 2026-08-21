@@ -5,18 +5,39 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        avocado: {
-          50: "#f0fdf4",
-          100: "#dcfce7",
-          200: "#bbf7d0",
-          400: "#7ed957",
-          500: "#1f7a3a",
-          700: "#14532d",
-          900: "#0a2818",
+        // Warm paper ground rather than pure white.
+        paper: {
+          DEFAULT: "#FBFAF7",
+          sunk: "#F3F1EA",
         },
+        // Text colours are real values, not black-at-an-opacity.
+        ink: {
+          DEFAULT: "#16241A",
+          muted: "#5C665C",
+          faint: "#666E66",
+        },
+        line: {
+          DEFAULT: "#E2DFD4",
+          strong: "#CFCBBC",
+        },
+        avocado: {
+          50: "#F2F5EF",
+          100: "#E4EADF",
+          200: "#D2DACB",
+          400: "#7FA86A",
+          500: "#2F6B3F",
+          700: "#1F4A2C",
+          900: "#16241A",
+        },
+        pit: "#7A5230",
       },
       fontFamily: {
-        sans: ["ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
+      },
+      letterSpacing: {
+        label: "0.08em",
       },
     },
   },

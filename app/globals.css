@@ -6,13 +6,45 @@
   color-scheme: light;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
 body {
-  background: radial-gradient(ellipse at top, #f0fdf4 0%, #ffffff 55%);
-  color: #0a2818;
+  background-color: #fbfaf7;
+  color: #16241a;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Display type: tighten tracking as size goes up. */
+.display {
+  font-feature-settings: "kern" 1, "liga" 1;
+  letter-spacing: -0.022em;
+}
+
+/* One shared page measure so the header, hero and every section align
+   to the same left and right edges. */
+.page-w {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 80rem;
+}
+
+@media (min-width: 1536px) {
+  .page-w {
+    max-width: 88rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
