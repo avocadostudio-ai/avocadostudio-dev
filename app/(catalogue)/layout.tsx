@@ -1,11 +1,12 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { fontVariables } from "@/app/fonts"
+import { SITE_URL } from "@/app/site"
 import { Analytics } from "@vercel/analytics/next"
 import "../globals.css"
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://avocadostudio.dev"),
+  metadataBase: new URL(SITE_URL),
 }
 
 export default function CatalogueLayout({ children }: { children: React.ReactNode }) {
