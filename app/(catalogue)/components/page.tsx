@@ -5,10 +5,11 @@ export const metadata: Metadata = {
   title: "Components | Avocado Studio",
   description:
     "Browse Avocado Studio's built-in blocks: hero, feature grid, testimonials, FAQ, CTA, and more. Live previews with editable props.",
+  alternates: { canonical: "/components" },
   openGraph: {
     title: "Avocado Studio Components",
     description: "20 production-ready blocks with live previews. Drop-in for any Next.js site.",
-    url: "https://avocadostudio.dev/components",
+    url: "/components",
   },
 }
 
