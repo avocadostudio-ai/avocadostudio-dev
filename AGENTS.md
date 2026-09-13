@@ -35,8 +35,12 @@ that still reads like Next (`app/`, `next/font`, route handlers) is out of date.
 ## Gotchas
 
 - `@avocadostudio-ai/blocks` is published for Next.js and imports `next/image`.
-  `astro.config.ts` aliases that to `src/shims/next-image.tsx`. Installing it
-  needs `.npmrc` plus a `NODE_AUTH_TOKEN` for the GitHub package registry.
+  `astro.config.ts` aliases that to `src/shims/next-image.tsx`.
+- `@avocadostudio-ai/*` live on public npm from 0.1.0 onward. GitHub Packages
+  only ever held 0.0.x, so the repo must NOT carry an `.npmrc` pinning that
+  scope to `npm.pkg.github.com` — it makes every 0.1.0+ version unresolvable
+  (metadata 404s on the tarball) and breaks CI while a warm local pnpm store
+  hides it.
 - The OG card and the raster favicons are generated, not hand-made:
   `pnpm og` and `pnpm favicons`. Re-run `pnpm og` if the homepage headline
   changes.

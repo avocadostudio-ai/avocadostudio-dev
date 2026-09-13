@@ -15,10 +15,6 @@ pnpm dev
 # http://localhost:4321
 ```
 
-`@avocadostudio-ai/*` are published to the GitHub package registry, so
-installing needs `NODE_AUTH_TOKEN` set to a token with `read:packages`
-(`.npmrc` reads it from the environment).
-
 ## Environment
 
 | Variable | Purpose |
