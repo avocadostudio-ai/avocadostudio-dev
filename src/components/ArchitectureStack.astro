@@ -1,0 +1,35 @@
+---
+// The layer diagram from the previous site, kept because it says something no
+// stock widget does: Avocado sits *between* the models and the systems a team
+// already runs. Plain boxes and connectors — the one primary-filled layer is
+// the product, everything above and below it is somebody else's.
+const LAYERS = [
+  { label: 'Claude, OpenAI, Gemini', tone: 'muted' },
+  { label: 'Avocado Orchestrator', tone: 'primary' },
+  { label: 'Next.js, CMS, DAM, Design System', tone: 'muted', wide: true },
+  { label: 'Preview, Review, Publish', tone: 'muted' },
+] as const;
+---
+
+<div class="border-line bg-page rounded-xl border p-8 sm:p-10">
+  <ol class="flex flex-col items-center gap-4">
+    {
+      LAYERS.map((layer, index) => (
+        <li class="flex w-full flex-col items-center gap-4">
+          <div
+            class:list={[
+              'rounded-lg border px-5 py-3 text-center text-sm',
+              layer.tone === 'primary'
+                ? 'border-primary bg-primary font-medium text-white dark:text-[#0f1410]'
+                : 'border-line bg-sunk text-page',
+              'wide' in layer && layer.wide ? 'w-full' : 'w-full max-w-xs',
+            ]}
+          >
+            {layer.label}
+          </div>
+          {index < LAYERS.length - 1 && <span aria-hidden="true" class="bg-line-strong h-5 w-px" />}
+        </li>
+      ))
+    }
+  </ol>
+</div>

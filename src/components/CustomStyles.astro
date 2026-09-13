@@ -1,0 +1,90 @@
+---
+// Avocado Studio palette.
+//
+// Light is the warm-paper ground the brand has always used: a paper that is
+// not pure white, an ink that is not pure black, and a deep avocado green for
+// anything load-bearing. Dark is derived from the same hues rather than a
+// generic slate — the ground keeps a green cast, and the primary lifts to a
+// leaf green because the deep green goes muddy against a dark field.
+//
+// Font families come from Astro's native Fonts API (see `fonts` in
+// astro.config.ts and <Font /> in Layout.astro).
+---
+
+<style is:inline>
+  :root {
+    --aw-font-sans: var(--font-instrument-sans);
+    --aw-font-serif: var(--font-instrument-sans);
+    --aw-font-heading: var(--font-schibsted-grotesk);
+    --aw-font-mono: var(--font-jetbrains-mono);
+
+    --aw-color-primary: #2f6b3f;
+    --aw-color-secondary: #1f4a2c;
+    --aw-color-accent: #7a5230;
+
+    --aw-color-text-heading: #16241a;
+    --aw-color-text-default: #16241a;
+    --aw-color-text-muted: #5c665c;
+    --aw-color-bg-page: #fbfaf7;
+
+    /* Second surface, for alternating sections and inset panels. */
+    --aw-color-bg-sunk: #f3f1ea;
+    --aw-color-line: #e2dfd4;
+    --aw-color-line-strong: #cfcbbc;
+
+    /* Inverted band (the "Not another CMS" section) in both modes. */
+    --aw-color-bg-page-dark: #16241a;
+
+    --aw-color-avocado-50: #f2f5ef;
+    --aw-color-avocado-100: #e4eadf;
+    --aw-color-avocado-200: #d2dacb;
+    --aw-color-avocado-400: #7fa86a;
+
+    ::selection {
+      background-color: #d2dacb;
+      color: #16241a;
+    }
+  }
+
+  .dark {
+    --aw-font-sans: var(--font-instrument-sans);
+    --aw-font-serif: var(--font-instrument-sans);
+    --aw-font-heading: var(--font-schibsted-grotesk);
+    --aw-font-mono: var(--font-jetbrains-mono);
+
+    /* Deep green reads as mud on a dark ground; the leaf green carries it. */
+    --aw-color-primary: #8fbf6e;
+    --aw-color-secondary: #7fa86a;
+    --aw-color-accent: #c9a27a;
+
+    --aw-color-text-heading: #f4f3ee;
+    --aw-color-text-default: #e6e7e0;
+    --aw-color-text-muted: rgb(230 231 224 / 66%);
+    --aw-color-bg-page: #10140f;
+
+    --aw-color-bg-sunk: #171c15;
+    --aw-color-line: #262c23;
+    --aw-color-line-strong: #39412f;
+
+    /* Inverting downward is invisible on an already-dark ground; lift instead. */
+    --aw-color-bg-page-dark: #1e2519;
+
+    --aw-color-avocado-50: #1a2016;
+    --aw-color-avocado-100: #212819;
+    --aw-color-avocado-200: #2c3524;
+    --aw-color-avocado-400: #8fbf6e;
+
+    ::selection {
+      background-color: #2c3524;
+      color: #f4f3ee;
+    }
+  }
+
+  /* Display type: tighten tracking as size goes up. */
+  .display {
+    font-feature-settings:
+      'kern' 1,
+      'liga' 1;
+    letter-spacing: -0.022em;
+  }
+</style>

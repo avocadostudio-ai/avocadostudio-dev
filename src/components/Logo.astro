@@ -1,0 +1,32 @@
+---
+import { SITE } from 'astrowind:config';
+
+// Inlined rather than <img src="/logo.svg"> for two reasons: the wordmark can
+// then pick up the site's own display face (the file's baked-in Inter is not
+// loaded here, so an <img> falls back to whatever the OS offers), and "Studio"
+// can flip to the paper colour in dark mode instead of staying a near-black
+// green. public/logo.svg stays as-is — it is what schema.org and OG consumers
+// fetch. Keep the two in sync if the mark changes.
+---
+
+<svg
+  viewBox="0 0 980 160"
+  role="img"
+  aria-label={SITE?.name}
+  class="h-8 w-auto sm:h-9"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g transform="translate(16, 16)">
+    <path d="M64 8C88 8 112 40 112 72C112 104 88 120 64 120C40 120 16 104 16 72C16 40 40 8 64 8Z" fill="#14532D"></path>
+    <path d="M64 18C82 18 100 44 100 72C100 100 82 110 64 110C46 110 28 100 28 72C28 44 46 18 64 18Z" fill="#84CC16"
+    ></path>
+    <circle cx="64" cy="72" r="20" fill="#6B3E2E"></circle>
+  </g>
+  <text x="160" y="118" font-size="96" font-weight="700" letter-spacing="-3" style="font-family: var(--aw-font-heading), ui-sans-serif, system-ui, sans-serif">
+    <tspan class="fill-[#65A30D] dark:fill-[#a3d977]">Avocado</tspan><tspan
+      class="fill-[#14532D] dark:fill-[#e6e7e0]"
+      xml:space="preserve"> Studio</tspan
+    >
+  </text>
+</svg>

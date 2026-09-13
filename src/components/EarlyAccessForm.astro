@@ -1,0 +1,110 @@
+---
+// Early-access signup. Posts to /api/early-access, the one non-static route.
+//
+// Deliberately not an island: it is one input and one button, so a few lines of
+// vanilla JS cost less than shipping a framework runtime for it. The success
+// copy replaces the row in place inside a live region that is always mounted,
+// so assistive tech announces a change rather than a brand-new node.
+---
+
+<form data-early-access class="w-full">
+  <div data-fields class="flex flex-col gap-3 sm:flex-row">
+    <label for="early-access-email" class="sr-only">Email address</label>
+    <input
+      id="early-access-email"
+      type="email"
+      name="email"
+      inputmode="email"
+      autocomplete="email"
+      required
+      placeholder="you@company.com"
+      class="border-line-strong bg-page text-page placeholder:text-muted focus:border-primary focus:ring-primary/30 flex-1 rounded-lg border px-4 py-3 transition outline-none focus:ring-2 disabled:opacity-60"
+    />
+    {/* Honeypot: hidden from users and assistive tech, catches bots. */}
+    <input type="text" name="company" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+    <button type="submit" class="btn-primary shrink-0 gap-2 whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-70">
+      <span data-label>Join early access</span>
+      <span data-arrow aria-hidden="true">&rarr;</span>
+    </button>
+  </div>
+
+  <div aria-live="polite">
+    <p data-success tabindex="-1" hidden class="text-page text-base font-medium outline-none">
+      🥑 You&rsquo;re on the list. We&rsquo;ll be in touch about onboarding your site.
+    </p>
+    <p data-error id="early-access-error" hidden class="mt-2 text-center text-sm text-red-700 dark:text-red-400"></p>
+  </div>
+</form>
+
+<script>
+  function initEarlyAccessForms() {
+    document.querySelectorAll<HTMLFormElement>('form[data-early-access]').forEach((form) => {
+      if (form.dataset.bound === 'true') return;
+      form.dataset.bound = 'true';
+
+      const fields = form.querySelector<HTMLElement>('[data-fields]')!;
+      const email = form.querySelector<HTMLInputElement>('input[name="email"]')!;
+      const company = form.querySelector<HTMLInputElement>('input[name="company"]')!;
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+      const label = form.querySelector<HTMLElement>('[data-label]')!;
+      const arrow = form.querySelector<HTMLElement>('[data-arrow]')!;
+      const success = form.querySelector<HTMLElement>('[data-success]')!;
+      const error = form.querySelector<HTMLElement>('[data-error]')!;
+
+      let submitting = false;
+
+      const showError = (message: string) => {
+        error.textContent = message;
+        error.hidden = false;
+        email.setAttribute('aria-invalid', 'true');
+        email.setAttribute('aria-describedby', 'early-access-error');
+      };
+
+      const clearError = () => {
+        error.hidden = true;
+        error.textContent = '';
+        email.removeAttribute('aria-invalid');
+        email.removeAttribute('aria-describedby');
+      };
+
+      const setSubmitting = (value: boolean) => {
+        submitting = value;
+        button.disabled = value;
+        email.disabled = value;
+        label.textContent = value ? 'Joining…' : 'Join early access';
+        arrow.hidden = value;
+      };
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (submitting) return;
+        setSubmitting(true);
+        clearError();
+
+        try {
+          const res = await fetch('/api/early-access', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ email: email.value, company: company.value }),
+          });
+          const data = await res.json().catch(() => ({}) as { ok?: boolean; error?: string });
+          if (!res.ok || !data.ok) {
+            throw new Error(data.error || 'Something went wrong. Please try again.');
+          }
+          email.value = '';
+          fields.hidden = true;
+          success.hidden = false;
+          success.focus();
+        } catch (err) {
+          showError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
+        } finally {
+          setSubmitting(false);
+        }
+      });
+    });
+  }
+
+  initEarlyAccessForms();
+  // Re-bind after client-side navigations (<ClientRouter />).
+  document.addEventListener('astro:page-load', initEarlyAccessForms);
+</script>

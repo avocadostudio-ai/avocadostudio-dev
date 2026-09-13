@@ -1,0 +1,20 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import BlockCatalogue from '~/components/BlockCatalogue';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: 'Avocado Studio Components',
+  description:
+    "Browse Avocado Studio's built-in blocks: hero, feature grid, testimonials, FAQ, CTA, and more. Live previews with editable props.",
+  canonical: `${SITE.site}/components`,
+  openGraph: {
+    url: `${SITE.site}/components`,
+    type: 'website',
+  },
+};
+---
+
+<Layout metadata={metadata}>
+  <BlockCatalogue client:only="react" />
+</Layout>

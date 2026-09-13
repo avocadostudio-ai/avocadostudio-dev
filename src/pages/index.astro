@@ -1,0 +1,411 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import Features from '~/components/widgets/Features.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import Content from '~/components/widgets/Content.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import ArchitectureStack from '~/components/ArchitectureStack.astro';
+import EarlyAccessForm from '~/components/EarlyAccessForm.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+import Button from '~/components/ui/Button.astro';
+
+import { SITE } from 'astrowind:config';
+import { AUTHOR, DOCS_URL, GITHUB_URL, MODIFIED_DATE, PUBLISHED_DATE } from '~/site';
+
+const DESCRIPTION =
+  'Open-source AI editing for Next.js sites. Change content in plain language, self-host it, and bring your own LLM keys. No six-figure platform contract.';
+
+const metadata = {
+  title: 'Avocado Studio: open-source AI editing for Next.js',
+  ignoreTitleTemplate: true,
+  description: DESCRIPTION,
+  canonical: SITE.site,
+  openGraph: {
+    url: SITE.site,
+    type: 'website',
+  },
+};
+
+// Kept as one @graph so Organization/WebSite (emitted site-wide by the layout's
+// counterpart in navigation) and the page-scoped nodes cross-reference by @id.
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE.site}/#organization`,
+      name: 'Avocado Studio',
+      url: SITE.site,
+      logo: `${SITE.site}/logo.svg`,
+      sameAs: [GITHUB_URL, AUTHOR.url],
+      founder: { '@type': 'Person', name: AUTHOR.name, url: AUTHOR.url },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE.site}/#website`,
+      url: SITE.site,
+      name: 'Avocado Studio',
+      publisher: { '@id': `${SITE.site}/#organization` },
+    },
+    {
+      '@type': 'SoftwareApplication',
+      '@id': `${SITE.site}/#software`,
+      name: 'Avocado Studio',
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Web',
+      description: DESCRIPTION,
+      url: SITE.site,
+      author: { '@type': 'Person', name: AUTHOR.name, url: AUTHOR.url },
+      publisher: { '@id': `${SITE.site}/#organization` },
+      datePublished: PUBLISHED_DATE,
+      dateModified: MODIFIED_DATE,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${SITE.site}/#webpage`,
+      url: SITE.site,
+      name: 'Avocado Studio: open-source AI editing for Next.js',
+      isPartOf: { '@id': `${SITE.site}/#website` },
+      about: { '@id': `${SITE.site}/#software` },
+      datePublished: PUBLISHED_DATE,
+      dateModified: MODIFIED_DATE,
+      author: { '@type': 'Person', name: AUTHOR.name, url: AUTHOR.url },
+    },
+  ],
+};
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={schema} />
+
+  <!-- Hero ************************ -->
+
+  <Hero
+    badge="Free and open source"
+    actions={[
+      { variant: 'primary', text: 'View on GitHub', href: GITHUB_URL, icon: 'tabler:brand-github', target: '_blank', rel: 'noopener' },
+      { text: 'Read the docs', href: DOCS_URL },
+    ]}
+  >
+    <Fragment slot="title">
+      Edit your Next.js site<br /><span class="text-primary">in plain language.</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      Describe the change you want. AI agents update the content, components, and SEO metadata, and create or modify
+      media assets with GenAI.
+    </Fragment>
+
+    <Fragment slot="content">
+      <div class="mx-auto mt-8 flex max-w-2xl flex-col items-center gap-5">
+        <a
+          href="https://www.producthunt.com/products/avocado-studio?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-avocado-7"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            alt="Avocado Studio, AI-native content operations for any Next.js website. Featured on Product Hunt"
+            width={250}
+            height={54}
+            class="h-9 w-auto"
+            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1172664&theme=light&t=1781621968305"
+          />
+        </a>
+        <p class="text-muted text-sm leading-6">
+          You get a preview before anything ships. Free and open source, self-hostable, bring your own LLM keys. Early
+          adopters and cofounders welcome.{' '}
+          <a
+            class="text-link decoration-line-strong hover:decoration-primary font-medium underline underline-offset-4 transition-colors"
+            href="mailto:hello@avocadostudio.dev?subject=Avocado%20Studio%20early%20access">Get in touch</a
+          >.
+        </p>
+      </div>
+    </Fragment>
+
+    <Fragment slot="image">
+      <figure
+        class="border-line bg-sunk overflow-hidden rounded-xl border shadow-[0_1px_2px_rgba(22,36,26,0.05),0_12px_32px_-12px_rgba(22,36,26,0.18)] dark:shadow-none"
+      >
+        <div class="relative aspect-[1280/702] w-full">
+          <video
+            class="absolute inset-0 h-full w-full object-cover"
+            autoplay
+            muted
+            loop
+            playsinline
+            controls
+            preload="metadata"
+            poster="/demo-poster.jpg"
+          >
+            <source src="/demo.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </figure>
+    </Fragment>
+  </Hero>
+
+  <!-- Capabilities **************** -->
+
+  <Features
+    id="capabilities"
+    tagline="Capabilities"
+    title="Built for the modern web."
+    columns={3}
+    items={[
+      {
+        title: 'AI-assisted editing',
+        description:
+          'Agents update real website content: components, metadata, and publishing steps. Not just generated paragraphs.',
+        icon: 'tabler:wand',
+      },
+      {
+        title: 'Live preview',
+        description:
+          'See changes instantly in your Next.js application while agents modify content and layouts in real time.',
+        icon: 'tabler:eye',
+      },
+      {
+        title: 'Works with your stack',
+        description:
+          'Use your existing CMS, DAM, design system, frontend, and AI providers. No proprietary lock-in.',
+        icon: 'tabler:plug-connected',
+      },
+      {
+        title: 'Multi-model',
+        description:
+          'Bring your own models from Anthropic, OpenAI, or Gemini for text, images, and multimodal work. Route different tasks to different models.',
+        icon: 'tabler:topology-star-3',
+      },
+      {
+        title: 'Self-hostable',
+        description: 'Deploy on your own infrastructure with full control over data, APIs, prompts, and integrations.',
+        icon: 'tabler:server-2',
+      },
+      {
+        title: 'Connected workflows',
+        description: 'Link editing, approvals, publishing, media, and localization into one workflow you control.',
+        icon: 'tabler:route',
+      },
+    ]}
+  />
+
+  <!-- How it works **************** -->
+
+  <Steps
+    id="how-it-works"
+    tagline="How it works"
+    title="Describe it. Review it. Ship it."
+    subtitle="Nothing reaches production because an agent decided it should. Every change passes through a preview you sign off on."
+    items={[
+      {
+        title: 'Describe the change',
+        description: 'Say what you want in plain language — no schema spelunking, no ticket for a one-line copy fix.',
+        icon: 'tabler:message-2',
+      },
+      {
+        title: 'Agents do the work',
+        description:
+          'Content, components, and SEO metadata are updated in place, and media assets are created or edited with GenAI.',
+        icon: 'tabler:wand',
+      },
+      {
+        title: 'Preview before anything ships',
+        description:
+          'See the result in your own Next.js application, with your components, schema, and review rules intact.',
+        icon: 'tabler:eye-check',
+      },
+      {
+        title: 'Publish on your own terms',
+        description:
+          'Approvals and publishing run through the pipeline you already have, on infrastructure you control.',
+        icon: 'tabler:rocket',
+      },
+    ]}
+  />
+
+  <!-- Architecture **************** -->
+
+  <Content
+    id="architecture"
+    tagline="Architecture"
+    title="An open layer between AI and your stack."
+    subtitle="Avocado Studio sits between AI models and your existing content systems. Instead of replacing your stack, it coordinates work across it."
+    columns={2}
+    items={[
+      { title: 'Websites' },
+      { title: 'Headless CMSs' },
+      { title: 'DAMs' },
+      { title: 'Design systems' },
+      { title: 'Localization tools' },
+      { title: 'Publishing pipelines' },
+    ]}
+  >
+    <Fragment slot="image">
+      <ArchitectureStack />
+    </Fragment>
+
+    <Fragment slot="content">
+      <p>Start with Next.js sites today. Extend to the rest of your stack tomorrow.</p>
+    </Fragment>
+  </Content>
+
+  <!-- Use cases ******************* -->
+
+  <Features3
+    id="use-cases"
+    tagline="Use cases"
+    title="What Avocado is built for."
+    columns={2}
+    items={[
+      {
+        title: 'Edit your website with AI',
+        description:
+          'Change website content in plain language while keeping your components, schema, and review rules intact.',
+        icon: 'tabler:pencil',
+      },
+      {
+        title: 'Marketing operations',
+        description: 'Coordinate publishing workflows across CMS, DAM, localization, and approval systems.',
+        icon: 'tabler:calendar-stats',
+      },
+      {
+        title: 'Images and copy together',
+        description: 'Generate and edit images with Claude, OpenAI, or Gemini alongside your structured content.',
+        icon: 'tabler:photo-edit',
+      },
+      {
+        title: 'Your own editorial stack',
+        description:
+          'Build AI editing into your own workflows instead of buying a heavyweight enterprise platform.',
+        icon: 'tabler:tools',
+      },
+    ]}
+  />
+
+  <!-- Developer experience ******** -->
+
+  <WidgetWrapper id="developers">
+    <Headline
+      tagline="Developer experience"
+      title="Built for developers and platform teams."
+      classes={{ container: 'max-w-3xl', title: 'text-3xl md:text-4xl' }}
+    />
+    <ul class="mx-auto grid max-w-5xl gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        [
+          'API-first architecture',
+          'Git-friendly workflows',
+          'Self-hostable deployment',
+          'Extensible adapters',
+          'Streaming workflows',
+          'Bring your own AI providers',
+          'Works alongside existing CMS platforms',
+          'Open source core',
+        ].map((item, index) => (
+          <li class="border-line text-page flex items-baseline gap-3 border-b py-3 text-sm">
+            <span aria-hidden="true" class="label tabular-nums">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            {item}
+          </li>
+        ))
+      }
+    </ul>
+  </WidgetWrapper>
+
+  <!-- Positioning ***************** -->
+
+  {/* WidgetWrapper's isDark paints bg-dark but turns it transparent in dark mode,
+      on the assumption the whole page is already dark. Here the band is a
+      deliberate change of ground either way, so give it its own surface: the
+      deep brand green on paper, one step lighter than the page in dark. */}
+  <WidgetWrapper isDark containerClass="max-w-4xl text-center py-16 md:py-24 lg:py-28">
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-[#16241a] dark:bg-[#1e2519]"></div>
+    </Fragment>
+    <h2 class="display font-heading text-3xl leading-tight font-bold tracking-tighter text-balance text-white md:text-5xl">
+      Not another CMS.<br />Not another AI writing tool.
+    </h2>
+    <p class="mx-auto mt-6 max-w-xl text-lg leading-7 text-white/75">
+      Avocado Studio is an open AI layer for editing and publishing across the tools you already use.
+    </p>
+    <p class="mx-auto mt-4 max-w-xl leading-7 text-white/60">
+      It helps teams edit websites and publish content with AI agents while keeping their existing stack,
+      infrastructure, and controls intact.
+    </p>
+  </WidgetWrapper>
+
+  <!-- FAQs ************************ -->
+
+  <FAQs
+    id="faqs"
+    tagline="FAQs"
+    title="Questions worth answering up front."
+    schema
+    items={[
+      {
+        title: 'Is it really open source?',
+        description:
+          'Yes. The core is free and open source, and the source lives on GitHub. There is no seat count and no six-figure platform contract.',
+      },
+      {
+        title: "Do I have to send my content to someone else’s cloud?",
+        description:
+          'No. Avocado Studio is self-hostable: deploy it on your own infrastructure with full control over data, APIs, prompts, and integrations.',
+      },
+      {
+        title: 'Which AI models does it use?',
+        description:
+          'Whichever you bring. Use your own keys for Anthropic, OpenAI, or Gemini across text, images, and multimodal work, and route different tasks to different models.',
+      },
+      {
+        title: 'Will it replace my CMS?',
+        description:
+          'No — it coordinates work across the stack you already have. Your CMS, DAM, design system, frontend, and AI providers stay where they are.',
+      },
+      {
+        title: 'Can an agent publish something without me seeing it?',
+        description:
+          'No. You get a preview before anything ships, and publishing runs through your own approval and release pipeline.',
+      },
+      {
+        title: 'Does it only work with Next.js?',
+        description:
+          'Next.js sites are where it starts today. The architecture is an open layer between AI and your stack, so the rest of that stack follows.',
+      },
+    ]}
+  />
+
+  <!-- Early access **************** -->
+
+  <WidgetWrapper id="early-access" containerClass="max-w-4xl">
+    <Headline
+      title="AI editing you actually own."
+      subtitle="Not rented from a platform, not locked behind a seat count. Run it on your own infrastructure with your own model keys. Start with Next.js sites today, extend across the rest of your stack tomorrow."
+      classes={{ container: 'max-w-2xl', title: 'text-3xl md:text-4xl' }}
+    />
+
+    <div class="border-line bg-page mx-auto max-w-xl rounded-xl border p-6 sm:p-8">
+      <EarlyAccessForm />
+    </div>
+
+    <div class="mx-auto mt-8 flex max-w-xl items-center gap-4">
+      <span aria-hidden="true" class="bg-line h-px flex-1"></span>
+      <span class="label">or</span>
+      <span aria-hidden="true" class="bg-line h-px flex-1"></span>
+    </div>
+
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+      <Button variant="secondary" href={GITHUB_URL} target="_blank" rel="noopener" icon="tabler:brand-github">
+        View on GitHub
+      </Button>
+      <Button variant="secondary" href={DOCS_URL}>Read the docs</Button>
+    </div>
+  </WidgetWrapper>
+</Layout>

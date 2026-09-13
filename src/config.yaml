@@ -1,0 +1,75 @@
+site:
+  name: Avocado Studio
+  # Must match the host the site actually serves on: the apex 307s to www, so
+  # an apex canonical would point every page at a URL that redirects away.
+  site: 'https://www.avocadostudio.dev'
+  base: '/'
+  trailingSlash: false
+
+  googleSiteVerificationId: false
+
+# Default SEO metadata
+metadata:
+  title:
+    default: 'Avocado Studio: open-source AI editing for Next.js'
+    template: '%s | Avocado Studio'
+  description: 'Open-source AI editing for Next.js sites. Change content in plain language, self-host it, and bring your own LLM keys. No six-figure platform contract.'
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    site_name: Avocado Studio
+    images:
+      - url: '~/assets/images/default.png'
+        width: 1200
+        height: 626
+    type: website
+  twitter:
+    cardType: summary_large_image
+
+i18n:
+  language: en
+  textDirection: ltr
+
+apps:
+  blog:
+    # No blog on this site — writing lives at yurybuilds.com. The widgets and
+    # routes are still in the tree, so flipping this back on plus restoring
+    # src/pages/[...blog]/ is all it takes.
+    isEnabled: false
+    postsPerPage: 8
+
+    post:
+      isEnabled: false
+      permalink: '/%slug%'
+      robots:
+        index: true
+
+    list:
+      isEnabled: false
+      pathname: 'blog'
+      robots:
+        index: true
+
+    category:
+      isEnabled: false
+      pathname: 'category'
+      robots:
+        index: true
+
+    tag:
+      isEnabled: false
+      pathname: 'tag'
+      robots:
+        index: false
+
+    isRelatedPostsEnabled: false
+    relatedPostsCount: 4
+
+analytics:
+  vendors:
+    googleAnalytics:
+      id: null
+
+ui:
+  theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
