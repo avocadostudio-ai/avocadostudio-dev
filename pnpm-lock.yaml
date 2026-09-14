@@ -28,11 +28,11 @@ importers:
         specifier: ^11.0.10
         version: 11.0.10(astro@7.3.2(@astrojs/markdown-remark@7.3.1)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@26.1.2)(@vercel/functions@3.9.7)(jiti@2.7.0)(terser@5.49.2)(yaml@2.9.1))(next@16.3.5(@babel/core@7.29.7)(@types/node@26.1.2)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)
       '@avocadostudio-ai/blocks':
-        specifier: ^0.1.0
-        version: 0.1.0(next@16.3.5(@babel/core@7.29.7)(@types/node@26.1.2)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: ^0.7.0
+        version: 0.7.0(next@16.3.5(@babel/core@7.29.7)(@types/node@26.1.2)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@avocadostudio-ai/shared':
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^0.7.0
+        version: 0.7.0
       '@neondatabase/serverless':
         specifier: ^1.1.0
         version: 1.1.0
@@ -284,15 +284,18 @@ packages:
   '@astrojs/yaml2ts@0.2.4':
     resolution: {integrity: sha512-8oddpOae35pJsXPQXhTkM0ypfKPskVsh2bCxRtbf7e+/Epw2nReakFYpLKjZMEr75CsoF203PMnCocpfz0s69A==}
 
-  '@avocadostudio-ai/blocks@0.1.0':
-    resolution: {integrity: sha512-Te2wEuq8HiHIyQgHXuMrbTdJRRwelC2UDpj0tMzkNpf4SDsolN0D+VAsyrE49FlJeDQCWFbkN/ZHQTwZcHA6wA==}
+  '@avocadostudio-ai/blocks@0.7.0':
+    resolution: {integrity: sha512-mXvEocqPfNnqxjURp+w+k8ZSKWQU/sIqfhk09TFvlVcMAqxkFAOAASCoM8GYSDhXzWnBxkZAbqRApoKNxnsGvw==}
     peerDependencies:
-      next: '>=14.0.0'
+      next: '>=15.0.0'
       react: '>=19.0.0'
       react-dom: '>=19.0.0'
 
-  '@avocadostudio-ai/shared@0.1.0':
-    resolution: {integrity: sha512-YPlQFHwRsBkyN2LI/i0bOusvrVbWsiBPMx4wPDaffGibT+7SU6pswn8WkOjtrT2FCnVw+Z83XPjnR7bbee940A==}
+  '@avocadostudio-ai/richtext@0.7.0':
+    resolution: {integrity: sha512-8/YJBTQyOft0nstCZ91OjIRKtKQNA7M3EMFMYaq52qs1E74KSFBG/RMHVjLIUYWybTRf8HnjYikuMBNkb2IwLQ==}
+
+  '@avocadostudio-ai/shared@0.7.0':
+    resolution: {integrity: sha512-Gsi5mQtptTtYbCF3Hb+zJtsl/uSQ4RqlWtCdbD4X9ItCcPNJt+Ha/PwvrKtzOQpZ8TW7yNFsTPpxA1Cw6sDpnw==}
 
   '@babel/code-frame@7.29.7':
     resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
@@ -3863,15 +3866,19 @@ snapshots:
     dependencies:
       yaml: 2.9.1
 
-  '@avocadostudio-ai/blocks@0.1.0(next@16.3.5(@babel/core@7.29.7)(@types/node@26.1.2)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@avocadostudio-ai/blocks@0.7.0(next@16.3.5(@babel/core@7.29.7)(@types/node@26.1.2)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
-      '@avocadostudio-ai/shared': 0.1.0
+      '@avocadostudio-ai/richtext': 0.7.0
+      '@avocadostudio-ai/shared': 0.7.0
       next: 16.3.5(@babel/core@7.29.7)(@types/node@26.1.2)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
 
-  '@avocadostudio-ai/shared@0.1.0':
+  '@avocadostudio-ai/richtext@0.7.0': {}
+
+  '@avocadostudio-ai/shared@0.7.0':
     dependencies:
+      '@avocadostudio-ai/richtext': 0.7.0
       zod: 4.6.4
 
   '@babel/code-frame@7.29.7':
