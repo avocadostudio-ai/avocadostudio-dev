@@ -85,18 +85,18 @@ const card = h(
         marginTop: '56px',
         fontFamily: 'Schibsted Grotesk',
         fontWeight: 600,
-        fontSize: '76px',
+        fontSize: '68px',
         lineHeight: 1.08,
         letterSpacing: '-1px',
         maxWidth: '940px',
       },
     },
-    'Edit your Next.js site in plain language.'
+    'Edit your Next.js site with AI in plain language.'
   ),
   h(
     'div',
     { style: { marginTop: '32px', fontSize: '28px', lineHeight: 1.4, color: '#D2DACB', maxWidth: '880px' } },
-    'Open source AI editing. Self-host it. Bring your own LLM keys.'
+    'Describe the change. Agents ship it. Self-host it, bring your own LLM keys.'
   )
 );
 

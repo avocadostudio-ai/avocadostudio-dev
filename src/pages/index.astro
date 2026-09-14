@@ -1,7 +1,6 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 
-import Hero from '~/components/widgets/Hero.astro';
 import Features from '~/components/widgets/Features.astro';
 import Features3 from '~/components/widgets/Features3.astro';
 import Steps from '~/components/widgets/Steps.astro';
@@ -86,25 +85,68 @@ const schema = {
 
   <!-- Hero ************************ -->
 
-  <Hero
-    badge="Free and open source"
-    actions={[
-      { variant: 'primary', text: 'View on GitHub', href: GITHUB_URL, icon: 'tabler:brand-github', target: '_blank', rel: 'noopener' },
-      { text: 'Read the docs', href: DOCS_URL },
-    ]}
-  >
-    <Fragment slot="title">
-      Edit your Next.js site<br /><span class="text-primary">in plain language.</span>
-    </Fragment>
+  {/* Hand-built rather than a stock Hero widget so the demo sits beside the
+      copy above the fold on desktop, and so the mobile order can be chosen
+      deliberately: headline, the one-line promise, the video, and only then
+      the actions and small print. A stacked hero pushes the demo a full
+      screen down on a phone, which is the one thing it must not do. */}
+  <section class="px-4 pt-8 pb-12 sm:px-6 sm:pt-12 lg:pt-16 lg:pb-20">
+    <div
+      class="mx-auto flex max-w-7xl flex-col gap-y-6 sm:gap-y-8 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 lg:gap-y-8"
+    >
+      <div class="lg:col-span-6 lg:col-start-1 lg:row-start-1 lg:self-start">
+        <h1
+          class="display font-heading text-heading text-[2.25rem] leading-[1.08] font-bold tracking-tighter text-balance sm:text-5xl lg:text-[2.875rem] lg:leading-[1.07] xl:text-[3.125rem]"
+        >
+          Edit your Next.js site<br /><span class="text-primary">with AI, in plain language.</span>
+        </h1>
 
-    <Fragment slot="subtitle">
-      Describe the change you want. AI agents update the content, components, and SEO metadata, and create or modify
-      media assets with GenAI.
-    </Fragment>
+        <p class="text-muted mt-4 max-w-lg text-lg leading-8 sm:mt-6">
+          Describe the change you want. AI agents update the content, components, and SEO metadata, and create or
+          modify media assets with GenAI.
+        </p>
+      </div>
 
-    <Fragment slot="content">
-      <div class="mx-auto mt-8 flex max-w-2xl flex-col items-center gap-5">
+      <div id="demo" class="lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:row-start-1 lg:self-start">
+        <figure
+          class="border-line bg-sunk overflow-hidden rounded-xl border shadow-[0_1px_2px_rgba(22,36,26,0.05),0_12px_32px_-12px_rgba(22,36,26,0.18)] dark:shadow-none"
+        >
+          <div class="relative aspect-[1280/702] w-full">
+            <video
+              class="absolute inset-0 h-full w-full object-cover"
+              autoplay
+              muted
+              loop
+              playsinline
+              controls
+              preload="metadata"
+              poster="/demo-poster.jpg"
+            >
+              <source src="/demo.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </figure>
+      </div>
+
+      <div class="lg:col-span-6 lg:col-start-1 lg:row-start-2 lg:self-start">
+        <div class="flex flex-wrap items-center gap-3">
+          <Button
+            variant="primary"
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener"
+            icon="tabler:brand-github"
+            class="py-2.5 text-[0.9375rem] sm:py-3 sm:text-base"
+          >
+            View on GitHub
+          </Button>
+          <Button variant="secondary" href={DOCS_URL} class="py-2.5 text-[0.9375rem] sm:py-3 sm:text-base">
+            Read the docs
+          </Button>
+        </div>
+
         <a
+          class="mt-5 inline-block"
           href="https://www.producthunt.com/products/avocado-studio?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-avocado-7"
           target="_blank"
           rel="noopener noreferrer"
@@ -117,38 +159,18 @@ const schema = {
             src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1172664&theme=light&t=1781621968305"
           />
         </a>
-        <p class="text-muted text-sm leading-6">
-          You get a preview before anything ships. Free and open source, self-hostable, bring your own LLM keys. Early
-          adopters and cofounders welcome.{' '}
+
+        <p class="text-muted mt-6 max-w-md text-sm leading-6">
+          You get a preview before anything ships. Self-hostable, bring your own LLM keys. Early adopters and
+          cofounders welcome.{' '}
           <a
             class="text-link decoration-line-strong hover:decoration-primary font-medium underline underline-offset-4 transition-colors"
             href="mailto:hello@avocadostudio.dev?subject=Avocado%20Studio%20early%20access">Get in touch</a
           >.
         </p>
       </div>
-    </Fragment>
-
-    <Fragment slot="image">
-      <figure
-        class="border-line bg-sunk overflow-hidden rounded-xl border shadow-[0_1px_2px_rgba(22,36,26,0.05),0_12px_32px_-12px_rgba(22,36,26,0.18)] dark:shadow-none"
-      >
-        <div class="relative aspect-[1280/702] w-full">
-          <video
-            class="absolute inset-0 h-full w-full object-cover"
-            autoplay
-            muted
-            loop
-            playsinline
-            controls
-            preload="metadata"
-            poster="/demo-poster.jpg"
-          >
-            <source src="/demo.mp4" type="video/mp4" />
-          </video>
-        </div>
-      </figure>
-    </Fragment>
-  </Hero>
+    </div>
+  </section>
 
   <!-- Capabilities **************** -->
 
