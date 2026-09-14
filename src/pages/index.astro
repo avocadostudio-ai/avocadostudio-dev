@@ -17,10 +17,10 @@ import { SITE } from 'astrowind:config';
 import { AUTHOR, DOCS_URL, GITHUB_URL, MODIFIED_DATE, PUBLISHED_DATE } from '~/site';
 
 const DESCRIPTION =
-  'Open-source AI editing for Next.js sites. Change content in plain language, self-host it, and bring your own LLM keys. No six-figure platform contract.';
+  'Edit, maintain, and optimize your website with AI. Describe changes in plain language and agents update content, components, and SEO metadata. Next.js today, Astro next. Self-hostable, bring your own LLM keys.';
 
 const metadata = {
-  title: 'Avocado Studio: open-source AI editing for Next.js',
+  title: 'Avocado Studio: edit, maintain, and optimize your site with AI',
   ignoreTitleTemplate: true,
   description: DESCRIPTION,
   canonical: SITE.site,
@@ -69,7 +69,7 @@ const schema = {
       '@type': 'WebPage',
       '@id': `${SITE.site}/#webpage`,
       url: SITE.site,
-      name: 'Avocado Studio: open-source AI editing for Next.js',
+      name: 'Avocado Studio: edit, maintain, and optimize your site with AI',
       isPartOf: { '@id': `${SITE.site}/#website` },
       about: { '@id': `${SITE.site}/#software` },
       datePublished: PUBLISHED_DATE,
@@ -98,12 +98,12 @@ const schema = {
         <h1
           class="display font-heading text-heading text-[2.25rem] leading-[1.08] font-bold tracking-tighter text-balance sm:text-5xl lg:text-[2.875rem] lg:leading-[1.07] xl:text-[3.125rem]"
         >
-          Edit your Next.js site<br /><span class="text-primary">with AI, in plain language.</span>
+          Edit, maintain, optimize<br /><span class="text-primary">your website with AI.</span>
         </h1>
 
-        <p class="text-muted mt-4 max-w-lg text-lg leading-8 sm:mt-6">
-          Describe the change you want. AI agents update the content, components, and SEO metadata, and create or
-          modify media assets with GenAI.
+        <p class="text-muted mt-4 max-w-xl text-lg leading-8 sm:mt-6">
+          Describe what you want in plain language. AI agents update content, components, and SEO metadata, and create
+          or modify media assets with GenAI. Next.js today, Astro next.
         </p>
       </div>
 
@@ -189,7 +189,7 @@ const schema = {
       {
         title: 'Live preview',
         description:
-          'See changes instantly in your Next.js application while agents modify content and layouts in real time.',
+          'See changes instantly in your own application while agents modify content and layouts in real time.',
         icon: 'tabler:eye',
       },
       {
@@ -239,7 +239,7 @@ const schema = {
       {
         title: 'Preview before anything ships',
         description:
-          'See the result in your own Next.js application, with your components, schema, and review rules intact.',
+          'See the result in your own application, with your components, schema, and review rules intact.',
         icon: 'tabler:eye-check',
       },
       {
@@ -273,7 +273,7 @@ const schema = {
     </Fragment>
 
     <Fragment slot="content">
-      <p>Start with Next.js sites today. Extend to the rest of your stack tomorrow.</p>
+      <p>Start with Next.js today, Astro next. Extend to the rest of your stack from there.</p>
     </Fragment>
   </Content>
 
@@ -397,9 +397,9 @@ const schema = {
           'No. You get a preview before anything ships, and publishing runs through your own approval and release pipeline.',
       },
       {
-        title: 'Does it only work with Next.js?',
+        title: 'Which frameworks does it support?',
         description:
-          'Next.js sites are where it starts today. The architecture is an open layer between AI and your stack, so the rest of that stack follows.',
+          'Next.js today, with Astro support being added and more to follow. The architecture is an open layer between AI and your stack, so it is not tied to one framework.',
       },
     ]}
   />
@@ -409,7 +409,7 @@ const schema = {
   <WidgetWrapper id="early-access" containerClass="max-w-4xl">
     <Headline
       title="AI editing you actually own."
-      subtitle="Not rented from a platform, not locked behind a seat count. Run it on your own infrastructure with your own model keys. Start with Next.js sites today, extend across the rest of your stack tomorrow."
+      subtitle="Not rented from a platform, not locked behind a seat count. Run it on your own infrastructure with your own model keys. Start with Next.js today, Astro next, and extend across the rest of your stack from there."
       classes={{ container: 'max-w-2xl', title: 'text-3xl md:text-4xl' }}
     />
 

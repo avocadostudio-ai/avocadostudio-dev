@@ -91,12 +91,12 @@ const card = h(
         maxWidth: '940px',
       },
     },
-    'Edit your Next.js site with AI in plain language.'
+    'Edit, maintain, optimize your website with AI.'
   ),
   h(
     'div',
     { style: { marginTop: '32px', fontSize: '28px', lineHeight: 1.4, color: '#D2DACB', maxWidth: '880px' } },
-    'Describe the change. Agents ship it. Self-host it, bring your own LLM keys.'
+    'Describe it in plain language. Next.js today, Astro next.'
   )
 );
 
