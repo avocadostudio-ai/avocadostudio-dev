@@ -14,7 +14,7 @@ import Headline from '~/components/ui/Headline.astro';
 import Button from '~/components/ui/Button.astro';
 
 import { SITE } from 'astrowind:config';
-import { AUTHOR, DOCS_URL, GITHUB_URL, MODIFIED_DATE, PUBLISHED_DATE } from '~/site';
+import { AUTHOR, DOCS_URL, GITHUB_URL, MODIFIED_DATE, PUBLISHED_DATE, SHOW_GITHUB_LINKS } from '~/site';
 
 const DESCRIPTION =
   'Edit, maintain, and optimize your website with AI. Describe changes in plain language and agents update content, components, and SEO metadata. Next.js today, Astro next. Self-hostable, bring your own LLM keys.';
@@ -111,54 +111,102 @@ const schema = {
         <figure
           class="border-line bg-sunk overflow-hidden rounded-xl border shadow-[0_1px_2px_rgba(22,36,26,0.05),0_12px_32px_-12px_rgba(22,36,26,0.18)] dark:shadow-none"
         >
-          <div class="relative aspect-[1280/702] w-full">
+          {/* 16/9, matching the recording — the old box was 1280/702 and would
+              crop the top and bottom off this one. The ratio is on the wrapper
+              so the space is reserved before a single byte of video arrives. */}
+          <div class="relative aspect-video w-full">
+            {/*
+              Above the fold and autoplaying, so it has to be cheap: 1.2MB of
+              VP9 (1.6MB of H.264 for Safari), `preload="none"` so the poster is
+              all that loads until playback actually starts, and `width`/`height`
+              to keep the intrinsic size known. Sources are cheapest-first; a
+              browser takes the first type it can decode and never requests the
+              other. Muted + playsinline are what make autoplay legal on iOS.
+            */}
             <video
+              id="hero-demo"
               class="absolute inset-0 h-full w-full object-cover"
+              width="1280"
+              height="720"
               autoplay
               muted
               loop
               playsinline
               controls
-              preload="metadata"
-              poster="/demo-poster.jpg"
+              preload="none"
+              poster="/quick-demo-poster.jpg"
+              disablepictureinpicture
+              aria-label="Avocado Studio demo: editing a page by describing the change"
             >
-              <source src="/demo.mp4" type="video/mp4" />
+              <source src="/quick-demo.webm" type="video/webm" />
+              <source src="/quick-demo.mp4" type="video/mp4" />
             </video>
           </div>
         </figure>
+
+        {/* A looping hero is decoration, and the one thing `autoplay` cannot
+            express in markup is "unless the visitor asked for less motion".
+            Inline and immediately after the element so it runs during parse,
+            before playback starts: they get the poster and the controls, and
+            the video bytes are never fetched at all. */}
+        <script is:inline>
+          (function () {
+            var v = document.getElementById('hero-demo');
+            if (v && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+              v.removeAttribute('autoplay');
+              v.removeAttribute('loop');
+              v.pause();
+            }
+          })();
+        </script>
       </div>
 
       <div class="lg:col-span-6 lg:col-start-1 lg:row-start-2 lg:self-start">
+        {/* The Product Hunt badge sits *in* the action row rather than adrift
+            below it: it is social proof for the CTA it stands next to, and on
+            its own line it read as a stray image in the whitespace the hidden
+            GitHub button left behind. `items-center` aligns it to the buttons;
+            it wraps under them on narrow screens like any other item. */}
         <div class="flex flex-wrap items-center gap-3">
+          {
+            SHOW_GITHUB_LINKS && (
+              <Button
+                variant="primary"
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noopener"
+                icon="tabler:brand-github"
+                class="py-2.5 text-[0.9375rem] sm:py-3 sm:text-base"
+              >
+                View on GitHub
+              </Button>
+            )
+          }
           <Button
-            variant="primary"
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noopener"
-            icon="tabler:brand-github"
+            variant={SHOW_GITHUB_LINKS ? 'secondary' : 'primary'}
+            href={DOCS_URL}
             class="py-2.5 text-[0.9375rem] sm:py-3 sm:text-base"
           >
-            View on GitHub
-          </Button>
-          <Button variant="secondary" href={DOCS_URL} class="py-2.5 text-[0.9375rem] sm:py-3 sm:text-base">
             Read the docs
           </Button>
-        </div>
 
-        <a
-          class="mt-5 inline-block"
-          href="https://www.producthunt.com/products/avocado-studio?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-avocado-7"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            alt="Avocado Studio, AI-native content operations for any Next.js website. Featured on Product Hunt"
-            width={250}
-            height={54}
-            class="h-9 w-auto"
-            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1172664&theme=light&t=1781621968305"
-          />
-        </a>
+          <a
+            class="inline-flex shrink-0 items-center"
+            href="https://www.producthunt.com/products/avocado-studio?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-avocado-7"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              alt="Avocado Studio, AI-native content operations for any Next.js website. Featured on Product Hunt"
+              width={250}
+              height={54}
+              class="h-11 w-auto"
+              loading="lazy"
+              decoding="async"
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1172664&theme=light&t=1781621968305"
+            />
+          </a>
+        </div>
 
         <p class="text-muted mt-6 max-w-md text-sm leading-6">
           You get a preview before anything ships. Self-hostable, bring your own LLM keys. Early adopters and
@@ -424,9 +472,13 @@ const schema = {
     </div>
 
     <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-      <Button variant="secondary" href={GITHUB_URL} target="_blank" rel="noopener" icon="tabler:brand-github">
-        View on GitHub
-      </Button>
+      {
+        SHOW_GITHUB_LINKS && (
+          <Button variant="secondary" href={GITHUB_URL} target="_blank" rel="noopener" icon="tabler:brand-github">
+            View on GitHub
+          </Button>
+        )
+      }
       <Button variant="secondary" href={DOCS_URL}>Read the docs</Button>
     </div>
   </WidgetWrapper>

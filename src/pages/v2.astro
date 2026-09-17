@@ -1,7 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import Button from '~/components/ui/Button.astro';
-import { DOCS_URL, GITHUB_URL } from '~/site';
+import { DOCS_URL, GITHUB_URL, SHOW_GITHUB_LINKS } from '~/site';
 
 // Internal layout variant, not a page we want competing with / in search.
 const metadata = {
@@ -30,10 +30,14 @@ const metadata = {
       </p>
 
       <div class="flex flex-wrap items-center justify-center gap-3">
-        <Button variant="primary" href={GITHUB_URL} target="_blank" rel="noopener" icon="tabler:brand-github">
-          View on GitHub
-        </Button>
-        <Button variant="secondary" href={DOCS_URL}>Read the docs</Button>
+        {
+          SHOW_GITHUB_LINKS && (
+            <Button variant="primary" href={GITHUB_URL} target="_blank" rel="noopener" icon="tabler:brand-github">
+              View on GitHub
+            </Button>
+          )
+        }
+        <Button variant={SHOW_GITHUB_LINKS ? 'secondary' : 'primary'} href={DOCS_URL}>Read the docs</Button>
       </div>
     </div>
   </section>

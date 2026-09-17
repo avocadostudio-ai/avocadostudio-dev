@@ -1,4 +1,5 @@
 import { getPermalink } from './utils/permalinks';
+import { SHOW_GITHUB_LINKS } from './site';
 
 const GITHUB_URL = 'https://github.com/avocadostudio-ai/avocado';
 const DOCS_URL = 'https://docs.avocadostudio.dev';
@@ -13,16 +14,29 @@ export const headerData = {
     { text: 'Docs', href: DOCS_URL },
     { text: 'Blog', href: BLOG_URL },
   ],
-  actions: [
-    {
-      text: 'View on GitHub',
-      href: GITHUB_URL,
-      icon: 'tabler:brand-github',
-      variant: 'primary' as const,
-      target: '_blank',
-      rel: 'noopener',
-    },
-  ],
+  /*
+   * One primary action. It was "View on GitHub"; with SHOW_GITHUB_LINKS off the
+   * header would otherwise be left with no call to action at all, so the docs
+   * take the slot — the next thing we actually want a visitor to open.
+   */
+  actions: SHOW_GITHUB_LINKS
+    ? [
+        {
+          text: 'View on GitHub',
+          href: GITHUB_URL,
+          icon: 'tabler:brand-github',
+          variant: 'primary' as const,
+          target: '_blank',
+          rel: 'noopener',
+        },
+      ]
+    : [
+        {
+          text: 'Read the docs',
+          href: DOCS_URL,
+          variant: 'primary' as const,
+        },
+      ],
 };
 
 export const footerData = {
@@ -40,9 +54,14 @@ export const footerData = {
       title: 'Developers',
       links: [
         { text: 'Documentation', href: DOCS_URL },
-        { text: 'Source on GitHub', href: GITHUB_URL },
-        { text: 'Report an issue', href: `${GITHUB_URL}/issues` },
-        { text: 'Releases', href: `${GITHUB_URL}/releases` },
+        // Same flag as the header: these three all land on the repository.
+        ...(SHOW_GITHUB_LINKS
+          ? [
+              { text: 'Source on GitHub', href: GITHUB_URL },
+              { text: 'Report an issue', href: `${GITHUB_URL}/issues` },
+              { text: 'Releases', href: `${GITHUB_URL}/releases` },
+            ]
+          : []),
       ],
     },
     {
@@ -57,7 +76,7 @@ export const footerData = {
   ],
   secondaryLinks: [],
   socialLinks: [
-    { ariaLabel: 'GitHub', icon: 'tabler:brand-github', href: GITHUB_URL },
+    ...(SHOW_GITHUB_LINKS ? [{ ariaLabel: 'GitHub', icon: 'tabler:brand-github', href: GITHUB_URL }] : []),
     { ariaLabel: 'Contact', icon: 'tabler:mail', href: CONTACT_MAILTO },
   ],
   footNote: `
