@@ -7,17 +7,24 @@ const BLOG_URL = 'https://yurybuilds.com';
 const CONTACT_MAILTO = 'mailto:hello@avocadostudio.dev?subject=Avocado%20Studio%20inquiry';
 
 export const headerData = {
+  /*
+   * No "Components" here. The page behind it lists the generic blocks that
+   * ship in the box, and a top-level nav item called Components states that
+   * those are the product's parts — the opposite of the pitch, which is that
+   * your own components become the blocks. It stays one click away in the
+   * footer, named for what it actually is.
+   */
   links: [
     { text: 'Capabilities', href: getPermalink('/#capabilities') },
     { text: 'How it works', href: getPermalink('/#how-it-works') },
-    { text: 'Components', href: getPermalink('/components') },
     { text: 'Docs', href: DOCS_URL },
     { text: 'Blog', href: BLOG_URL },
   ],
   /*
-   * One primary action. It was "View on GitHub"; with SHOW_GITHUB_LINKS off the
-   * header would otherwise be left with no call to action at all, so the docs
-   * take the slot — the next thing we actually want a visitor to open.
+   * One primary action, and not a second way to say "Docs" — that link is two
+   * items to its left, and the button repeating it spent the only prominent
+   * slot in the header on a destination already offered. With
+   * SHOW_GITHUB_LINKS off it goes to the thing the page is actually for.
    */
   actions: SHOW_GITHUB_LINKS
     ? [
@@ -32,8 +39,8 @@ export const headerData = {
       ]
     : [
         {
-          text: 'Read the docs',
-          href: DOCS_URL,
+          text: 'Early access',
+          href: getPermalink('/#early-access'),
           variant: 'primary' as const,
         },
       ],
@@ -47,7 +54,7 @@ export const footerData = {
         { text: 'Capabilities', href: getPermalink('/#capabilities') },
         { text: 'How it works', href: getPermalink('/#how-it-works') },
         { text: 'Use cases', href: getPermalink('/#use-cases') },
-        { text: 'Components', href: getPermalink('/components') },
+        { text: 'Built-in blocks', href: getPermalink('/components') },
       ],
     },
     {

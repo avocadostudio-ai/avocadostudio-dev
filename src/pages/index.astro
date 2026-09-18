@@ -159,6 +159,30 @@ const schema = {
             }
           })();
         </script>
+
+        {/* Under the demo, on its right edge — deliberately out of the left
+            column's vertical run. Stacked beneath the headline, the copy, the
+            CTA and the fine print it was one more thing in a queue of things
+            to read; here it is a mark in the corner of the artwork, diagonally
+            opposite the button, in space that was empty anyway. */}
+        <div class="mt-4 flex justify-end">
+          <a
+            class="inline-block opacity-60 transition-opacity duration-200 hover:opacity-100"
+            href="https://www.producthunt.com/products/avocado-studio?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-avocado-7"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              alt="Avocado Studio, AI-native content operations for any Next.js website. Featured on Product Hunt"
+              width={250}
+              height={54}
+              class="h-8 w-auto"
+              loading="lazy"
+              decoding="async"
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1172664&theme=light&t=1781621968305"
+            />
+          </a>
+        </div>
       </div>
 
       <div class="lg:col-span-6 lg:col-start-1 lg:row-start-2 lg:self-start">
@@ -195,31 +219,6 @@ const schema = {
           >.
         </p>
 
-        {/* A credential, not a call to action.
-            The badge was floating: nothing above it, nothing beside it, and no
-            edge shared with anything else on the page, which is what made a
-            32px image read as debris. The rule gives it the fine print's own
-            measure, so the two read as one closing block with a left and a
-            right edge in common. Muted until hover, and last in the column so
-            the eye reaches the headline, the demo and the CTA before it. */}
-        <div class="border-line/70 mt-5 max-w-md border-t pt-4">
-          <a
-            class="inline-block opacity-60 transition-opacity duration-200 hover:opacity-100"
-            href="https://www.producthunt.com/products/avocado-studio?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-avocado-7"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              alt="Avocado Studio, AI-native content operations for any Next.js website. Featured on Product Hunt"
-              width={250}
-              height={54}
-              class="h-8 w-auto"
-              loading="lazy"
-              decoding="async"
-              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1172664&theme=light&t=1781621968305"
-            />
-          </a>
-        </div>
       </div>
     </div>
   </section>
