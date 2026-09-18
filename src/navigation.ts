@@ -79,7 +79,6 @@ export const footerData = {
       links: [
         { text: 'Contact', href: getPermalink('/#contact') },
         { text: 'Blog', href: BLOG_URL },
-        { text: 'Product Hunt', href: 'https://www.producthunt.com/products/avocado-studio' },
       ],
     },
   ],

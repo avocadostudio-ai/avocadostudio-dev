@@ -17,7 +17,7 @@ import { SITE } from 'astrowind:config';
 import { AUTHOR, DOCS_URL, GITHUB_URL, MODIFIED_DATE, PUBLISHED_DATE, SHOW_GITHUB_LINKS } from '~/site';
 
 const DESCRIPTION =
-  'Edit, maintain, and optimize your website with AI. Describe changes in plain language and agents update content, components, and SEO metadata. Next.js today, Astro next. Self-hostable, bring your own LLM keys.';
+  'Edit, maintain, and optimize your website with AI. Describe changes in plain language and agents update content, components, and SEO metadata. Next.js and Astro today. Self-hostable, bring your own LLM keys.';
 
 const metadata = {
   title: 'Avocado Studio: edit, maintain, and optimize your site with AI',
@@ -90,9 +90,16 @@ const schema = {
       deliberately: headline, the one-line promise, the video, and only then
       the actions and small print. A stacked hero pushes the demo a full
       screen down on a phone, which is the one thing it must not do. */}
-  <section class="px-4 pt-8 pb-12 sm:px-6 sm:pt-12 lg:pt-16 lg:pb-20">
+  {/* Gutters inside the max-w-7xl box, not outside it — `px-4 md:px-6` on the
+      container itself, exactly as `WidgetWrapper`, the header and the footer do
+      it. With the padding outside, this section's content sat flush against the
+      1280px box while everything else on the page was inset 24px inside it: the
+      headline and the demo hung a notch further out than the logo above them
+      and every section below. Identical below 1328px, where the box is not yet
+      capped; visible on every wider screen. */}
+  <section class="pt-8 pb-12 sm:pt-12 lg:pt-16 lg:pb-20">
     <div
-      class="mx-auto flex max-w-7xl flex-col gap-y-6 sm:gap-y-8 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 lg:gap-y-8"
+      class="mx-auto flex max-w-7xl flex-col gap-y-6 px-4 sm:gap-y-8 md:px-6 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 lg:gap-y-8"
     >
       <div class="lg:col-span-6 lg:col-start-1 lg:row-start-1 lg:self-start">
         <h1
@@ -103,7 +110,7 @@ const schema = {
 
         <p class="text-muted mt-4 max-w-xl text-lg leading-8 sm:mt-6">
           Describe what you want in plain language. AI agents update content, components, and SEO metadata, and create
-          or modify media assets with GenAI. Next.js today, Astro next.
+          or modify media assets with GenAI. Next.js and Astro today.
         </p>
       </div>
 
@@ -160,34 +167,6 @@ const schema = {
           })();
         </script>
 
-      </div>
-
-      {/* A direct child of the hero grid, so one copy in the markup can be
-          placed sensibly at every width.
-
-          Centred across the full hero rather than tucked into a corner: in the
-          left column it was one more thing to read after the CTA, and pinned
-          bottom-right it looked dropped there. Under the whole hero, centred,
-          it closes the section the way an "as featured on" line is supposed
-          to. `order-last` keeps it out of the demo → button path on mobile,
-          where it had wedged itself between the two. */}
-      <div class="order-last flex justify-center lg:col-span-12 lg:col-start-1 lg:row-start-3">
-        <a
-          class="inline-block opacity-60 transition-opacity duration-200 hover:opacity-100"
-          href="https://www.producthunt.com/products/avocado-studio?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-avocado-7"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            alt="Avocado Studio, AI-native content operations for any Next.js website. Featured on Product Hunt"
-            width={250}
-            height={54}
-            class="h-8 w-auto"
-            loading="lazy"
-            decoding="async"
-            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1172664&theme=light&t=1781621968305"
-          />
-        </a>
       </div>
 
       <div class="lg:col-span-6 lg:col-start-1 lg:row-start-2 lg:self-start">
@@ -329,7 +308,7 @@ const schema = {
     </Fragment>
 
     <Fragment slot="content">
-      <p>Start with Next.js today, Astro next. Extend to the rest of your stack from there.</p>
+      <p>Next.js and Astro today, with your own components doing the rendering. Extend to the rest of your stack from there.</p>
     </Fragment>
   </Content>
 
@@ -455,7 +434,7 @@ const schema = {
       {
         title: 'Which frameworks does it support?',
         description:
-          'Next.js today, with Astro support being added and more to follow. The architecture is an open layer between AI and your stack, so it is not tied to one framework.',
+          'Next.js and Astro today. The Astro integration renders your own .astro components — no React islands, nothing ported. The architecture is an open layer between AI and your stack, so it is not tied to one framework, and more will follow.',
       },
     ]}
   />
