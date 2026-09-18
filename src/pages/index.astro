@@ -190,8 +190,15 @@ const schema = {
             Read the docs
           </Button>
 
+          {/* Sized to the CTA next to it, not tucked under it. At h-11 the
+              badge read as a footnote; matching the button's height makes it
+              the second thing in the row rather than the last thing on the
+              page. `eager` + high priority because it sits above the fold and
+              a badge that fades in late is worse than one that is simply
+              there. The ring is what carries it on a black background — the
+              badge's own white card ends abruptly otherwise. */}
           <a
-            class="inline-flex shrink-0 items-center"
+            class="group focus-visible:ring-primary inline-flex shrink-0 items-center rounded-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
             href="https://www.producthunt.com/products/avocado-studio?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-avocado-7"
             target="_blank"
             rel="noopener noreferrer"
@@ -200,8 +207,9 @@ const schema = {
               alt="Avocado Studio, AI-native content operations for any Next.js website. Featured on Product Hunt"
               width={250}
               height={54}
-              class="h-11 w-auto"
-              loading="lazy"
+              class="h-[54px] w-auto rounded-lg shadow-[0_0_0_1px_rgba(255,255,255,0.10),0_8px_24px_-8px_rgba(255,88,38,0.55)] transition-transform duration-200 group-hover:scale-[1.03] sm:h-[58px]"
+              loading="eager"
+              fetchpriority="high"
               decoding="async"
               src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1172664&theme=light&t=1781621968305"
             />
