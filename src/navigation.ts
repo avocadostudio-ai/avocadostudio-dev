@@ -22,9 +22,12 @@ export const headerData = {
   ],
   /*
    * One primary action, and not a second way to say "Docs" — that link is two
-   * items to its left, and the button repeating it spent the only prominent
-   * slot in the header on a destination already offered. With
-   * SHOW_GITHUB_LINKS off it goes to the thing the page is actually for.
+   * items to its left.
+   *
+   * Not "Early access" either: the product is free to use and self-hostable,
+   * and a header button offering *access* says the opposite — that there is a
+   * gate, and that reading the docs is the queue for it. Talking to us is an
+   * invitation, not a turnstile.
    */
   actions: SHOW_GITHUB_LINKS
     ? [
@@ -39,8 +42,8 @@ export const headerData = {
       ]
     : [
         {
-          text: 'Early access',
-          href: getPermalink('/#early-access'),
+          text: 'Contact us',
+          href: CONTACT_MAILTO,
           variant: 'primary' as const,
         },
       ],
