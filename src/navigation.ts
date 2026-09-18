@@ -21,13 +21,17 @@ export const headerData = {
     { text: 'Blog', href: BLOG_URL },
   ],
   /*
-   * One primary action, and not a second way to say "Docs" — that link is two
-   * items to its left.
+   * One action, and `secondary` on purpose.
    *
-   * Not "Early access" either: the product is free to use and self-hostable,
-   * and a header button offering *access* says the opposite — that there is a
-   * gate, and that reading the docs is the queue for it. Talking to us is an
-   * invitation, not a turnstile.
+   * Not a second way to say "Docs" — that link is two items to its left. Not
+   * "Early access" either: the product is free to run, and a button offering
+   * *access* says there is a gate and that the docs are the queue for it.
+   *
+   * And not `primary`: the hero's "Read the docs" is the primary action, and a
+   * second filled green pill in the same viewport asked the visitor to choose
+   * between two equally loud invitations that lead opposite ways. Reading the
+   * docs is what we want first; talking to us is the alternative, styled like
+   * one, and still there on every scroll.
    */
   actions: SHOW_GITHUB_LINKS
     ? [
@@ -44,7 +48,7 @@ export const headerData = {
         {
           text: 'Contact us',
           href: getPermalink('/#contact'),
-          variant: 'primary' as const,
+          variant: 'secondary' as const,
         },
       ],
 };
