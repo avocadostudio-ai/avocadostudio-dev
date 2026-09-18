@@ -43,7 +43,7 @@ export const headerData = {
     : [
         {
           text: 'Contact us',
-          href: CONTACT_MAILTO,
+          href: getPermalink('/#contact'),
           variant: 'primary' as const,
         },
       ],
@@ -77,8 +77,7 @@ export const footerData = {
     {
       title: 'Project',
       links: [
-        { text: 'Early access', href: getPermalink('/#early-access') },
-        { text: 'Contact', href: CONTACT_MAILTO },
+        { text: 'Contact', href: getPermalink('/#contact') },
         { text: 'Blog', href: BLOG_URL },
         { text: 'Product Hunt', href: 'https://www.producthunt.com/products/avocado-studio' },
       ],

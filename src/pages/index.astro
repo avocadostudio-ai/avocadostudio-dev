@@ -460,12 +460,17 @@ const schema = {
     ]}
   />
 
-  <!-- Early access **************** -->
+  <!-- Contact ********************* -->
 
-  <WidgetWrapper id="early-access" containerClass="max-w-4xl">
+  {/* `id="contact"`, not `early-access`: the form is a way to reach us, not a
+      queue to join. The anchor is what the header button and the footer link
+      land on, and a URL ending /#early-access argues with the sentence above
+      it. The API route and its table keep their old names — those are ours,
+      and renaming them buys nothing a visitor can see. */}
+  <WidgetWrapper id="contact" containerClass="max-w-4xl">
     <Headline
       title="AI editing you actually own."
-      subtitle="Not rented from a platform, not locked behind a seat count. Run it on your own infrastructure with your own model keys. Start with Next.js today, Astro next, and extend across the rest of your stack from there."
+      subtitle="Not rented from a platform, not locked behind a seat count. Run it on your own infrastructure with your own model keys, free. Nothing here is a waiting list — leave an address if you would like a hand onboarding your site, or just start with the docs."
       classes={{ container: 'max-w-2xl', title: 'text-3xl md:text-4xl' }}
     />
 

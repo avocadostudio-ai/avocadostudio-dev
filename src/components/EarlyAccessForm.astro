@@ -1,5 +1,7 @@
 ---
-// Early-access signup. Posts to /api/early-access, the one non-static route.
+// The contact form. Posts to /api/early-access, the one non-static route —
+// the route and its table keep the old name; only what a visitor reads changed,
+// because this is a way to reach us rather than a queue to join.
 //
 // Deliberately not an island: it is one input and one button, so a few lines of
 // vanilla JS cost less than shipping a framework runtime for it. The success
@@ -23,14 +25,15 @@
     {/* Honeypot: hidden from users and assistive tech, catches bots. */}
     <input type="text" name="company" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
     <button type="submit" class="btn-primary shrink-0 gap-2 whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-70">
-      <span data-label>Join early access</span>
+      <span data-label>Get in touch</span>
       <span data-arrow aria-hidden="true">&rarr;</span>
     </button>
   </div>
 
   <div aria-live="polite">
     <p data-success tabindex="-1" hidden class="text-page text-base font-medium outline-none">
-      🥑 You&rsquo;re on the list. We&rsquo;ll be in touch about onboarding your site.
+      🥑 Thank you &mdash; we&rsquo;ll reply from hello@avocadostudio.dev. Nothing is waiting on us: the docs are
+      open and it is free to run.
     </p>
     <p data-error id="early-access-error" hidden class="mt-2 text-center text-sm text-red-700 dark:text-red-400"></p>
   </div>
