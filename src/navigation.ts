@@ -92,6 +92,6 @@ export const footerData = {
     { ariaLabel: 'Contact', icon: 'tabler:mail', href: CONTACT_MAILTO },
   ],
   footNote: `
-    Free and open source. Built by <a class="text-link underline" href="https://yurybuilds.com">Yury Horbach</a>.
+    Free, Apache-2.0 on npm. Built by <a class="text-link underline" href="https://yurybuilds.com">Yury Horbach</a>.
   `,
 };

@@ -16,4 +16,10 @@ export const GITHUB_URL = 'https://github.com/avocadostudio-ai/avocado';
 export const SHOW_GITHUB_LINKS = false;
 
 export const DOCS_URL = 'https://docs.avocadostudio.dev';
+
+/** The hosted playground: the real editor on a sample site, one session per browser. */
+export const DEMO_URL = 'https://avocado-editor.vercel.app/';
+
+/** What a developer runs to put Avocado Studio on their own machine. */
+export const INSTALL_COMMAND = 'npm create avocado-site@latest';
 export const AUTHOR = { name: 'Yury Horbach', url: 'https://yurybuilds.com' };

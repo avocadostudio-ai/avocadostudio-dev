@@ -6,6 +6,7 @@ import Features3 from '~/components/widgets/Features3.astro';
 import Steps from '~/components/widgets/Steps.astro';
 import Content from '~/components/widgets/Content.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
+import QuickStart from '~/components/widgets/QuickStart.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import ArchitectureStack from '~/components/ArchitectureStack.astro';
 import EarlyAccessForm from '~/components/EarlyAccessForm.astro';
@@ -14,7 +15,7 @@ import Headline from '~/components/ui/Headline.astro';
 import Button from '~/components/ui/Button.astro';
 
 import { SITE } from 'astrowind:config';
-import { AUTHOR, DOCS_URL, GITHUB_URL, MODIFIED_DATE, PUBLISHED_DATE, SHOW_GITHUB_LINKS } from '~/site';
+import { AUTHOR, DEMO_URL, DOCS_URL, GITHUB_URL, INSTALL_COMMAND, MODIFIED_DATE, PUBLISHED_DATE, SHOW_GITHUB_LINKS } from '~/site';
 
 const DESCRIPTION =
   'Edit, maintain, and optimize your website with AI. Describe changes in plain language and agents update content, components, and SEO metadata. Next.js and Astro today. Self-hostable, bring your own LLM keys.';
@@ -41,7 +42,7 @@ const schema = {
       name: 'Avocado Studio',
       url: SITE.site,
       logo: `${SITE.site}/logo.svg`,
-      sameAs: [GITHUB_URL, AUTHOR.url],
+      sameAs: SHOW_GITHUB_LINKS ? [GITHUB_URL, AUTHOR.url] : [AUTHOR.url],
       founder: { '@type': 'Person', name: AUTHOR.name, url: AUTHOR.url },
     },
     {
@@ -187,19 +188,23 @@ const schema = {
           }
           <Button
             variant={SHOW_GITHUB_LINKS ? 'secondary' : 'primary'}
-            href={DOCS_URL}
+            href={DEMO_URL}
+            target="_blank"
+            rel="noopener"
             class="py-2.5 text-[0.9375rem] sm:py-3 sm:text-base"
           >
+            Try the live demo
+          </Button>
+          <Button variant="secondary" href={DOCS_URL} class="py-2.5 text-[0.9375rem] sm:py-3 sm:text-base">
             Read the docs
           </Button>
         </div>
 
         <p class="text-muted mt-6 max-w-md text-sm leading-6">
-          Free to use and self-hostable — no waitlist, no seat count, bring your own LLM keys. You get a preview
-          before anything ships. Early adopters and cofounders welcome.{' '}
-          <a
-            class="text-link decoration-line-strong hover:decoration-primary font-medium underline underline-offset-4 transition-colors"
-            href="mailto:hello@avocadostudio.dev?subject=Avocado%20Studio%20early%20access">Get in touch</a
+          Free to use and self-hostable — no waitlist, no sign-up, no seat count, bring your own LLM keys. On your
+          own machine it is one command:{' '}
+          <a href="#quick-start" class="text-link decoration-line-strong hover:decoration-primary font-mono whitespace-nowrap underline underline-offset-4 transition-colors"
+            >{INSTALL_COMMAND}</a
           >.
         </p>
 
@@ -363,7 +368,7 @@ const schema = {
           'Streaming workflows',
           'Bring your own AI providers',
           'Works alongside existing CMS platforms',
-          'Open source core',
+          'Apache-2.0 packages on npm',
         ].map((item, index) => (
           <li class="border-line text-page flex items-baseline gap-3 border-b py-3 text-sm">
             <span aria-hidden="true" class="label tabular-nums">
@@ -398,6 +403,29 @@ const schema = {
     </p>
   </WidgetWrapper>
 
+  <!-- Quick start ***************** -->
+
+  <QuickStart
+    id="quick-start"
+    tagline="Run it yourself"
+    title="One command to a working editor."
+    subtitle="Scaffolds a site, the editor and the AI layer in one project, then starts it with <code>npm run dev</code>."
+    commands={[INSTALL_COMMAND]}
+    items={[
+      { title: 'Node 22+', description: 'The only prerequisite.', icon: 'tabler:server-2' },
+      {
+        title: 'Your own key',
+        description: 'Anthropic, OpenAI or Gemini. Without one the editor still opens; chat asks for a key.',
+        icon: 'tabler:plug-connected',
+      },
+      {
+        title: 'Or your own site',
+        description: 'Wire it into an existing Next.js or Astro project instead. <a class="text-link underline" href="https://docs.avocadostudio.dev">See the docs</a>.',
+        icon: 'tabler:route',
+      },
+    ]}
+  />
+
   <!-- FAQs ************************ -->
 
   <FAQs
@@ -409,7 +437,7 @@ const schema = {
       {
         title: 'Is it really open source?',
         description:
-          'Yes. The core is free and open source, and the source lives on GitHub. There is no seat count and no six-figure platform contract.',
+          'Every package is Apache-2.0 and published to npm, where each one ships its readable source — the planner prompts included. The GitHub repository itself is not public yet. There is no seat count and no six-figure platform contract.',
       },
       {
         title: "Do I have to send my content to someone else’s cloud?",
@@ -471,6 +499,7 @@ const schema = {
           </Button>
         )
       }
+      <Button variant="secondary" href={DEMO_URL} target="_blank" rel="noopener">Try the live demo</Button>
       <Button variant="secondary" href={DOCS_URL}>Read the docs</Button>
     </div>
   </WidgetWrapper>

@@ -11,9 +11,9 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: 'Avocado Studio: open-source AI editing for Next.js'
+    default: 'Avocado Studio: AI editing for Next.js and Astro sites'
     template: '%s | Avocado Studio'
-  description: 'Open-source AI editing for Next.js sites. Change content in plain language, self-host it, and bring your own LLM keys. No six-figure platform contract.'
+  description: 'AI editing for Next.js and Astro sites. Change content in plain language, self-host it, and bring your own LLM keys. No six-figure platform contract.'
   robots:
     index: true
     follow: true
@@ -22,7 +22,7 @@ metadata:
     images:
       - url: '~/assets/images/default.png'
         width: 1200
-        height: 626
+        height: 630
     type: website
   twitter:
     cardType: summary_large_image

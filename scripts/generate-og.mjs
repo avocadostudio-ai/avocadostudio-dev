@@ -15,7 +15,7 @@ import sharp from 'sharp';
 
 const ROOT = process.cwd();
 // Matches what AstroWind's OG pipeline emits, so the card is not resampled.
-const SIZE = { width: 1200, height: 626 };
+const SIZE = { width: 1200, height: 630 };
 const OUT = join(ROOT, 'src', 'assets', 'images', 'default.png');
 
 // satori does no synthetic bolding: any weight not supplied here silently
@@ -96,7 +96,7 @@ const card = h(
   h(
     'div',
     { style: { marginTop: '32px', fontSize: '28px', lineHeight: 1.4, color: '#D2DACB', maxWidth: '880px' } },
-    'Describe it in plain language. Next.js today, Astro next.'
+    'Describe it in plain language. Next.js and Astro, self-hosted, your own LLM keys.'
   )
 );
 
