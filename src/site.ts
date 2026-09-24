@@ -17,6 +17,19 @@ export const SHOW_GITHUB_LINKS = false;
 
 export const DOCS_URL = 'https://docs.avocadostudio.dev';
 
+/**
+ * The Product Hunt badge in the footer.
+ *
+ * `postId` picks which launch the badge image shows; take it from the embed
+ * code on the Product Hunt product page's Promote tab. Still the June launch
+ * (avocado-7) until the Vercel Day launch's id is in hand.
+ */
+export const PRODUCT_HUNT = {
+  postId: '1172664',
+  campaign: 'badge-avocado-7',
+  url: 'https://www.producthunt.com/products/avocado-studio',
+};
+
 /** The hosted playground: the real editor on a sample site, one session per browser. */
 export const DEMO_URL = 'https://avocado-editor.vercel.app/';
 

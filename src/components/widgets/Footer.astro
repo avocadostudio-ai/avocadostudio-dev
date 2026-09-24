@@ -2,6 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import { SITE } from 'astrowind:config';
 import { getHomePermalink } from '~/utils/permalinks';
+import { PRODUCT_HUNT } from '~/site';
 
 interface Link {
   text?: string;
@@ -46,18 +47,18 @@ const { socialLinks = [], secondaryLinks = [], links = [], footNote = '', theme 
             instead of only the home page. */}
         <a
           class="mt-4 mb-3 inline-block opacity-70 transition-opacity duration-200 hover:opacity-100"
-          href="https://www.producthunt.com/products/avocado-studio?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-avocado-7"
+          href={`${PRODUCT_HUNT.url}?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=${PRODUCT_HUNT.campaign}`}
           target="_blank"
           rel="noopener noreferrer"
         >
           <img
-            alt="Avocado Studio, AI-native content operations for any Next.js website. Featured on Product Hunt"
+            alt="Avocado Studio on Product Hunt"
             width={250}
             height={54}
             class="h-9 w-auto"
             loading="lazy"
             decoding="async"
-            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1172664&theme=light&t=1781621968305"
+            src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=${PRODUCT_HUNT.postId}&theme=light`}
           />
         </a>
         <div class="text-sm text-muted flex gap-1">
