@@ -13,6 +13,7 @@ import EarlyAccessForm from '~/components/EarlyAccessForm.astro';
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
 import Headline from '~/components/ui/Headline.astro';
 import Button from '~/components/ui/Button.astro';
+import { Icon } from 'astro-icon/components';
 
 import { SITE } from 'astrowind:config';
 import { AUTHOR, DEMO_URL, DOCS_URL, GITHUB_URL, INSTALL_COMMAND, MODIFIED_DATE, PUBLISHED_DATE, SHOW_GITHUB_LINKS } from '~/site';
@@ -110,9 +111,32 @@ const schema = {
         </h1>
 
         <p class="text-muted mt-4 max-w-xl text-lg leading-8 sm:mt-6">
-          Describe what you want in plain language. AI agents update content, components, and SEO metadata, and create
-          or modify media assets with GenAI. Next.js and Astro today.
+          Not another way to vibe-code a new site: this runs the one you have. Describe a change and an agent edits
+          content, images and SEO in your own components, then publishes to your CMS. Next.js and Astro today.
         </p>
+
+        {/* Whose it is, before anything else. The line above says what it does;
+            this says what stays yours, which is the actual pitch. On a phone only
+            the four labels show, in a wrapped row, so the video is not pushed a
+            screen down; from `sm` each label gets its qualifier. */}
+        <ul class="mt-5 flex max-w-xl flex-wrap gap-x-5 gap-y-2 sm:mt-6 sm:grid sm:grid-cols-[max-content_max-content] sm:gap-x-8 sm:gap-y-2">
+          {
+            [
+              ['Your site', 'no migration'],
+              ['Your components', 'design system intact'],
+              ['Your CMS', 'Sanity, Storyblok & more'],
+              ['Your AI keys', 'Claude, GPT or Gemini'],
+            ].map(([label, detail]) => (
+              <li class="flex items-start gap-2 text-sm leading-6">
+                <Icon name="tabler:check" class="text-primary mt-1 h-4 w-4 flex-none" aria-hidden="true" />
+                <span>
+                  <span class="text-heading font-semibold">{label}</span>
+                  <span class="text-muted hidden sm:inline"> — {detail}</span>
+                </span>
+              </li>
+            ))
+          }
+        </ul>
       </div>
 
       <div id="demo" class="lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:row-start-1 lg:self-start">
@@ -201,8 +225,8 @@ const schema = {
         </div>
 
         <p class="text-muted mt-6 max-w-md text-sm leading-6">
-          Free to use and self-hostable — no waitlist, no sign-up, no seat count, bring your own LLM keys. On your
-          own machine it is one command:{' '}
+          Free to use and self-hostable — no waitlist, no sign-up, no seat count. On your own machine it is one
+          command:{' '}
           <a href="#quick-start" class="text-link decoration-line-strong hover:decoration-primary font-mono whitespace-nowrap underline underline-offset-4 transition-colors"
             >{INSTALL_COMMAND}</a
           >.
