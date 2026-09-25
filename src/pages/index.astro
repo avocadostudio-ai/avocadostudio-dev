@@ -225,7 +225,14 @@ const schema = {
         </div>
 
         <p class="text-muted mt-6 max-w-md text-sm leading-6">
-          Free to use and self-hostable — no waitlist, no sign-up, no seat count. On your own machine it is one
+          Open source under
+          <a
+            href="https://www.apache.org/licenses/LICENSE-2.0"
+            target="_blank"
+            rel="noopener"
+            class="text-link decoration-line-strong hover:decoration-primary underline underline-offset-4 transition-colors"
+            >Apache-2.0</a
+          >: free for commercial use and self-hosting, no sign-up, no seat count. On your own machine it is one
           command:{' '}
           <a href="#quick-start" class="text-link decoration-line-strong hover:decoration-primary font-mono whitespace-nowrap underline underline-offset-4 transition-colors"
             >{INSTALL_COMMAND}</a
@@ -392,7 +399,7 @@ const schema = {
           'Streaming workflows',
           'Bring your own AI providers',
           'Works alongside existing CMS platforms',
-          'Apache-2.0 packages on npm',
+          'Open source, Apache-2.0',
         ].map((item, index) => (
           <li class="border-line text-page flex items-baseline gap-3 border-b py-3 text-sm">
             <span aria-hidden="true" class="label tabular-nums">
@@ -461,7 +468,7 @@ const schema = {
       {
         title: 'Is it really open source?',
         description:
-          'Every package is Apache-2.0 and published to npm, where each one ships its readable source — the planner prompts included. The GitHub repository itself is not public yet. There is no seat count and no six-figure platform contract.',
+          'Yes. Every Avocado package, the AI engine and the editor included, is licensed Apache-2.0: use it commercially, modify it, self-host it, with no licence key and no seat count. The packages are on npm with their readable source. The GitHub repository itself is not public yet.',
       },
       {
         title: "Do I have to send my content to someone else’s cloud?",
