@@ -16,7 +16,7 @@ import Button from '~/components/ui/Button.astro';
 import { Icon } from 'astro-icon/components';
 
 import { SITE } from 'astrowind:config';
-import { AUTHOR, DEMO_URL, DOCS_URL, GITHUB_URL, INSTALL_COMMAND, MODIFIED_DATE, PUBLISHED_DATE, SHOW_GITHUB_LINKS } from '~/site';
+import { AUTHOR, DEMO_URL, DEMO_YOUTUBE_ID, DOCS_URL, GITHUB_URL, INSTALL_COMMAND, MODIFIED_DATE, PUBLISHED_DATE, SHOW_GITHUB_LINKS } from '~/site';
 
 const DESCRIPTION =
   'Edit, maintain, and optimize your website with AI. Describe changes in plain language and agents update content, components, and SEO metadata. Next.js and Astro today. Self-hostable, bring your own LLM keys.';
@@ -148,47 +148,59 @@ const schema = {
               so the space is reserved before a single byte of video arrives. */}
           <div class="relative aspect-video w-full">
             {/*
-              Above the fold and autoplaying, so it has to be cheap: 1.2MB of
-              VP9 (1.6MB of H.264 for Safari), `preload="none"` so the poster is
-              all that loads until playback actually starts, and `width`/`height`
-              to keep the intrinsic size known. Sources are cheapest-first; a
-              browser takes the first type it can decode and never requests the
-              other. Muted + playsinline are what make autoplay legal on iOS.
+              The demo plays from YouTube, on the Avocado Studio channel, but the
+              player is not loaded until someone asks for it. YouTube's embed is
+              roughly 700KB of script before its first frame; above the fold that
+              would be the heaviest thing on the page. So the page ships only the
+              poster and a button, and a click swaps in the player, already
+              playing, from the privacy-enhanced youtube-nocookie.com domain.
             */}
-            <video
+            <button
+              type="button"
               id="hero-demo"
-              class="absolute inset-0 h-full w-full object-cover"
-              width="1280"
-              height="720"
-              autoplay
-              muted
-              loop
-              playsinline
-              controls
-              preload="none"
-              poster="/demo-2026-09-v2-poster.jpg"
-              disablepictureinpicture
-              aria-label="Avocado Studio demo: editing a page by describing the change"
+              data-youtube-id={DEMO_YOUTUBE_ID}
+              class="group absolute inset-0 h-full w-full cursor-pointer border-0 bg-transparent p-0"
+              aria-label="Play the Avocado Studio demo video"
             >
-              <source src="/demo-2026-09-v2.webm" type="video/webm" />
-              <source src="/demo-2026-09-v2.mp4" type="video/mp4" />
-            </video>
+              <img
+                src="/demo-2026-09-v2-poster.jpg"
+                alt="Avocado Studio: a chat reply beside the rewritten hero of a live page"
+                width="1280"
+                height="720"
+                fetchpriority="high"
+                class="absolute inset-0 h-full w-full object-cover"
+              />
+              <span class="absolute inset-0 flex items-center justify-center">
+                <span
+                  class="flex h-16 w-16 items-center justify-center rounded-full bg-black/60 backdrop-blur-sm transition-transform duration-150 group-hover:scale-110 group-focus-visible:scale-110"
+                >
+                  <svg viewBox="0 0 24 24" fill="white" class="ml-1 h-7 w-7" aria-hidden="true"
+                    ><path d="M8 5v14l11-7z"></path></svg
+                  >
+                </span>
+              </span>
+            </button>
           </div>
         </figure>
 
-        {/* A looping hero is decoration, and the one thing `autoplay` cannot
-            express in markup is "unless the visitor asked for less motion".
-            Inline and immediately after the element so it runs during parse,
-            before playback starts: they get the poster and the controls, and
-            the video bytes are never fetched at all. */}
         <script is:inline>
           (function () {
-            var v = document.getElementById('hero-demo');
-            if (v && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-              v.removeAttribute('autoplay');
-              v.removeAttribute('loop');
-              v.pause();
-            }
+            var button = document.getElementById('hero-demo');
+            if (!button) return;
+            button.addEventListener('click', function () {
+              var frame = document.createElement('iframe');
+              frame.src =
+                'https://www.youtube-nocookie.com/embed/' +
+                button.getAttribute('data-youtube-id') +
+                '?autoplay=1&playsinline=1&rel=0';
+              frame.title = 'Avocado Studio demo';
+              frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+              frame.allowFullscreen = true;
+              frame.referrerPolicy = 'strict-origin-when-cross-origin';
+              frame.className = 'absolute inset-0 h-full w-full';
+              frame.style.border = '0';
+              button.replaceWith(frame);
+            });
           })();
         </script>
 

@@ -33,6 +33,9 @@ export const PRODUCT_HUNT = {
 /** The hosted playground: the real editor on a sample site, one session per browser. */
 export const DEMO_URL = 'https://avocado-editor.vercel.app/';
 
+/** The product demo on the Avocado Studio YouTube channel. */
+export const DEMO_YOUTUBE_ID = 'fp0_u9L9hhk';
+
 /** What a developer runs to put Avocado Studio on their own machine. */
 export const INSTALL_COMMAND = 'npm create avocado-site@latest';
 export const AUTHOR = { name: 'Yury Horbach', url: 'https://yurybuilds.com' };
