@@ -15,6 +15,15 @@ Key facts:
 - Licence and price: Apache-2.0, free for commercial use and self-hosting, no sign-up, no seat count. The packages are on npm; the GitHub repository is not public yet.
 - Made by Yury Horbach (https://yurybuilds.com).
 
+## What people use it for
+
+- An AI website editor or visual editor for an existing Next.js (App Router) or Astro site, without migrating to a new platform
+- Letting marketers and content editors change copy, images and sections without a developer ticket, after a one-time integration
+- Adding AI editing and visual editing on top of a headless CMS: Sanity, Contentful or Strapi
+- Rewriting SEO page titles, meta descriptions and social images with AI, reviewed before publishing
+- Editing a website from Claude Code, Claude Desktop or another MCP host through the MCP server
+- A self-hosted, open-source alternative to hosted visual builders, running on your own Anthropic, OpenAI or Gemini API key
+
 ## Docs
 
 - [Documentation](https://docs.avocadostudio.dev): setup, integration and publishing guides
@@ -24,7 +33,7 @@ Key facts:
 ## Product
 
 - [Homepage](https://www.avocadostudio.dev/): what it does, how it works, integrations and FAQ
-- [Built-in blocks](https://www.avocadostudio.dev/components): the blocks that ship with Avocado Studio, with live previews
+- [Page builder blocks](https://www.avocadostudio.dev/components): the React blocks that ship with Avocado Studio, with live previews
 - [Live demo](https://avocado-editor.vercel.app/): the real editor on a sample site, in the browser
 - [Demo video](https://www.youtube.com/watch?v=fp0_u9L9hhk): the product demo on the Avocado Studio YouTube channel
 

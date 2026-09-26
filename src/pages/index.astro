@@ -31,13 +31,14 @@ import {
 
 const POSTER_PATH = '/demo-2026-09-v2-poster.jpg';
 
-// Written for the searches that should find this page — "AI website editor",
-// "open source", "Next.js", "Astro" — and kept under ~160 characters so the
-// result snippet is not cut mid-claim. The title drops the site-wide template
-// because the brand already leads it.
-const TITLE = 'Avocado Studio: open-source AI website editor for Next.js & Astro';
+// Nobody searches for "avocado". The title and description lead with what
+// people do type — "AI website editor", "Next.js", "Astro", "headless CMS",
+// "open source" — and the brand goes last, where the result's site name
+// already repeats it. The description stays under ~160 characters so the
+// snippet is not cut mid-claim.
+const TITLE = 'Open-source AI website editor for Next.js & Astro | Avocado Studio';
 const DESCRIPTION =
-  'Open-source AI website editor for Next.js and Astro. Describe a change and an agent edits content, images and SEO in your own components. Self-hosted, BYO keys.';
+  'Edit your Next.js or Astro site with AI. Describe a change; an agent updates copy, images and SEO meta in your own components and headless CMS. Open source.';
 
 const metadata = {
   title: TITLE,
@@ -101,13 +102,14 @@ const schema = {
         'Click-to-select visual editing in the page preview',
         'Live draft preview in your own site before publishing',
         'Works with Next.js 15 and 16 (App Router) and Astro 5+',
+        'Rewrites page titles, meta descriptions and social images for SEO',
         'Publishes to Sanity, Contentful, Strapi or plain JSON files',
         'Bring your own Anthropic, OpenAI or Google Gemini API key',
         'Self-hosted, Apache-2.0 licensed',
         'MCP server for Claude Code, Claude Desktop and other MCP hosts',
       ],
       keywords:
-        'AI website editor, visual editor for Next.js, Astro, headless CMS, AI agents, open source, self-hosted, MCP',
+        'AI website editor, visual editor for Next.js, Next.js CMS, Astro CMS, headless CMS AI, AI page builder, AI SEO meta tags, Sanity, Contentful, Strapi, MCP server, open source, self-hosted',
       author: { '@type': 'Person', name: AUTHOR.name, url: AUTHOR.url },
       publisher: { '@id': `${SITE.site}/#organization` },
       datePublished: PUBLISHED_DATE,
@@ -310,7 +312,7 @@ const schema = {
   <Features
     id="capabilities"
     tagline="Capabilities"
-    title="Built for the modern web."
+    title="A visual AI editor for Next.js and Astro sites."
     subtitle="Avocado Studio is an open-source AI website editor. It adds chat-driven editing, click-to-select visual editing and a live draft preview to the Next.js or Astro site you already run."
     columns={3}
     items={[
@@ -422,7 +424,7 @@ const schema = {
   <WidgetWrapper id="integrations">
     <Headline
       tagline="Integrations"
-      title="Works with the stack you already run."
+      title="Works with Next.js, Astro and your headless CMS."
       subtitle="No migration and no second copy of your templates: Avocado Studio plugs into your framework, your content source and your AI provider."
       classes={{ container: 'max-w-3xl', title: 'text-3xl md:text-4xl', subtitle: 'text-lg' }}
     />
@@ -431,14 +433,14 @@ const schema = {
         [
           {
             icon: 'tabler:brand-nextjs',
-            title: 'Next.js and Astro',
+            title: 'Next.js and Astro visual editing',
             description:
               'Next.js 15 and 16 on the App Router, where the orchestrator can run inside your own app, so there is no extra service to deploy. Astro 5 and later through an integration that renders your own <code>.astro</code> components: no React islands, nothing ported.',
             link: { text: 'Next.js integration guide', href: `${DOCS_URL}/integration/nextjs-integration` },
           },
           {
             icon: 'tabler:database',
-            title: 'Your headless CMS, or plain files',
+            title: 'Sanity, Contentful, Strapi or plain files',
             description:
               'Starter templates for Sanity, Contentful and Strapi, or a plain JSON file; any other store connects through a content adapter. Publishing writes back only the fields that changed, so references and rich text survive the round trip.',
             link: { text: 'Connecting your site and CMS', href: `${DOCS_URL}/sites` },
@@ -451,7 +453,7 @@ const schema = {
           },
           {
             icon: 'tabler:robot',
-            title: 'Claude Code, Cursor and other agents',
+            title: 'An MCP server for Claude Code and Cursor',
             description:
               'An MCP server exposes pages, blocks, media and publishing to Claude Code, Claude Desktop and other MCP hosts. Agent skills teach Claude Code, Cursor, Codex and Gemini how to wire Avocado into your site.',
             link: { text: 'The MCP server on npm', href: 'https://www.npmjs.com/package/@avocadostudio-ai/mcp-server' },
@@ -481,10 +483,11 @@ const schema = {
 
   <!-- Use cases ******************* -->
 
+  {/* Titles are the jobs people search for help with, in their words, not ours. */}
   <Features3
     id="use-cases"
     tagline="Use cases"
-    title="What Avocado is built for."
+    title="What teams use an AI website editor for."
     columns={2}
     items={[
       {
@@ -494,20 +497,22 @@ const schema = {
         icon: 'tabler:pencil',
       },
       {
-        title: 'Marketing operations',
-        description: 'Coordinate publishing workflows across CMS, DAM, localization, and approval systems.',
+        title: 'Let marketers update the site without a developer',
+        description:
+          'Once a developer has wired it in, copy fixes, new sections and landing-page changes are a sentence in chat and a preview to approve, not a ticket in a queue.',
         icon: 'tabler:calendar-stats',
       },
       {
-        title: 'Images and copy together',
-        description: 'Generate and edit images with Claude, OpenAI, or Gemini alongside your structured content.',
-        icon: 'tabler:photo-edit',
+        title: 'SEO titles and meta descriptions',
+        description:
+          'Ask for better page titles, meta descriptions and social images across your pages, and review every one before it publishes.',
+        icon: 'tabler:search',
       },
       {
-        title: 'Your own editorial stack',
+        title: 'AI images next to your copy',
         description:
-          'Build AI editing into your own workflows instead of buying a heavyweight enterprise platform.',
-        icon: 'tabler:tools',
+          'Generate an image, upload one or search Unsplash in the same chat that rewrites the copy, with alt text edited alongside it.',
+        icon: 'tabler:photo-edit',
       },
     ]}
   />
@@ -599,7 +604,7 @@ const schema = {
   <FAQs
     id="faqs"
     tagline="FAQs"
-    title="Questions worth answering up front."
+    title="Questions about editing a website with AI."
     schema
     items={[
       {
@@ -618,14 +623,29 @@ const schema = {
           'Run <code>npm create avocado-site@latest</code> inside the project and choose “Wire Avocado into this project”. It writes the editor API route, the page routes, the block manifest and the request rewrite, and touches nothing it did not create. You need Next.js 15 or 16 on the App Router and Node.js 22 or later. Marking up your own components as editable is covered in the <a class="text-link underline" href="https://docs.avocadostudio.dev/integration/nextjs-integration">Next.js integration guide</a>.',
       },
       {
-        title: 'Does Avocado Studio work with Astro?',
+        title: 'Is there an AI visual editor for Astro sites?',
         description:
-          'Yes. The <code>@avocadostudio-ai/astro</code> integration supports Astro 5 and later, and your own <code>.astro</code> components do the rendering: no React islands, nothing ported, no second copy of your templates. On a static site, publishing can write the page back to a file that is committed, reviewed as a diff and rebuilt.',
+          'Yes: Avocado Studio. Its <code>@avocadostudio-ai/astro</code> integration supports Astro 5 and later, and your own <code>.astro</code> components do the rendering: no React islands, nothing ported, no second copy of your templates. On a static site, publishing can write the page back to a file that is committed, reviewed as a diff and rebuilt.',
       },
       {
-        title: 'Which headless CMSs does it work with?',
+        title: 'Does it work with Sanity, Contentful or Strapi?',
         description:
-          'Avocado Studio ships templates for Sanity, Contentful and Strapi, and for a plain JSON file. Any other content store connects through a content adapter. Publishing sends back only the fields that changed rather than overwriting whole documents, so references, assets and rich text stay intact.',
+          'Yes. Avocado Studio ships templates for Sanity, Contentful and Strapi, and for a plain JSON file. Any other content store connects through a content adapter. Publishing sends back only the fields that changed rather than overwriting whole documents, so references, assets and rich text stay intact.',
+      },
+      {
+        title: 'Can marketers edit a Next.js site without a developer?',
+        description:
+          'Yes, once a developer has wired Avocado Studio in and marked which components are editable — a one-time job. After that, marketers and content editors change copy, images and sections by describing the change in chat or clicking the block on the page, and approve the result in a preview. Components, design system and code review stay in the developers’ hands.',
+      },
+      {
+        title: 'Can I edit my website with Claude or ChatGPT?',
+        description:
+          'With the same models, yes. Put an Anthropic API key in Avocado Studio and the editor’s chat runs on Claude; an OpenAI key runs it on GPT, a Google key on Gemini. The ChatGPT and Claude apps cannot reach your site on their own, but Claude Code, Claude Desktop and other MCP hosts can, through the Avocado Studio MCP server.',
+      },
+      {
+        title: 'Can AI write my SEO titles and meta descriptions?',
+        description:
+          'Yes. Every page’s title, meta description and social image are fields the agent can edit, so “tighten the meta descriptions on the pricing and features pages” is a request like any other. You see the new values in the preview and approve them before they publish.',
       },
       {
         title: 'Will it replace my CMS?',
@@ -653,19 +673,19 @@ const schema = {
           'Yes. <code>@avocadostudio-ai/mcp-server</code> exposes pages, blocks, media, publishing and undo history over the Model Context Protocol, so Claude Code, Claude Desktop and other MCP hosts can edit a site the same way a person does in the editor. It runs over stdio or streamable HTTP with a bearer token.',
       },
       {
-        title: 'How is it different from an AI website builder?',
+        title: 'How is it different from an AI website builder like Lovable or v0?',
         description:
           'An AI website builder generates a new site. Avocado Studio edits the one you already have: your components, your design system, your CMS and your hosting stay as they are, and the agent works inside them. Nothing is migrated and nothing is locked into a platform.',
+      },
+      {
+        title: 'Is Avocado Studio an alternative to Builder.io, Webflow or Framer?',
+        description:
+          'For a team that wants visual and AI editing on a site it already owns, yes. Avocado Studio is open source and self-hosted, it edits your own Next.js or Astro code base and your own CMS rather than keeping the site or its content on a vendor’s platform, and it runs on your own AI key. If you want a hosted no-code tool to build a new site from scratch, a hosted builder is the better fit.',
       },
       {
         title: "Do I have to send my content to someone else’s cloud?",
         description:
           'No. Avocado Studio is self-hostable: deploy it on your own infrastructure with full control over data, APIs, prompts, and integrations.',
-      },
-      {
-        title: 'Which frameworks does it support?',
-        description:
-          'Next.js 15 and 16 on the App Router, and Astro 5 and later. The Astro integration renders your own .astro components — no React islands, nothing ported. The architecture is an open layer between AI and your stack, so it is not tied to one framework, and more will follow.',
       },
     ]}
   />

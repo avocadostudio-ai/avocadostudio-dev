@@ -63,7 +63,7 @@ export const footerData = {
         { text: 'Integrations', href: getPermalink('/#integrations') },
         { text: 'Use cases', href: getPermalink('/#use-cases') },
         { text: 'FAQ', href: getPermalink('/#faqs') },
-        { text: 'Built-in blocks', href: getPermalink('/components') },
+        { text: 'Page builder blocks', href: getPermalink('/components') },
       ],
     },
     {
