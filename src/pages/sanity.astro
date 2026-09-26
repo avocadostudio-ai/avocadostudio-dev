@@ -1,0 +1,79 @@
+---
+import IntentPage from '~/components/IntentPage.astro';
+import { DOCS_URL } from '~/site';
+
+// Facts: @avocadostudio-ai/site-sdk (adapter contract, publishing, media
+// picker, examples/sanity-site), @avocadostudio-ai/richtext and
+// create-avocado-site READMEs on npm.
+---
+
+<IntentPage
+  path="/sanity"
+  title="AI visual editing for Sanity-powered sites"
+  description="Edit a Sanity-powered Next.js site with AI and click-to-edit. Portable Text round-trips, patches target _key, the image picker reads your Sanity assets."
+  eyebrow="Sanity"
+  heading="AI editing for your Sanity site."
+  lead="Avocado Studio puts an AI editor and a click-to-edit live preview on top of a site whose content lives in Sanity. Sanity stays your content store: Avocado reads from it, drafts on its own working copy, and publishes back only the fields that changed."
+  docs={{ text: 'Connect your site and CMS', href: `${DOCS_URL}/sites` }}
+  facts={[
+    { label: 'Content store', value: 'Sanity — a template and a working example are included' },
+    { label: 'Rich text', value: 'Portable Text, read and written back' },
+    { label: 'Publishing', value: 'Field-level patches, list items addressed by <code>_key</code>' },
+    { label: 'Images', value: 'The editor’s image picker searches your Sanity assets' },
+    { label: 'Framework', value: 'Next.js 15 or 16, App Router' },
+    { label: 'Licence', value: 'Apache-2.0, free to self-host' },
+  ]}
+  sections={[
+    {
+      title: 'Sanity stays the source of truth',
+      body: '<p>A small adapter connects Avocado to your Sanity dataset. It is read when an editing session starts and written on publish; in between, drafts, undo history and the chat live in Avocado’s own SQLite working copy, so experiments never touch your dataset. Give the adapter a read token and it can read Sanity’s draft perspective too.</p><p>Integrating an existing Next.js site? Run <code>npm create avocado-site@latest</code> inside it — the Sanity template is one of the options.</p>',
+    },
+    {
+      title: 'Publish a diff, not a snapshot',
+      body: '<p>Every CMS read is a projection: an asset reference flattened to a URL, a reference resolved to a link, rich text rendered to something editable. Writing that projection back would replace the reference with the flattening. So Avocado publishes a <strong>diff</strong>: only the fields that changed, as Sanity patches.</p><ul><li>List items are matched on their <code>_key</code>, not their position, so a reorder elsewhere cannot land an edit on the wrong row.</li><li>Changes a field diff cannot express safely — a replaced image, a retyped link, an added or removed list item, a new block — are reported back to you instead of guessed.</li></ul>',
+      code: {
+        lang: 'ts',
+        text: 'import { diffPage, groupPatches } from "@avocadostudio-ai/site-sdk/publish"\n\n// …diff the edited page against what Sanity held when you read it…\nfor (const { documentId, set } of groupPatches(diff.patches)) {\n  await client.patch(documentId).set(set).commit()\n}',
+      },
+    },
+    {
+      title: 'Portable Text survives the round trip',
+      body: '<p>Rich text converts from Portable Text into the editor’s document and back. Blocks with a custom <code>_type</code> that no converter knows ride through untouched, and when the previous value is passed in, an unchanged block is written back as the stored object itself — keys, annotations and custom fields preserved byte for byte. Sanity sees a diff of what actually changed, not “every block replaced”.</p><p>One documented gap: Portable Text has no horizontal rule, so a rule typed in the editor is dropped rather than faked as a paragraph of dashes.</p>',
+    },
+    {
+      title: 'Your Sanity media library in the editor',
+      body: '<p>One helper, <code>cmsMediaSource</code>, gives the editor’s image picker a tab that searches your Sanity assets. The credentials stay on your server; the browser never talks to Sanity directly.</p>',
+      code: {
+        lang: 'ts',
+        text: 'import { cmsMediaSource, type CmsAdapter } from "@avocadostudio-ai/site-sdk/server"\n\nexport function sanityAdapter(): CmsAdapter {\n  return {\n    id: "sanity",\n    getPages: (options) => getSanityPages(options?.perspective),\n    getMedia: cmsMediaSource({\n      provider: "sanity",\n      projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,\n      dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,\n      token: process.env.SANITY_API_TOKEN,\n    }),\n  }\n}',
+      },
+    },
+  ]}
+  faqs={[
+    {
+      title: 'Does Avocado Studio replace Sanity or Sanity Studio?',
+      description:
+        'No. Sanity remains your CMS and your schema stays as it is. Avocado Studio reads your documents and writes changes back as patches; it adds an AI and visual editing layer on the website, not a new content store.',
+    },
+    {
+      title: 'Is Avocado Studio made by Sanity?',
+      description:
+        'No. Avocado Studio is an independent open-source project, licensed Apache-2.0, that works with Sanity through its API.',
+    },
+    {
+      title: 'Will AI edits overwrite my Portable Text?',
+      description:
+        'No. Publishing sends only changed fields, unchanged Portable Text blocks are written back exactly as stored, and custom block types pass through untouched.',
+    },
+    {
+      title: 'Can editors change content without touching Sanity Studio?',
+      description:
+        'Yes. They describe the change in chat or click the block on the page, review it in the live preview of the real site, and publish; the change lands in Sanity as a patch.',
+    },
+    {
+      title: 'Which AI models does it use with Sanity?',
+      description:
+        'Whichever you bring: an Anthropic, OpenAI or Google Gemini API key. Avocado runs on your key and never resells tokens.',
+    },
+  ]}
+/>

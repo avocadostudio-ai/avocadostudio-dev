@@ -1,0 +1,83 @@
+---
+import IntentPage from '~/components/IntentPage.astro';
+
+// Facts: @avocadostudio-ai/mcp-server and @avocadostudio-ai/skills READMEs on
+// npm. The tool count is left as "over 40" on purpose: it grows between
+// releases and a precise number goes stale first.
+---
+
+<IntentPage
+  path="/mcp"
+  title="MCP server for editing your website from Claude Code"
+  description="Let Claude Code, Claude Desktop or any MCP host edit your website: over 40 tools for pages, blocks, media, publishing and undo, over stdio or HTTP. Open source."
+  eyebrow="MCP server"
+  heading="Edit your website from Claude Code."
+  lead="The Avocado Studio MCP server exposes a site’s pages, blocks, media and publishing over the Model Context Protocol, so Claude Code, Claude Desktop and other MCP hosts can edit it the same way a person does in the editor — with the same validation, undo history and preview."
+  docs={{ text: 'The MCP server on npm', href: 'https://www.npmjs.com/package/@avocadostudio-ai/mcp-server' }}
+  facts={[
+    { label: 'Package', value: '<code>@avocadostudio-ai/mcp-server</code>' },
+    { label: 'Transports', value: 'stdio, or streamable HTTP with a bearer token' },
+    { label: 'Hosts', value: 'Claude Code, Claude Desktop, any MCP client' },
+    { label: 'Scope', value: 'One site per install' },
+    { label: 'Tools', value: 'Over 40: discovery, pages, blocks, media, publishing, history, planner, screenshots' },
+    { label: 'Licence', value: 'Apache-2.0' },
+  ]}
+  sections={[
+    {
+      title: 'Add it to Claude Code',
+      body: '<p>Each install is bound to one site. Point it at your Avocado orchestrator and name the site; the tools appear in Claude Code straight away.</p>',
+      code: {
+        lang: 'bash',
+        text: 'claude mcp add avocado \\\n  --env ORCHESTRATOR_URL=http://localhost:4200 \\\n  --env AVOCADO_SESSION=dev \\\n  --env AVOCADO_SITE_ID=my-site \\\n  -- npx -y @avocadostudio-ai/mcp-server',
+      },
+    },
+    {
+      title: 'What an agent can do',
+      body: '<ul><li><strong>Discover</strong> the block types a site uses and the schema of each, before it changes anything.</li><li><strong>Pages</strong>: read, list, create, rename, duplicate, remove, and update page meta — titles and descriptions included.</li><li><strong>Blocks</strong>: add, edit, move, duplicate and remove blocks and their list items.</li><li><strong>Media</strong>: upload or generate images, search Unsplash, transcribe audio, describe an image.</li><li><strong>Publishing</strong>: compute the publish diff, publish, list and restore snapshots.</li><li><strong>History and planning</strong>: undo, redo, restore a version, and propose, preview, approve or discard a plan.</li><li><strong>Screenshots</strong> of the rendered page, so a chat-only host such as Claude Desktop can see what it changed.</li></ul>',
+    },
+    {
+      title: 'The editor’s rules, not a side door',
+      body: '<p>The MCP server is a thin wrapper over the orchestrator’s API. Every change goes through the same validation, operations engine, undo stack and version log as an edit made in the editor, so an agent cannot write a block the schema does not allow.</p><ul><li>Reads are safe to mark <em>Always allow</em>; keep mutations on <em>Ask</em>.</li><li>Publishing through MCP needs a publish token. Leave it out and the agent can draft but never publish.</li></ul>',
+    },
+    {
+      title: 'Claude Desktop and remote hosts',
+      body: '<p>Run the HTTP transport and add it in Claude Desktop under <em>Settings → Connectors → Add custom connector</em>, with the URL and a bearer token you generate. It runs stateless, so every request stands alone.</p>',
+      code: {
+        lang: 'bash',
+        text: 'AVOCADO_SITE_ID=my-site \\\nAVOCADO_MCP_BEARER_TOKEN=$(openssl rand -hex 32) \\\nnpx -y -p @avocadostudio-ai/mcp-server avocado-mcp-http\n# → listening on http://localhost:4300/mcp',
+      },
+    },
+    {
+      title: 'Agent skills for setting it up',
+      body: '<p>A separate package writes Avocado’s setup instructions into your project as agent skills: <code>.claude/skills</code> for Claude Code and <code>.agents/skills</code> for Cursor, Codex and Gemini through the cross-agent skills CLI. Then ask your coding agent to add Avocado to the site. The skills ship with each release, so the instructions match the version you installed.</p>',
+      code: { lang: 'bash', text: 'npx @avocadostudio-ai/skills' },
+    },
+  ]}
+  faqs={[
+    {
+      title: 'Which MCP hosts work with the Avocado Studio MCP server?',
+      description:
+        'Claude Code and Claude Desktop are documented, and any MCP client that speaks stdio or streamable HTTP can connect.',
+    },
+    {
+      title: 'Can an agent publish my site without asking?',
+      description:
+        'Only if you give it the publish token. Without it the agent can draft changes but cannot publish, and each tool can be set to Always allow, Ask or Never allow in the host.',
+    },
+    {
+      title: 'Is there a hosted Avocado MCP server?',
+      description:
+        'Not yet: you run the server yourself, locally or on your own infrastructure. A hosted deployment with OAuth is on the published roadmap.',
+    },
+    {
+      title: 'Can one MCP install edit several sites?',
+      description:
+        'No. Each install is scoped to one site, set when it launches. Add one install per site.',
+    },
+    {
+      title: 'Does the MCP server need Avocado Studio’s editor running?',
+      description:
+        'It needs an Avocado orchestrator to talk to — the part that validates and stores edits — set with <code>ORCHESTRATOR_URL</code>. The editor UI itself does not have to be open.',
+    },
+  ]}
+/>

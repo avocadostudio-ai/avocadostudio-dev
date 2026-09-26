@@ -1,0 +1,83 @@
+---
+import IntentPage from '~/components/IntentPage.astro';
+import { DOCS_URL } from '~/site';
+
+// Facts: create-avocado-site, @avocadostudio-ai/site-sdk and
+// @avocadostudio-ai/cli READMEs on npm.
+---
+
+<IntentPage
+  path="/nextjs"
+  title="AI visual editor for Next.js App Router sites"
+  description="Add AI chat editing, click-to-edit and live draft preview to an existing Next.js 15 or 16 site. Your React components render, in your own app. Open source."
+  eyebrow="Next.js"
+  heading="An AI visual editor for your Next.js site."
+  lead="Avocado Studio adds chat-driven AI editing, click-to-select visual editing and a live draft preview to a Next.js 15 or 16 App Router site. It renders your own React components, reads your own CMS and runs on your own AI key — no migration, no new platform."
+  docs={{ text: 'Next.js integration guide', href: `${DOCS_URL}/integration/nextjs-integration` }}
+  facts={[
+    { label: 'Framework', value: 'Next.js 15 or 16, App Router' },
+    { label: 'Package', value: '<code>@avocadostudio-ai/site-sdk</code>' },
+    { label: 'Where it runs', value: 'Inside your Next.js app (library mode), or as a separate service' },
+    { label: 'Content', value: 'Sanity, Contentful, Strapi, a JSON file, or your own adapter' },
+    { label: 'AI models', value: 'Your Anthropic, OpenAI or Google Gemini key' },
+    { label: 'Licence', value: 'Apache-2.0, free to self-host' },
+  ]}
+  sections={[
+    {
+      title: 'Wire it into an existing project with one command',
+      body: '<p>Run the scaffolder inside your Next.js project and choose <em>Wire Avocado into this project</em>. It writes the editor API route, the page routes, the block manifest and the request rewrite — <code>proxy.ts</code> on Next.js 16, <code>middleware.ts</code> on 15 — and touches nothing it did not create.</p><p>It then prints the things it deliberately leaves to you: the install command, the <code>withAvocado</code> wrapper for your Next config, and the stylesheet import. Sanity, Contentful and Strapi templates are included, and so is a plain JSON file.</p>',
+      code: { lang: 'bash', text: 'cd my-next-app\nnpm create avocado-site@latest' },
+    },
+    {
+      title: 'No extra service to deploy',
+      body: '<p>In library mode the orchestrator — session state, AI planning, the operations engine and publishing — runs inside your Next.js app at <code>/api/avocado</code>. Drafts, undo history and chat live in SQLite as a working copy; your CMS stays the source of truth and is written on publish.</p><p>The editor UI is one more command, pointed at your app. Prefer a separate orchestrator? It runs on Render, Fly, Docker or your own box.</p>',
+      code: {
+        lang: 'bash',
+        text: 'npx @avocadostudio-ai/cli start \\\n  --orchestrator http://localhost:3000/api/avocado \\\n  --preview      http://localhost:3000',
+      },
+    },
+    {
+      title: 'Your components become the editable blocks',
+      body: '<p>Avocado does not ask you to rebuild the site out of its blocks. You register your own components’ schemas, wrap each block, and mark the fields an editor may change; the AI and the property panel then edit exactly those fields and nothing else. This markup is the largest part of an integration, and <a href="https://docs.avocadostudio.dev/sites">the docs</a> budget for it honestly.</p><p>Starting from nothing instead? The demo site is built from the <a href="/components">built-in page builder blocks</a>: hero, feature grid, FAQ, CTA, gallery and more.</p>',
+    },
+    {
+      title: 'SEO metadata is part of the page',
+      body: '<p>The page factory exports <code>generateMetadata</code> and derives each page’s title, description and social card from the page itself — and those are fields the agent edits like any other. Ask for sharper meta descriptions across the site, review them in the preview, publish.</p>',
+      code: {
+        lang: 'tsx',
+        text: '// app/[[...slug]]/page.tsx\nimport { createSitePage } from "@avocadostudio-ai/site-sdk/page"\nimport { getPage, getSlugs } from "../../lib/my-cms"\n\nconst { Page, generateStaticParams, generateMetadata } = createSitePage({\n  siteId: "my-site",\n  getPage,\n  getSlugs,\n})\n\nexport default Page\nexport { generateStaticParams, generateMetadata }',
+      },
+    },
+    {
+      title: 'Guard rails for production',
+      body: '<ul><li>Draft rendering needs <code>DRAFT_MODE_SECRET</code>, and publishing needs <code>PUBLISH_TOKEN</code>.</li><li>A publish that would remove every page is refused rather than taken at its word.</li><li>The agent proposes a plan that you approve or discard, and you see the result in your own site before anything ships.</li><li><code>withAvocado</code> handles the Next.js details that otherwise fail quietly: native modules in the server bundle, image hosts for generated images, and <code>trailingSlash: true</code>.</li></ul>',
+    },
+  ]}
+  faqs={[
+    {
+      title: 'Which versions of Next.js does Avocado Studio support?',
+      description:
+        'Next.js 15 and 16 on the App Router. The request rewrite lives in <code>proxy.ts</code> on Next.js 16 and in <code>middleware.ts</code> on 15; the scaffolder writes the right one. Node.js 22 or later is required.',
+    },
+    {
+      title: 'Do I have to use Avocado’s own blocks?',
+      description:
+        'No. On an existing site your own React components are the blocks: you register their schemas and mark which fields are editable. The built-in blocks are there for new sites and for the demo.',
+    },
+    {
+      title: 'Do I need to deploy a separate server?',
+      description:
+        'No. In library mode the orchestrator runs inside your Next.js app at <code>/api/avocado</code>, so there is no extra service. A standalone orchestrator is an option if you want one.',
+    },
+    {
+      title: 'Does it work with trailingSlash: true?',
+      description:
+        'Yes. <code>withAvocado</code> keeps the editor API reachable, and the SDK’s proxy restores the trailing-slash redirect for your pages. The two are a pair: turn on <code>trailingSlash</code> in <code>createEditorProxy</code> as well.',
+    },
+    {
+      title: 'Can I try it before touching my project?',
+      description:
+        'Yes. <code>npm create avocado-site@latest my-demo</code> scaffolds a complete demo site — nine pages built from every built-in block — with the editor. Pages, click-to-select and the property panel work with no API key; only the AI chat needs one.',
+    },
+  ]}
+/>

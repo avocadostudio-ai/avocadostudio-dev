@@ -1,0 +1,75 @@
+---
+import IntentPage from '~/components/IntentPage.astro';
+import { DOCS_URL } from '~/site';
+
+// Facts: @avocadostudio-ai/site-sdk (adapter contract, publishing, media
+// picker, examples/strapi-site), @avocadostudio-ai/richtext and
+// create-avocado-site READMEs on npm.
+---
+
+<IntentPage
+  path="/strapi"
+  title="AI visual editing for Strapi-powered sites"
+  description="Edit a Strapi-powered Next.js site with AI and click-to-edit. Strapi 5 Blocks rich text round-trips; the whole stack self-hosts. Open source, your AI key."
+  eyebrow="Strapi"
+  heading="AI editing for your Strapi site."
+  lead="Avocado Studio adds an AI editor and a click-to-edit live preview to a website whose content lives in Strapi. With a self-hosted Strapi, the whole stack — CMS, editor and AI layer — runs on infrastructure you control, on your own model key."
+  docs={{ text: 'Connect your site and CMS', href: `${DOCS_URL}/sites` }}
+  facts={[
+    { label: 'Content store', value: 'Strapi — a template and a self-hosted working example are included' },
+    { label: 'Rich text', value: 'Strapi 5 Blocks, read and written back' },
+    { label: 'Publishing', value: 'Only the fields that changed' },
+    { label: 'Images', value: 'The editor’s image picker searches your Strapi media library' },
+    { label: 'Framework', value: 'Next.js 15 or 16, App Router' },
+    { label: 'Licence', value: 'Apache-2.0, free to self-host' },
+  ]}
+  sections={[
+    {
+      title: 'An open-source stack, end to end',
+      body: '<p>Strapi is open source and self-hostable; so is Avocado Studio. Put them together and nothing in the editing path is rented: your Strapi, your Next.js site, the Avocado orchestrator running inside that site, and an Anthropic, OpenAI or Gemini key billed to you directly. Avocado runs on your key and never resells tokens.</p><p>Integrating an existing Next.js site? Run <code>npm create avocado-site@latest</code> inside it — the Strapi template is one of the options.</p>',
+    },
+    {
+      title: 'Strapi 5 Blocks round-trip',
+      body: '<p>Rich text in Strapi 5’s Blocks format converts into the editor’s document and back. Node types the converter does not know pass through unchanged rather than being dropped.</p><p>One documented gap: Strapi Blocks has no horizontal rule, so a rule typed in the editor is dropped rather than faked as a paragraph of dashes.</p>',
+    },
+    {
+      title: 'Publishing writes only what changed',
+      body: '<p>Avocado diffs the edited page against what Strapi held and writes only the changed fields, so media relations and rich text are not replaced by their flattened copies. Changes a field diff cannot express safely — a replaced image, a new block — are reported back instead of guessed. Until you publish, drafts, undo history and chat live in Avocado’s own working copy, not in Strapi.</p>',
+    },
+    {
+      title: 'Your Strapi media library in the editor',
+      body: '<p><code>cmsMediaSource</code> fills the editor’s image picker from your Strapi media library. Credentials stay on your server.</p>',
+      code: {
+        lang: 'ts',
+        text: 'import { cmsMediaSource } from "@avocadostudio-ai/site-sdk/server"\n\n// In your CmsAdapter:\ngetMedia: cmsMediaSource({\n  provider: "strapi",\n  url: process.env.STRAPI_URL!,\n  token: process.env.STRAPI_TOKEN,\n})',
+      },
+    },
+  ]}
+  faqs={[
+    {
+      title: 'Is Avocado Studio made by Strapi?',
+      description:
+        'No. Avocado Studio is an independent open-source project, licensed Apache-2.0, that works with Strapi through its API.',
+    },
+    {
+      title: 'Which Strapi version does it support?',
+      description:
+        'The rich-text converter targets the Strapi 5 Blocks format. Check the docs for the version the Strapi template is built on.',
+    },
+    {
+      title: 'Can I self-host everything?',
+      description:
+        'Yes. Strapi, your site and Avocado Studio can all run on your own infrastructure; the only outside call is to the AI provider whose key you configure.',
+    },
+    {
+      title: 'Will it replace the Strapi admin panel?',
+      description:
+        'No. Strapi remains your CMS. Avocado Studio adds AI and visual editing on the website itself and writes changes back to Strapi.',
+    },
+    {
+      title: 'Which AI models does it use?',
+      description:
+        'Whichever you bring: an Anthropic, OpenAI or Google Gemini API key.',
+    },
+  ]}
+/>

@@ -1,5 +1,6 @@
 import { getPermalink } from './utils/permalinks';
 import { SHOW_GITHUB_LINKS } from './site';
+import { INTENT_PAGES } from './data/intents';
 
 const GITHUB_URL = 'https://github.com/avocadostudio-ai/avocado';
 const DOCS_URL = 'https://docs.avocadostudio.dev';
@@ -65,6 +66,10 @@ export const footerData = {
         { text: 'FAQ', href: getPermalink('/#faqs') },
         { text: 'Page builder blocks', href: getPermalink('/components') },
       ],
+    },
+    {
+      title: 'Integrations',
+      links: INTENT_PAGES.map(({ href, footer }) => ({ text: footer, href: getPermalink(href) })),
     },
     {
       title: 'Developers',
