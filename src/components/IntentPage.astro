@@ -1,0 +1,167 @@
+---
+/*
+ * The shared shape of the search-intent landing pages (/nextjs, /sanity, /mcp,
+ * …): a hero that answers the query in its first sentence, a row of quick
+ * facts, a few sections of specifics with real code, an FAQ emitted as
+ * FAQPage data, and links to the sibling pages.
+ *
+ * Only the shape is shared. Each page brings its own facts, sections and
+ * questions — pages that differ only by the noun in the headline are what
+ * search engines file as doorway pages, and they would deserve it.
+ */
+import { Code } from 'astro:components';
+import Layout from '~/layouts/PageLayout.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Button from '~/components/ui/Button.astro';
+
+import { SITE } from 'astrowind:config';
+import { DEMO_URL, DOCS_URL, INSTALL_COMMAND, MODIFIED_DATE } from '~/site';
+import { INTENT_PAGES } from '~/data/intents';
+
+interface Section {
+  title: string;
+  /** Trusted HTML: paragraphs, lists, inline code, links. */
+  body: string;
+  code?: { lang: 'bash' | 'ts' | 'tsx' | 'astro' | 'json'; text: string };
+}
+
+export interface Props {
+  /** Route path, e.g. `/nextjs`. */
+  path: string;
+  /** <title> without the brand; the site template appends it. */
+  title: string;
+  description: string;
+  eyebrow: string;
+  heading: string;
+  /** The answer to the query, in one or two sentences. Trusted HTML. */
+  lead: string;
+  facts: Array<{ label: string; value: string }>;
+  sections: Section[];
+  faqs: Array<{ title: string; description: string }>;
+  /** The most specific docs page for this intent. */
+  docs?: { text: string; href: string };
+}
+
+const { path, title, description, eyebrow, heading, lead, facts, sections, faqs, docs } = Astro.props;
+
+const url = `${SITE.site}${path}`;
+const metadata = { title, description, canonical: url, openGraph: { url, type: 'website' } };
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${url}#webpage`,
+      url,
+      name: title,
+      description,
+      inLanguage: 'en',
+      dateModified: MODIFIED_DATE,
+      isPartOf: { '@id': `${SITE.site}/#website` },
+      about: { '@id': `${SITE.site}/#software` },
+      breadcrumb: { '@id': `${url}#breadcrumb` },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${url}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Avocado Studio', item: SITE.site },
+        { '@type': 'ListItem', position: 2, name: eyebrow, item: url },
+      ],
+    },
+  ],
+};
+
+const related = INTENT_PAGES.filter((page) => page.href !== path);
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={schema} />
+
+  <section class="pt-10 pb-8 sm:pt-14 lg:pt-20">
+    <div class="mx-auto max-w-4xl px-4 md:px-6">
+      <p class="text-secondary text-base font-bold tracking-wide uppercase">{eyebrow}</p>
+      <h1
+        class="display font-heading text-heading mt-3 text-[2.25rem] leading-[1.08] font-bold tracking-tighter text-balance sm:text-5xl"
+      >
+        {heading}
+      </h1>
+      <p class="text-muted mt-5 max-w-3xl text-lg leading-8" set:html={lead} />
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <Button variant="primary" href={docs?.href ?? DOCS_URL}>{docs?.text ?? 'Read the docs'}</Button>
+        <Button variant="secondary" href={DEMO_URL} target="_blank">Try the live demo</Button>
+      </div>
+
+      <dl class="border-line mt-10 grid gap-x-8 border-t sm:grid-cols-2">
+        {
+          facts.map(({ label, value }) => (
+            <div class="border-line flex flex-col gap-1 border-b py-3">
+              <dt class="label">{label}</dt>
+              <dd class="text-page text-sm leading-6" set:html={value} />
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-4xl px-4 pb-4 md:px-6">
+    {
+      sections.map(({ title: sectionTitle, body, code }) => (
+        <section class="border-line border-t py-10">
+          <h2 class="font-heading text-heading text-2xl font-bold tracking-tighter md:text-3xl">{sectionTitle}</h2>
+          <div
+            class="prose dark:prose-invert prose-a:text-link prose-code:text-page text-muted mt-4 max-w-3xl"
+            set:html={body}
+          />
+          {code && (
+            <div class="mt-5 max-w-3xl overflow-hidden rounded-xl text-sm [&_pre]:overflow-x-auto [&_pre]:p-4">
+              <Code code={code.text} lang={code.lang} themes={{ light: 'github-light', dark: 'github-dark' }} />
+            </div>
+          )}
+        </section>
+      ))
+    }
+  </div>
+
+  <FAQs id="faqs" tagline="FAQ" title={`${eyebrow}: common questions`} schema items={faqs} />
+
+  <WidgetWrapper id="get-started" containerClass="max-w-4xl text-center">
+    <h2 class="font-heading text-heading text-3xl font-bold tracking-tighter text-balance md:text-4xl">
+      Try it on a real site in one command.
+    </h2>
+    <p class="text-muted mx-auto mt-4 max-w-xl text-lg leading-8">
+      Scaffold the demo site with the editor, or run it inside an existing Next.js project to wire Avocado Studio in.
+      Open source under Apache-2.0; bring your own Anthropic, OpenAI or Gemini key.
+    </p>
+    <p class="mt-6">
+      <code class="border-line bg-sunk text-page inline-block rounded-lg border px-4 py-2 font-mono text-sm"
+        >{INSTALL_COMMAND}</code
+      >
+    </p>
+    <nav aria-label="More integrations" class="mt-12">
+      <p class="label">More integrations</p>
+      <ul class="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+        {
+          related.map(({ href, footer }) => (
+            <li>
+              <a
+                class="text-link decoration-line-strong hover:decoration-primary underline underline-offset-4 transition-colors"
+                href={href}>{footer}</a
+              >
+            </li>
+          ))
+        }
+        <li>
+          <a
+            class="text-link decoration-line-strong hover:decoration-primary underline underline-offset-4 transition-colors"
+            href="/">Avocado Studio home</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </WidgetWrapper>
+</Layout>

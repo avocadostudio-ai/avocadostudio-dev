@@ -1,0 +1,75 @@
+---
+import IntentPage from '~/components/IntentPage.astro';
+import { DOCS_URL } from '~/site';
+
+// Facts: @avocadostudio-ai/site-sdk (adapter contract, publishing, media
+// picker, examples/contentful-site), @avocadostudio-ai/richtext and
+// create-avocado-site READMEs on npm.
+---
+
+<IntentPage
+  path="/contentful"
+  title="AI visual editing for Contentful-powered sites"
+  description="Edit a Contentful-powered Next.js site with AI and click-to-edit. Rich Text and embedded entries survive, only changed fields publish. Open source."
+  eyebrow="Contentful"
+  heading="AI editing for your Contentful site."
+  lead="Avocado Studio adds an AI editor and a click-to-edit live preview to a website whose content lives in Contentful. Editors change the page by describing the change or clicking it; Contentful receives only the fields that changed."
+  docs={{ text: 'Connect your site and CMS', href: `${DOCS_URL}/sites` }}
+  facts={[
+    { label: 'Content store', value: 'Contentful — a template and a working example are included' },
+    { label: 'Rich text', value: 'Contentful Rich Text, read and written back' },
+    { label: 'Publishing', value: 'Only the fields that changed' },
+    { label: 'Images', value: 'The editor’s image picker searches your Contentful assets' },
+    { label: 'Framework', value: 'Next.js 15 or 16, App Router' },
+    { label: 'Licence', value: 'Apache-2.0, free to self-host' },
+  ]}
+  sections={[
+    {
+      title: 'Edit the website, not the entry form',
+      body: '<p>Contentful’s entry editor shows fields; Avocado shows the page. Editors ask for a change in chat or click a block in the live preview of your real site, review the result, and publish. The content model does not change and Contentful remains the source of truth — Avocado keeps drafts, undo history and chat in its own working copy until you publish.</p><p>Integrating an existing Next.js site? Run <code>npm create avocado-site@latest</code> inside it — the Contentful template is one of the options.</p>',
+    },
+    {
+      title: 'Rich Text and embedded entries survive',
+      body: '<p>Contentful Rich Text converts into the editor’s document and back. Node and mark types are open, not a fixed list, so an embedded entry or a mark the converter has never heard of rides through the edit and comes back out unchanged instead of being thrown away.</p><p>One documented gap: Contentful has no code block, so a code block typed in the editor is stored as a code-formatted paragraph.</p>',
+    },
+    {
+      title: 'Publishing sends a diff',
+      body: '<p>A CMS read is a projection — an asset link flattened to a URL, a reference resolved to one locale’s link — and writing it back wholesale would destroy what it was projected from. Avocado diffs the edited page against what Contentful held and writes only what changed.</p><ul><li>Changes a field diff cannot express safely, such as a replaced image or a new block, are reported back to you rather than guessed.</li><li>A publish that would remove every page is refused.</li></ul>',
+    },
+    {
+      title: 'Your Contentful media library in the editor',
+      body: '<p><code>cmsMediaSource</code> fills the editor’s image picker from your Contentful assets. Credentials stay on your server.</p>',
+      code: {
+        lang: 'ts',
+        text: 'import { cmsMediaSource } from "@avocadostudio-ai/site-sdk/server"\n\n// In your CmsAdapter:\ngetMedia: cmsMediaSource({\n  provider: "contentful",\n  spaceId: process.env.CONTENTFUL_SPACE_ID!,\n  deliveryToken: process.env.CONTENTFUL_DELIVERY_TOKEN!,\n})',
+      },
+    },
+  ]}
+  faqs={[
+    {
+      title: 'Is Avocado Studio made by Contentful?',
+      description:
+        'No. Avocado Studio is an independent open-source project, licensed Apache-2.0, that works with Contentful through its APIs.',
+    },
+    {
+      title: 'Do I have to change my Contentful content model?',
+      description:
+        'No. A small adapter maps your entries to pages and blocks for the editor and maps edits back as field changes. Your content types stay as they are.',
+    },
+    {
+      title: 'Will AI edits break my Rich Text or embedded entries?',
+      description:
+        'No. Unknown nodes, including embedded entries, pass through the edit unchanged, and publishing writes only the fields that changed.',
+    },
+    {
+      title: 'Can marketers edit a Contentful site without a developer?',
+      description:
+        'Yes, once a developer has wired Avocado Studio in and marked which components are editable. After that, copy, images and sections are changed in chat or by clicking the page, then approved in a preview.',
+    },
+    {
+      title: 'Which AI models does it use?',
+      description:
+        'Whichever you bring: an Anthropic, OpenAI or Google Gemini API key. Avocado runs on your key and never resells tokens.',
+    },
+  ]}
+/>
