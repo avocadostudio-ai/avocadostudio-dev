@@ -41,6 +41,11 @@ that still reads like Next (`app/`, `next/font`, route handlers) is out of date.
   scope to `npm.pkg.github.com` — it makes every 0.1.0+ version unresolvable
   (metadata 404s on the tarball) and breaks CI while a warm local pnpm store
   hides it.
+- Product facts are stated in three places that must agree: the homepage copy
+  (Integrations and FAQs, which also feed the JSON-LD), the `SoftwareApplication`
+  node in `src/pages/index.astro`, and `public/llms.txt`. They are checked
+  against the npm package READMEs and docs.avocadostudio.dev — change them
+  together when support changes.
 - The OG card and the raster favicons are generated, not hand-made:
   `pnpm og` and `pnpm favicons`. Re-run `pnpm og` if the homepage headline
   changes.
