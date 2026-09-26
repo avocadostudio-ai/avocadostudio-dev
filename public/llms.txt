@@ -30,6 +30,16 @@ Key facts:
 - [Connecting an existing site](https://docs.avocadostudio.dev/sites): your components, content model and CMS
 - [Next.js integration](https://docs.avocadostudio.dev/integration/nextjs-integration): wiring the SDK into a Next.js App Router site
 
+## Integrations and comparisons
+
+- [AI editor for Next.js](https://www.avocadostudio.dev/nextjs): wiring into a Next.js 15/16 App Router site, library mode, SEO metadata
+- [AI editor for Astro](https://www.avocadostudio.dev/astro): the Astro integration, site-renders-itself, publishing to files
+- [AI editing for Sanity](https://www.avocadostudio.dev/sanity): Portable Text round-trips, _key-addressed patches, Sanity media picker
+- [AI editing for Contentful](https://www.avocadostudio.dev/contentful): Rich Text and embedded entries, diff publishing
+- [AI editing for Strapi](https://www.avocadostudio.dev/strapi): Strapi 5 Blocks, a fully self-hosted stack
+- [MCP server](https://www.avocadostudio.dev/mcp): editing a site from Claude Code, Claude Desktop or any MCP host
+- [Builder.io alternative](https://www.avocadostudio.dev/alternatives/builder-io): how an open-source, self-hosted layer differs from a hosted visual CMS
+
 ## Product
 
 - [Homepage](https://www.avocadostudio.dev/): what it does, how it works, integrations and FAQ

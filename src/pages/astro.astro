@@ -1,0 +1,76 @@
+---
+import IntentPage from '~/components/IntentPage.astro';
+import { DOCS_URL } from '~/site';
+
+// Facts: @avocadostudio-ai/astro README on npm.
+---
+
+<IntentPage
+  path="/astro"
+  title="AI visual editor for Astro sites"
+  description="Add AI chat editing and live draft preview to an Astro 5+ site. Your own .astro components render — no React islands, nothing ported. Open source, self-hosted."
+  eyebrow="Astro"
+  heading="Edit your Astro site with AI."
+  lead="The Avocado Studio integration for Astro gives your site an AI editor with click-to-select editing and a live draft preview, while your own <code>.astro</code> components do all the rendering. No React islands, nothing ported, no second copy of your templates."
+  docs={{ text: 'Read the docs', href: DOCS_URL }}
+  facts={[
+    { label: 'Framework', value: 'Astro 5 or later' },
+    { label: 'Package', value: '<code>@avocadostudio-ai/astro</code>' },
+    { label: 'Rendering', value: 'Your own <code>.astro</code> components, no React' },
+    { label: 'Publishing', value: 'Back to files in your repo, or to your CMS' },
+    { label: 'AI models', value: 'Your Anthropic, OpenAI or Google Gemini key' },
+    { label: 'Licence', value: 'Apache-2.0, free to self-host' },
+  ]}
+  sections={[
+    {
+      title: 'One integration in astro.config',
+      body: '<p>Install the packages, add the integration, and name two things: the content module that says where your pages come from, and the pages that are editable. The integration mounts the editor API routes, injects the preview bridge and makes those pages render on demand in <code>astro dev</code>.</p>',
+      code: {
+        lang: 'ts',
+        text: '// npm install @avocadostudio-ai/astro @avocadostudio-ai/site-sdk @avocadostudio-ai/shared\nimport { defineConfig } from "astro/config"\nimport avocado from "@avocadostudio-ai/astro"\n\nexport default defineConfig({\n  output: "static",\n  integrations: [\n    avocado({\n      siteId: "my-site",\n      content: "./src/avocado/content.ts",\n      editablePages: ["src/pages/index.astro"],\n    }),\n  ],\n})',
+      },
+    },
+    {
+      title: 'The site renders itself',
+      body: '<p>Avocado supplies the schema, the draft props, the editable markers and publishing; your components render. Avocado calls this mode <em>site-renders-itself</em>, and it is what makes Astro workable at all — the alternative would be re-implementing every <code>.astro</code> component as a React block, which is a rewrite disguised as an integration.</p><p>What you provide is a content module: one default export saying where your pages come from, which block types exist, and what publishing means for your site.</p>',
+    },
+    {
+      title: 'Publishing on a static site',
+      body: '<p>On a static template, publishing can write the edited page back to a file under <code>src/</code>. That is not a workaround; it is what “published” means for a static site. The file is committed, reviewed as a diff, and the site rebuilt from it — so AI edits go through the same Git review as any other change.</p>',
+    },
+    {
+      title: 'Marking a field editable',
+      body: '<p><code>blockProps</code> returns the attributes the editor overlay looks for, and <code>data-editable-target</code> names the field. On a published page it emits nothing at all: no classes, no data attributes, no view-transition names.</p>',
+      code: {
+        lang: 'astro',
+        text: '---\nimport { blockProps } from "@avocadostudio-ai/astro/markers"\n\nconst { avocado } = Astro.locals\nconst { block } = Astro.props\n---\n<section {...blockProps(Boolean(avocado?.isEditor), block.id, block.type)}>\n  <h1 data-editable-target="title">{block.props.title}</h1>\n</section>',
+      },
+    },
+  ]}
+  faqs={[
+    {
+      title: 'Does the Astro integration need React?',
+      description:
+        'No. The integration has no React and adds no islands: your own <code>.astro</code> components render the page in the editor’s preview exactly as they do in production.',
+    },
+    {
+      title: 'Which Astro versions are supported?',
+      description: 'Astro 5 and later. The editor itself needs Node.js 22 or later.',
+    },
+    {
+      title: 'Does it work with a static Astro build?',
+      description:
+        'Yes. The pages you list in <code>editablePages</code> render on demand during <code>astro dev</code> and are prerendered in the build, so the published site stays static.',
+    },
+    {
+      title: 'Can every page be editable?',
+      description:
+        'Every page you list. It is a list rather than “every page” because a route built from <code>getStaticPaths</code> cannot render on demand, which the editor’s draft preview needs.',
+    },
+    {
+      title: 'What does it need in production?',
+      description:
+        '<code>DRAFT_MODE_SECRET</code> to authorize draft renders, a publish token for the publish route, and <code>editorOrigins</code>, which is also the CORS allowlist for the editor API. <code>astro dev</code> needs none of these, which is why they are easy to miss.',
+    },
+  ]}
+/>

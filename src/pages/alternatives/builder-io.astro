@@ -1,0 +1,75 @@
+---
+import IntentPage from '~/components/IntentPage.astro';
+
+/*
+ * A comparison page, so the rule is stricter than elsewhere: every claim is
+ * about Avocado Studio and comes from its own package READMEs. Builder.io is
+ * described only in terms of what anyone evaluating it already knows — that
+ * it is a commercial, hosted visual CMS — and never with features, prices or
+ * limits we would have to keep verified. Check this page before shipping it,
+ * and whenever Builder.io changes its product.
+ */
+---
+
+<IntentPage
+  path="/alternatives/builder-io"
+  title="Open-source Builder.io alternative for Next.js & Astro"
+  description="Looking for an open-source, self-hosted Builder.io alternative? Avocado Studio adds AI and visual editing to your own Next.js or Astro site and your own CMS."
+  eyebrow="Builder.io alternative"
+  heading="An open-source alternative to Builder.io."
+  lead="Avocado Studio gives a Next.js or Astro site visual, click-to-edit and AI chat editing — like a visual CMS — without adding a hosted platform. It is open source, runs on your own infrastructure, keeps your content in the CMS you already use, and runs on your own AI key."
+  facts={[
+    { label: 'Licence', value: 'Apache-2.0, free for commercial use' },
+    { label: 'Hosting', value: 'Self-hosted, inside your own Next.js app or on your own server' },
+    { label: 'Content', value: 'Stays in your CMS (Sanity, Contentful, Strapi) or your repo' },
+    { label: 'Components', value: 'Your own React or <code>.astro</code> components' },
+    { label: 'AI', value: 'Your Anthropic, OpenAI or Gemini key, no token markup' },
+    { label: 'Frameworks', value: 'Next.js 15/16 App Router, Astro 5+' },
+  ]}
+  sections={[
+    {
+      title: 'Why teams look for an alternative',
+      body: '<p>Builder.io is a commercial visual CMS run as a hosted service. That is the right trade for many teams. Teams that look elsewhere usually want one of these instead:</p><ul><li><strong>Open source</strong> they can read, fork and run without a licence key or seat count.</li><li><strong>No second content store.</strong> Their content already lives in Sanity, Contentful, Strapi or the repository, and they want visual editing on top of it rather than beside it.</li><li><strong>Their own infrastructure</strong>, for data residency, security review or cost.</li><li><strong>AI billed at cost</strong>, on a model key they already pay for.</li></ul>',
+    },
+    {
+      title: 'How Avocado Studio works instead',
+      body: '<p>Avocado is a layer on your existing site, not a platform the site moves onto. Your components render the page; you mark which fields are editable; the editor frames your real site, and edits are drafted, previewed and published back to your own CMS or files. Publishing writes only the fields that changed, and on a static Astro site a publish can be a file committed and reviewed as a Git diff.</p><p>AI is built in: describe a change in chat, the agent proposes a plan you approve or discard, and the result appears in the live preview. Coding agents can drive the same edits through the <a href="/mcp">MCP server</a>.</p>',
+    },
+    {
+      title: 'When a hosted visual CMS is the better fit',
+      body: '<p>If you want a vendor to run the editing platform and store the content, with no integration work on your side, a hosted product is the simpler choice. Avocado Studio asks for a one-time integration: a developer wires it in and marks the editable fields in your components. After that, editing needs no developer.</p>',
+    },
+    {
+      title: 'Try it before deciding',
+      body: '<p>Scaffold the demo site with the editor in one command, or open the <a href="https://avocado-editor.vercel.app/">live demo</a> in the browser. Pages, click-to-select and the property panel work without an API key; only the AI chat needs one.</p>',
+      code: { lang: 'bash', text: 'npm create avocado-site@latest my-demo\ncd my-demo\nnpm run dev' },
+    },
+  ]}
+  faqs={[
+    {
+      title: 'Is Avocado Studio a free alternative to Builder.io?',
+      description:
+        'Avocado Studio is free and open source under Apache-2.0, with no licence key or seat count. The only running cost is your own AI provider’s token charges, and your hosting.',
+    },
+    {
+      title: 'Can I keep my headless CMS with Avocado Studio?',
+      description:
+        'Yes. That is the design: your content stays in Sanity, Contentful, Strapi, a JSON file or any store you write an adapter for, and Avocado writes changes back to it.',
+    },
+    {
+      title: 'Does Avocado Studio have a visual editor?',
+      description:
+        'Yes. Click a block in the live preview of your site to select it and edit its fields in the property panel, or describe the change in chat and let the agent make it.',
+    },
+    {
+      title: 'Does Avocado Studio work with Next.js and Astro?',
+      description:
+        'Yes: Next.js 15 and 16 on the App Router, and Astro 5 and later, rendering your own components in both.',
+    },
+    {
+      title: 'Is Avocado Studio affiliated with Builder.io?',
+      description:
+        'No. Avocado Studio is an independent open-source project. Builder.io is a trademark of its owner, named here only to describe what this page compares.',
+    },
+  ]}
+/>
