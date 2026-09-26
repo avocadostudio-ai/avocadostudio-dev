@@ -1,0 +1,42 @@
+# Avocado Studio
+
+> Avocado Studio is an open-source AI website editor for existing Next.js and Astro sites. You describe a change in plain language, an AI agent edits the content, images and SEO metadata in the site's own components, you review it in a live draft preview, and it publishes to your CMS or content files. It is self-hosted, licensed Apache-2.0, and runs on your own Anthropic, OpenAI or Google Gemini API key.
+
+Avocado Studio edits the website you already have rather than generating a new one. It is not a CMS and not an AI writing tool: it is an open AI layer that sits between AI models and your existing stack (framework, headless CMS, design system, publishing pipeline) and coordinates edits across it.
+
+Key facts:
+
+- Frameworks: Next.js 15 and 16 on the App Router (`@avocadostudio-ai/site-sdk`), and Astro 5 and later (`@avocadostudio-ai/astro`), where your own `.astro` components do the rendering — no React islands.
+- Content sources: templates for Sanity, Contentful and Strapi, or a plain JSON file; any other store connects through a content adapter. Publishing writes back only the fields that changed.
+- AI models: bring your own key — `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` or `GOOGLE_GENAI_API_KEY`. Only the chat needs a key; Avocado never resells tokens.
+- Editing: chat-driven edits with a plan you approve or discard, click-to-select visual editing, a property panel, live draft preview, publish diff, undo/redo and snapshots.
+- AI agents: an MCP server (`@avocadostudio-ai/mcp-server`) for Claude Code, Claude Desktop and other MCP hosts; agent skills (`@avocadostudio-ai/skills`) for Claude Code, Cursor, Codex and Gemini.
+- Install: `npm create avocado-site@latest` scaffolds a demo site with the editor, or wires Avocado into an existing Next.js project. Requires Node.js 22+.
+- Licence and price: Apache-2.0, free for commercial use and self-hosting, no sign-up, no seat count. The packages are on npm; the GitHub repository is not public yet.
+- Made by Yury Horbach (https://yurybuilds.com).
+
+## Docs
+
+- [Documentation](https://docs.avocadostudio.dev): setup, integration and publishing guides
+- [Connecting an existing site](https://docs.avocadostudio.dev/sites): your components, content model and CMS
+- [Next.js integration](https://docs.avocadostudio.dev/integration/nextjs-integration): wiring the SDK into a Next.js App Router site
+
+## Product
+
+- [Homepage](https://www.avocadostudio.dev/): what it does, how it works, integrations and FAQ
+- [Built-in blocks](https://www.avocadostudio.dev/components): the blocks that ship with Avocado Studio, with live previews
+- [Live demo](https://avocado-editor.vercel.app/): the real editor on a sample site, in the browser
+- [Demo video](https://www.youtube.com/watch?v=fp0_u9L9hhk): the product demo on the Avocado Studio YouTube channel
+
+## Packages
+
+- [create-avocado-site](https://www.npmjs.com/package/create-avocado-site): scaffold a demo or wire Avocado into an existing Next.js project
+- [@avocadostudio-ai/site-sdk](https://www.npmjs.com/package/@avocadostudio-ai/site-sdk): AI editing and live preview for a Next.js site
+- [@avocadostudio-ai/astro](https://www.npmjs.com/package/@avocadostudio-ai/astro): the Astro integration
+- [@avocadostudio-ai/mcp-server](https://www.npmjs.com/package/@avocadostudio-ai/mcp-server): page, block and publishing tools over the Model Context Protocol
+- [@avocadostudio-ai/cli](https://www.npmjs.com/package/@avocadostudio-ai/cli): self-host launcher for the editor UI
+
+## Optional
+
+- [Product Hunt](https://www.producthunt.com/products/avocado-studio)
+- [Contact](mailto:hello@avocadostudio.dev)

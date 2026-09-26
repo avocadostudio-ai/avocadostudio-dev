@@ -1,20 +1,101 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import BlockCatalogue from '~/components/BlockCatalogue';
+import StructuredData from '~/components/common/StructuredData.astro';
 import { SITE } from 'astrowind:config';
+import { allowedBlockTypes, getAllBlockMeta, getChromeTypes } from '@avocadostudio-ai/shared';
+import { DOCS_URL } from '~/site';
+
+// The same list the catalogue shows, read at build time from the registry it
+// reads at runtime, so the two cannot disagree. Only the first sentence of
+// each description: the rest is guidance written for the AI planner
+// ("Use 'full-bleed' variant…"), not for a visitor.
+const meta = getAllBlockMeta();
+const blocks = [...allowedBlockTypes, ...getChromeTypes()].map((type) => ({
+  type,
+  name: meta[type]?.displayName ?? type,
+  description: meta[type]?.description?.split(/(?<=\.)\s+(?=[A-Z])/)[0] ?? '',
+}));
+
+const url = `${SITE.site}/components`;
+const title = 'Avocado Studio built-in blocks: hero, FAQ, CTA, gallery and more';
+const description = `The ${blocks.length} React blocks that ship with Avocado Studio — hero, feature grid, testimonials, FAQ, CTA, gallery, table and more — rendered live with editable props.`;
 
 const metadata = {
-  title: 'Avocado Studio Components',
-  description:
-    "Browse Avocado Studio's built-in blocks: hero, feature grid, testimonials, FAQ, CTA, and more. Live previews with editable props.",
-  canonical: `${SITE.site}/components`,
+  title,
+  ignoreTitleTemplate: true,
+  description,
+  canonical: url,
   openGraph: {
-    url: `${SITE.site}/components`,
+    url,
     type: 'website',
   },
+};
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${url}#webpage`,
+      url,
+      name: title,
+      description,
+      inLanguage: 'en',
+      isPartOf: { '@id': `${SITE.site}/#website` },
+      about: { '@id': `${SITE.site}/#software` },
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: blocks.length,
+        itemListElement: blocks.map(({ name, description }, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name,
+          description,
+        })),
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Avocado Studio', item: SITE.site },
+        { '@type': 'ListItem', position: 2, name: 'Built-in blocks', item: url },
+      ],
+    },
+  ],
 };
 ---
 
 <Layout metadata={metadata}>
-  <BlockCatalogue client:only="react" />
+  <StructuredData slot="head" schema={schema} />
+
+  <BlockCatalogue client:only="react">
+    {/* What renders until the catalogue mounts — and all that a crawler which
+        does not run JavaScript ever sees, which includes most AI crawlers. A
+        client:only island prerenders nothing, so without this the page was an
+        empty <main> to them. The catalogue replaces it on hydration, so a
+        visitor sees it only as the loading state. */}
+    {/* A <div>, not a <section>: the blocks stylesheet gives every <section>
+        full-bleed margins and its own background, for the blocks it styles. */}
+    <div slot="fallback" class="mx-auto max-w-4xl px-4 py-12 md:px-6 md:py-16">
+      <h1 class="font-heading text-heading text-3xl font-bold tracking-tighter md:text-4xl">Built-in blocks</h1>
+      <p class="text-muted mt-4 max-w-2xl text-lg leading-8">
+        The {blocks.length} blocks that ship with Avocado Studio, as React components from{' '}
+        <code>@avocadostudio-ai/blocks</code>. The demo site that <code>npm create avocado-site</code> scaffolds is
+        built from them. On an existing site your own components are registered as blocks instead —{' '}
+        <a class="text-link underline underline-offset-4" href={`${DOCS_URL}/sites`}>see the docs</a>. The interactive
+        catalogue, with live previews and editable props, loads here.
+      </p>
+      <ul class="mt-10 grid list-none gap-x-10 sm:grid-cols-2">
+        {
+          blocks.map(({ name, description }) => (
+            <li class="border-line border-b py-4">
+              <h2 class="text-heading font-semibold">{name}</h2>
+              {description && <p class="text-muted mt-1 text-sm leading-6">{description}</p>}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </BlockCatalogue>
 </Layout>

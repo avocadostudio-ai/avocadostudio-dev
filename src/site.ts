@@ -1,6 +1,6 @@
 // Absolute dates power the JSON-LD freshness signals.
 export const PUBLISHED_DATE = '2026-05-07';
-export const MODIFIED_DATE = '2026-09-13';
+export const MODIFIED_DATE = '2026-09-26';
 
 export const GITHUB_URL = 'https://github.com/avocadostudio-ai/avocado';
 

@@ -16,13 +16,31 @@ import Button from '~/components/ui/Button.astro';
 import { Icon } from 'astro-icon/components';
 
 import { SITE } from 'astrowind:config';
-import { AUTHOR, DEMO_URL, DEMO_YOUTUBE_ID, DOCS_URL, GITHUB_URL, INSTALL_COMMAND, MODIFIED_DATE, PUBLISHED_DATE, SHOW_GITHUB_LINKS } from '~/site';
+import {
+  AUTHOR,
+  DEMO_URL,
+  DEMO_YOUTUBE_ID,
+  DOCS_URL,
+  GITHUB_URL,
+  INSTALL_COMMAND,
+  MODIFIED_DATE,
+  PRODUCT_HUNT,
+  PUBLISHED_DATE,
+  SHOW_GITHUB_LINKS,
+} from '~/site';
 
+const POSTER_PATH = '/demo-2026-09-v2-poster.jpg';
+
+// Written for the searches that should find this page — "AI website editor",
+// "open source", "Next.js", "Astro" — and kept under ~160 characters so the
+// result snippet is not cut mid-claim. The title drops the site-wide template
+// because the brand already leads it.
+const TITLE = 'Avocado Studio: open-source AI website editor for Next.js & Astro';
 const DESCRIPTION =
-  'Edit, maintain, and optimize your website with AI. Describe changes in plain language and agents update content, components, and SEO metadata. Next.js and Astro today. Self-hostable, bring your own LLM keys.';
+  'Open-source AI website editor for Next.js and Astro. Describe a change and an agent edits content, images and SEO in your own components. Self-hosted, BYO keys.';
 
 const metadata = {
-  title: 'Avocado Studio: edit, maintain, and optimize your site with AI',
+  title: TITLE,
   ignoreTitleTemplate: true,
   description: DESCRIPTION,
   canonical: SITE.site,
@@ -32,8 +50,13 @@ const metadata = {
   },
 };
 
-// Kept as one @graph so Organization/WebSite (emitted site-wide by the layout's
-// counterpart in navigation) and the page-scoped nodes cross-reference by @id.
+const NPM_ORG_URL = 'https://www.npmjs.com/org/avocadostudio-ai';
+const LICENSE_URL = 'https://www.apache.org/licenses/LICENSE-2.0';
+
+// Kept as one @graph so the Organization, WebSite, SoftwareApplication and
+// WebPage nodes cross-reference by @id. Everything stated here is also stated
+// in visible copy on this page or in the package READMEs on npm — structured
+// data that claims more than the page does is what search engines discount.
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -43,7 +66,8 @@ const schema = {
       name: 'Avocado Studio',
       url: SITE.site,
       logo: `${SITE.site}/logo.svg`,
-      sameAs: SHOW_GITHUB_LINKS ? [GITHUB_URL, AUTHOR.url] : [AUTHOR.url],
+      email: 'hello@avocadostudio.dev',
+      sameAs: [...(SHOW_GITHUB_LINKS ? [GITHUB_URL] : []), NPM_ORG_URL, AUTHOR.url],
       founder: { '@type': 'Person', name: AUTHOR.name, url: AUTHOR.url },
     },
     {
@@ -51,16 +75,39 @@ const schema = {
       '@id': `${SITE.site}/#website`,
       url: SITE.site,
       name: 'Avocado Studio',
+      inLanguage: 'en',
       publisher: { '@id': `${SITE.site}/#organization` },
     },
     {
       '@type': 'SoftwareApplication',
       '@id': `${SITE.site}/#software`,
       name: 'Avocado Studio',
+      alternateName: 'Avocado',
       applicationCategory: 'DeveloperApplication',
+      applicationSubCategory: 'AI website editor',
       operatingSystem: 'Web',
+      softwareRequirements: 'Node.js 22 or later',
       description: DESCRIPTION,
       url: SITE.site,
+      image: `${SITE.site}${POSTER_PATH}`,
+      screenshot: `${SITE.site}${POSTER_PATH}`,
+      downloadUrl: 'https://www.npmjs.com/package/create-avocado-site',
+      softwareHelp: { '@type': 'WebSite', name: 'Avocado Studio documentation', url: DOCS_URL },
+      license: LICENSE_URL,
+      isAccessibleForFree: true,
+      sameAs: [PRODUCT_HUNT.url],
+      featureList: [
+        'Edit website content, images and SEO metadata by describing the change in chat',
+        'Click-to-select visual editing in the page preview',
+        'Live draft preview in your own site before publishing',
+        'Works with Next.js 15 and 16 (App Router) and Astro 5+',
+        'Publishes to Sanity, Contentful, Strapi or plain JSON files',
+        'Bring your own Anthropic, OpenAI or Google Gemini API key',
+        'Self-hosted, Apache-2.0 licensed',
+        'MCP server for Claude Code, Claude Desktop and other MCP hosts',
+      ],
+      keywords:
+        'AI website editor, visual editor for Next.js, Astro, headless CMS, AI agents, open source, self-hosted, MCP',
       author: { '@type': 'Person', name: AUTHOR.name, url: AUTHOR.url },
       publisher: { '@id': `${SITE.site}/#organization` },
       datePublished: PUBLISHED_DATE,
@@ -71,9 +118,12 @@ const schema = {
       '@type': 'WebPage',
       '@id': `${SITE.site}/#webpage`,
       url: SITE.site,
-      name: 'Avocado Studio: edit, maintain, and optimize your site with AI',
+      name: TITLE,
+      description: DESCRIPTION,
+      inLanguage: 'en',
       isPartOf: { '@id': `${SITE.site}/#website` },
       about: { '@id': `${SITE.site}/#software` },
+      primaryImageOfPage: { '@type': 'ImageObject', url: `${SITE.site}${POSTER_PATH}`, width: 1280, height: 720 },
       datePublished: PUBLISHED_DATE,
       dateModified: MODIFIED_DATE,
       author: { '@type': 'Person', name: AUTHOR.name, url: AUTHOR.url },
@@ -163,7 +213,7 @@ const schema = {
               aria-label="Play the Avocado Studio demo video"
             >
               <img
-                src="/demo-2026-09-v2-poster.jpg"
+                src={POSTER_PATH}
                 alt="Avocado Studio: a chat reply beside the rewritten hero of a live page"
                 width="1280"
                 height="720"
@@ -261,12 +311,13 @@ const schema = {
     id="capabilities"
     tagline="Capabilities"
     title="Built for the modern web."
+    subtitle="Avocado Studio is an open-source AI website editor. It adds chat-driven editing, click-to-select visual editing and a live draft preview to the Next.js or Astro site you already run."
     columns={3}
     items={[
       {
         title: 'AI-assisted editing',
         description:
-          'Agents update real website content: components, metadata, and publishing steps. Not just generated paragraphs.',
+          'Describe the change in chat, or click a block on the page and edit its fields. Agents update real website content: components, metadata, and publishing steps.',
         icon: 'tabler:wand',
       },
       {
@@ -360,6 +411,74 @@ const schema = {
     </Fragment>
   </Content>
 
+  <!-- Integrations **************** -->
+
+  {/* The concrete half of the architecture section above: which frameworks,
+      content sources, models and agents it plugs into today. Written as prose
+      rather than a logo wall — these are the exact pairings people search for
+      ("Next.js AI editor", "Sanity AI editing", "MCP server for a CMS"), and
+      answer engines quote sentences, not logos. Each claim here matches the
+      package READMEs on npm; keep them in step when support changes. */}
+  <WidgetWrapper id="integrations">
+    <Headline
+      tagline="Integrations"
+      title="Works with the stack you already run."
+      subtitle="No migration and no second copy of your templates: Avocado Studio plugs into your framework, your content source and your AI provider."
+      classes={{ container: 'max-w-3xl', title: 'text-3xl md:text-4xl', subtitle: 'text-lg' }}
+    />
+    <ul class="mx-auto grid max-w-5xl list-none gap-5 md:grid-cols-2">
+      {
+        [
+          {
+            icon: 'tabler:brand-nextjs',
+            title: 'Next.js and Astro',
+            description:
+              'Next.js 15 and 16 on the App Router, where the orchestrator can run inside your own app, so there is no extra service to deploy. Astro 5 and later through an integration that renders your own <code>.astro</code> components: no React islands, nothing ported.',
+            link: { text: 'Next.js integration guide', href: `${DOCS_URL}/integration/nextjs-integration` },
+          },
+          {
+            icon: 'tabler:database',
+            title: 'Your headless CMS, or plain files',
+            description:
+              'Starter templates for Sanity, Contentful and Strapi, or a plain JSON file; any other store connects through a content adapter. Publishing writes back only the fields that changed, so references and rich text survive the round trip.',
+            link: { text: 'Connecting your site and CMS', href: `${DOCS_URL}/sites` },
+          },
+          {
+            icon: 'tabler:sparkles',
+            title: 'Claude, GPT or Gemini',
+            description:
+              'Bring your own Anthropic, OpenAI or Google Gemini API key. Chat is the only part that needs one: pages, click-to-select and the property panel work without it. Avocado runs on your key and never resells tokens.',
+          },
+          {
+            icon: 'tabler:robot',
+            title: 'Claude Code, Cursor and other agents',
+            description:
+              'An MCP server exposes pages, blocks, media and publishing to Claude Code, Claude Desktop and other MCP hosts. Agent skills teach Claude Code, Cursor, Codex and Gemini how to wire Avocado into your site.',
+            link: { text: 'The MCP server on npm', href: 'https://www.npmjs.com/package/@avocadostudio-ai/mcp-server' },
+          },
+        ].map(({ icon, title, description, link }) => (
+          <li class="border-line bg-page flex gap-4 rounded-xl border p-6">
+            <Icon name={icon} class="text-primary mt-0.5 h-7 w-7 flex-none" aria-hidden="true" />
+            <div>
+              <h3 class="text-heading text-lg font-semibold">{title}</h3>
+              <p class="text-muted mt-2 leading-7" set:html={description} />
+              {
+                link && (
+                  <a
+                    href={link.href}
+                    class="text-link decoration-line-strong hover:decoration-primary mt-3 inline-block text-sm font-medium underline underline-offset-4 transition-colors"
+                  >
+                    {link.text}
+                  </a>
+                )
+              }
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </WidgetWrapper>
+
   <!-- Use cases ******************* -->
 
   <Features3
@@ -412,6 +531,7 @@ const schema = {
           'Bring your own AI providers',
           'Works alongside existing CMS platforms',
           'Open source, Apache-2.0',
+          'MCP server for AI agents',
         ].map((item, index) => (
           <li class="border-line text-page flex items-baseline gap-3 border-b py-3 text-sm">
             <span aria-hidden="true" class="label tabular-nums">
@@ -438,7 +558,7 @@ const schema = {
       Not another CMS.<br />Not another AI writing tool.
     </h2>
     <p class="mx-auto mt-6 max-w-xl text-lg leading-7 text-white/75">
-      Avocado Studio is an open AI layer for editing and publishing across the tools you already use.
+      Avocado Studio is an open-source AI layer for editing and publishing across the tools you already use.
     </p>
     <p class="mx-auto mt-4 max-w-xl leading-7 text-white/60">
       It helps teams edit websites and publish content with AI agents while keeping their existing stack,
@@ -463,7 +583,8 @@ const schema = {
       },
       {
         title: 'Or your own site',
-        description: 'Wire it into an existing Next.js or Astro project instead. <a class="text-link underline" href="https://docs.avocadostudio.dev">See the docs</a>.',
+        description:
+          'Run the same command inside an existing Next.js app and choose <em>Wire Avocado into this project</em>, or add the Astro integration. <a class="text-link underline" href="https://docs.avocadostudio.dev/sites">See the docs</a>.',
         icon: 'tabler:route',
       },
     ]}
@@ -471,6 +592,10 @@ const schema = {
 
   <!-- FAQs ************************ -->
 
+  {/* Each question is phrased the way people ask it of a search box or an
+      assistant, and each answer names the product and stands on its own, so a
+      quoted answer still makes sense without the rest of the page. The widget
+      emits these as FAQPage structured data. */}
   <FAQs
     id="faqs"
     tagline="FAQs"
@@ -478,19 +603,29 @@ const schema = {
     schema
     items={[
       {
-        title: 'Is it really open source?',
+        title: 'What is Avocado Studio?',
         description:
-          'Yes. Every Avocado package, the AI engine and the editor included, is licensed Apache-2.0: use it commercially, modify it, self-host it, with no licence key and no seat count. The packages are on npm with their readable source. The GitHub repository itself is not public yet.',
+          'Avocado Studio is an open-source AI website editor for Next.js and Astro sites. You describe a change in plain language, an AI agent edits the content, images and SEO metadata in your site’s own components, you review it in a live draft preview, and it publishes to your CMS or content files. It is self-hosted, licensed Apache-2.0, and runs on your own Anthropic, OpenAI or Google Gemini API key.',
       },
       {
-        title: "Do I have to send my content to someone else’s cloud?",
+        title: 'Is Avocado Studio free and open source?',
         description:
-          'No. Avocado Studio is self-hostable: deploy it on your own infrastructure with full control over data, APIs, prompts, and integrations.',
+          'Yes. Every Avocado package, the AI engine and the editor included, is licensed Apache-2.0: use it commercially, modify it, self-host it, with no licence key and no seat count. The only running cost is what your own AI provider charges for tokens; Avocado runs on your key and never resells them. The packages are on npm with their readable source. The GitHub repository itself is not public yet.',
       },
       {
-        title: 'Which AI models does it use?',
+        title: 'How do I add AI editing to an existing Next.js site?',
         description:
-          'Whichever you bring. Use your own keys for Anthropic, OpenAI, or Gemini across text, images, and multimodal work, and route different tasks to different models.',
+          'Run <code>npm create avocado-site@latest</code> inside the project and choose “Wire Avocado into this project”. It writes the editor API route, the page routes, the block manifest and the request rewrite, and touches nothing it did not create. You need Next.js 15 or 16 on the App Router and Node.js 22 or later. Marking up your own components as editable is covered in the <a class="text-link underline" href="https://docs.avocadostudio.dev/integration/nextjs-integration">Next.js integration guide</a>.',
+      },
+      {
+        title: 'Does Avocado Studio work with Astro?',
+        description:
+          'Yes. The <code>@avocadostudio-ai/astro</code> integration supports Astro 5 and later, and your own <code>.astro</code> components do the rendering: no React islands, nothing ported, no second copy of your templates. On a static site, publishing can write the page back to a file that is committed, reviewed as a diff and rebuilt.',
+      },
+      {
+        title: 'Which headless CMSs does it work with?',
+        description:
+          'Avocado Studio ships templates for Sanity, Contentful and Strapi, and for a plain JSON file. Any other content store connects through a content adapter. Publishing sends back only the fields that changed rather than overwriting whole documents, so references, assets and rich text stay intact.',
       },
       {
         title: 'Will it replace my CMS?',
@@ -498,14 +633,39 @@ const schema = {
           'No — it coordinates work across the stack you already have. Your CMS, DAM, design system, frontend, and AI providers stay where they are.',
       },
       {
+        title: 'Which AI models does it use?',
+        description:
+          'Whichever you bring. Use your own keys for Anthropic, OpenAI, or Gemini across text, images, and multimodal work, and route different tasks to different models.',
+      },
+      {
+        title: 'Can I try it without an API key?',
+        description:
+          'Yes. Without a key the pages render, click-to-select works and the property panel edits real fields; only the AI chat needs a model key. You can also open the <a class="text-link underline" href="https://avocado-editor.vercel.app/">live demo</a>, the real editor on a sample site, in your browser.',
+      },
+      {
         title: 'Can an agent publish something without me seeing it?',
         description:
-          'No. You get a preview before anything ships, and publishing runs through your own approval and release pipeline.',
+          'No. The agent proposes a plan that you approve or discard, you see the result in a preview before anything ships, and publishing runs through your own approval and release pipeline.',
+      },
+      {
+        title: 'Does Avocado Studio have an MCP server?',
+        description:
+          'Yes. <code>@avocadostudio-ai/mcp-server</code> exposes pages, blocks, media, publishing and undo history over the Model Context Protocol, so Claude Code, Claude Desktop and other MCP hosts can edit a site the same way a person does in the editor. It runs over stdio or streamable HTTP with a bearer token.',
+      },
+      {
+        title: 'How is it different from an AI website builder?',
+        description:
+          'An AI website builder generates a new site. Avocado Studio edits the one you already have: your components, your design system, your CMS and your hosting stay as they are, and the agent works inside them. Nothing is migrated and nothing is locked into a platform.',
+      },
+      {
+        title: "Do I have to send my content to someone else’s cloud?",
+        description:
+          'No. Avocado Studio is self-hostable: deploy it on your own infrastructure with full control over data, APIs, prompts, and integrations.',
       },
       {
         title: 'Which frameworks does it support?',
         description:
-          'Next.js and Astro today. The Astro integration renders your own .astro components — no React islands, nothing ported. The architecture is an open layer between AI and your stack, so it is not tied to one framework, and more will follow.',
+          'Next.js 15 and 16 on the App Router, and Astro 5 and later. The Astro integration renders your own .astro components — no React islands, nothing ported. The architecture is an open layer between AI and your stack, so it is not tied to one framework, and more will follow.',
       },
     ]}
   />
